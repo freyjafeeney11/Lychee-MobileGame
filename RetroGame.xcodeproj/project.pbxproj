@@ -18,6 +18,7 @@
 		CD1F68BA2AD47BF2002B1EF5 /* RetroGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1F68B92AD47BF2002B1EF5 /* RetroGameTests.swift */; };
 		CD1F68C42AD47BF2002B1EF5 /* RetroGameUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1F68C32AD47BF2002B1EF5 /* RetroGameUITests.swift */; };
 		CD1F68C62AD47BF2002B1EF5 /* RetroGameUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1F68C52AD47BF2002B1EF5 /* RetroGameUITestsLaunchTests.swift */; };
+		CDBE2AB52AE2025A00712D94 /* Runner.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBE2AB42AE2025A00712D94 /* Runner.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		CD1F68BF2AD47BF2002B1EF5 /* RetroGameUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RetroGameUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD1F68C32AD47BF2002B1EF5 /* RetroGameUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetroGameUITests.swift; sourceTree = "<group>"; };
 		CD1F68C52AD47BF2002B1EF5 /* RetroGameUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetroGameUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		CDBE2AB42AE2025A00712D94 /* Runner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Runner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				CD1F68A32AD47BEF002B1EF5 /* Actions.sks */,
 				CD1F68A52AD47BEF002B1EF5 /* GameScene.swift */,
 				CD1F68A72AD47BEF002B1EF5 /* GameViewController.swift */,
+				CDBE2AB42AE2025A00712D94 /* Runner.swift */,
 				CD1F68A92AD47BEF002B1EF5 /* Main.storyboard */,
 				CD1F68AC2AD47BF1002B1EF5 /* Assets.xcassets */,
 				CD1F68AE2AD47BF1002B1EF5 /* LaunchScreen.storyboard */,
@@ -265,6 +268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD1F68A62AD47BEF002B1EF5 /* GameScene.swift in Sources */,
+				CDBE2AB52AE2025A00712D94 /* Runner.swift in Sources */,
 				CD1F68A82AD47BEF002B1EF5 /* GameViewController.swift in Sources */,
 				CD1F68A02AD47BEF002B1EF5 /* AppDelegate.swift in Sources */,
 			);
