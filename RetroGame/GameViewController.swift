@@ -1,27 +1,41 @@
 //
 //  GameViewController.swift
-//  RetroGame
+//  testing game
 //
-//  Created by Tess Ann Ritter on 10/9/23.
+//  Created by freyja feeney on 10/1/23.
 //
 
 import UIKit
+import SwiftUI
 import SpriteKit
 import GameplayKit
 
 class GameViewController: UIViewController {
+    
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-        let runner = Runner(size: view.frame.size)
-        let skView = self.view as! SKView
-        runner.scaleMode = .aspectFill
         
-        
-        skView.ignoresSiblingOrder = true
-        
-        skView.showsFPS = true
-        skView.showsNodeCount = true
-        skView.presentScene(runner)
+        if let view = self.view as! SKView? {
+            // Load the SKScene from 'GameScene.sks'
+            if let view = self.view as! SKView? {
+                // Create and present the title scene
+                let titleScene = TitleScreen(size: view.frame.size)
+                titleScene.scaleMode = .aspectFill
+                view.presentScene(titleScene)
+            }
+
+
+        }
     }
+
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            return .landscapeLeft
+        } else {
+            return .all
+        }
+    }
+
 }
