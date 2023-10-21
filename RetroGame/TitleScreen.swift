@@ -22,7 +22,7 @@ class TitleScreen: SKScene {
         backgroundColor = SKColor.white
         
         //change this to play button
-        startButton = SKSpriteNode(imageNamed: "FeedingButton")
+        startButton = SKSpriteNode(imageNamed: "PlayButton")
         startButton?.position = CGPoint(x: size.width * 0.5, y: size.height * 0.4)
         
         titleBg.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)

@@ -1,15 +1,15 @@
 //
-//  MainScreen.swift
-//  testing game
+//  SideMenu.swift
+//  RetroGame
 //
-//  Created by freyja feeney on 10/19/23.
+//  Created by Chase on 10/21/23.
 //
 
 import Foundation
 import SwiftUI
 import GameplayKit
 
-class MainScreen: SKScene {
+class SideMenu: SKScene {
     
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
