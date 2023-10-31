@@ -31,45 +31,45 @@ class Runner: SKScene{
     
     func createCity() {
         
-        cityFront.anchorPoint = CGPoint(x: 2, y: -2)
-        cityFront.position = CGPoint(x: 2, y: 0.5)
-        cityFront.setScale(1.5)
+        //cityFront.anchorPoint = CGPoint(x: 0, y: 0.5)
+        cityFront.position = CGPoint(x: size.width, y: size.height * 0.35)
+        cityFront.setScale(2)
         cityFront.zPosition = 3
         self.addChild(cityFront)
         
-        cityBack.anchorPoint = CGPoint(x: 2, y: -2)
-        cityBack.position = CGPoint(x: 2, y: 0.5)
-        cityBack.setScale(1.5)
+        //cityBack.anchorPoint = CGPoint(x: 0, y: 0.5)
+        cityBack.position = CGPoint(x: size.width, y: size.height * 0.35)
+        cityBack.setScale(2)
         cityBack.zPosition = 2
         self.addChild(cityBack)
         
         
-        cityFront2.anchorPoint = CGPoint(x: 2, y: -2)
-        cityFront2.position = CGPoint(x: 2, y: 0.5)
-        cityFront2.setScale(1.5)
+        //cityFront2.anchorPoint = CGPoint(x: 0, y: 0.5)
+        cityFront2.position = CGPoint(x: size.width, y: size.height * 0.35)
+        cityFront2.setScale(2)
         cityFront2.zPosition = 3
         self.addChild(cityFront2)
         
-        cityBack2.anchorPoint = CGPoint(x: 2, y: -2)
-        cityBack2.position = CGPoint(x: 2, y: 0.5)
-        cityBack2.setScale(1.5)
+        //cityBack2.anchorPoint = CGPoint(x: 0, y: 0.5)
+        cityBack2.position = CGPoint(x: size.width, y: size.height * 0.35)
+        cityBack2.setScale(2)
         cityBack2.zPosition = 2
         self.addChild(cityBack2)
         
         
-        sky.anchorPoint = CGPoint(x: 2, y: -1.5)
-        sky.position = CGPoint(x: 2, y: 0.5)
-        sky.setScale(2)
+        //sky.anchorPoint = CGPoint(x: 0.5, y: 0)
+        sky.position = CGPoint(x: size.width, y: size.height * 0.5)
+        sky.setScale(3)
         self.addChild(sky)
         
-        sky2.anchorPoint = CGPoint(x: 2, y: -1.5)
-        sky2.position = CGPoint(x: 2, y: 0.5)
-        sky2.setScale(2)
+        //sky2.anchorPoint = CGPoint(x: 0.5, y: 0)
+        sky2.position = CGPoint(x: size.width, y: size.height * 0.5)
+        sky2.setScale(3)
         self.addChild(sky2)
         
-        sky3.anchorPoint = CGPoint(x: 2, y: -1.5)
-        sky3.position = CGPoint(x: 2, y: 0.5)
-        sky3.setScale(2)
+        //sky3.anchorPoint = CGPoint(x: 0.5, y: 0)
+        sky3.position = CGPoint(x: size.width, y: size.height * 0.5)
+        sky3.setScale(3)
         self.addChild(sky3)
         
         
