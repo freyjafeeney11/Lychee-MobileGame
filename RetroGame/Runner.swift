@@ -31,44 +31,37 @@ class Runner: SKScene{
     
     func createCity() {
         
-        //cityFront.anchorPoint = CGPoint(x: 0, y: 0.5)
-        cityFront.position = CGPoint(x: size.width, y: size.height * 0.35)
+        cityFront.position = CGPoint(x: size.width * 0.5, y: size.height * 0.35)
         cityFront.setScale(2)
         cityFront.zPosition = 3
         self.addChild(cityFront)
         
-        //cityBack.anchorPoint = CGPoint(x: 0, y: 0.5)
-        cityBack.position = CGPoint(x: size.width, y: size.height * 0.35)
+        cityBack.position = CGPoint(x: cityFront.position.x - cityFront.size.width, y: size.height * 0.35)
         cityBack.setScale(2)
         cityBack.zPosition = 2
         self.addChild(cityBack)
         
         
-        //cityFront2.anchorPoint = CGPoint(x: 0, y: 0.5)
-        cityFront2.position = CGPoint(x: size.width, y: size.height * 0.35)
+        // Having it follow the 1st city front positioning directly after
+        cityFront2.position = CGPoint(x: cityFront.position.x + cityFront.size.width, y: size.height * 0.35)
         cityFront2.setScale(2)
         cityFront2.zPosition = 3
         self.addChild(cityFront2)
         
-        //cityBack2.anchorPoint = CGPoint(x: 0, y: 0.5)
-        cityBack2.position = CGPoint(x: size.width, y: size.height * 0.35)
+        cityBack2.position = CGPoint(x: cityFront2.position.x - cityFront2.size.width, y: size.height * 0.35)
         cityBack2.setScale(2)
         cityBack2.zPosition = 2
         self.addChild(cityBack2)
         
-        
-        //sky.anchorPoint = CGPoint(x: 0.5, y: 0)
-        sky.position = CGPoint(x: size.width, y: size.height * 0.5)
+        sky.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         sky.setScale(3)
         self.addChild(sky)
         
-        //sky2.anchorPoint = CGPoint(x: 0.5, y: 0)
-        sky2.position = CGPoint(x: size.width, y: size.height * 0.5)
+        sky2.position = CGPoint(x: sky.position.x + sky.size.width, y: size.height * 0.5)
         sky2.setScale(3)
         self.addChild(sky2)
         
-        //sky3.anchorPoint = CGPoint(x: 0.5, y: 0)
-        sky3.position = CGPoint(x: size.width, y: size.height * 0.5)
+        sky3.position = CGPoint(x: sky2.position.x + sky2.size.width, y: size.height * 0.5)
         sky3.setScale(3)
         self.addChild(sky3)
         
@@ -76,52 +69,45 @@ class Runner: SKScene{
     }
     
     override func update(_ currentTime: TimeInterval){
+        // Update city positions
         cityFront.position = CGPoint(x: cityFront.position.x - self.backgroundVelocity1, y: cityFront.position.y)
         cityBack.position = CGPoint(x: cityBack.position.x - self.backgroundVelocity2, y: cityBack.position.y)
-        
         cityFront2.position = CGPoint(x: cityFront2.position.x - self.backgroundVelocity1, y: cityFront2.position.y)
         cityBack2.position = CGPoint(x: cityBack2.position.x - self.backgroundVelocity2, y: cityBack2.position.y)
         
-        
-        //sky position
+        // Update sky positions
         sky.position = CGPoint(x: sky.position.x - self.skyVelocity, y: sky.position.y)
         sky2.position = CGPoint(x: sky2.position.x - self.skyVelocity, y: sky2.position.y)
         sky3.position = CGPoint(x: sky3.position.x - self.skyVelocity, y: sky3.position.y)
         
-        
-        
-        if(cityFront.position.x <= cityFront.size.width){
-            cityFront.position = CGPointMake(cityFront2.position.x + cityFront2.size.width, cityFront.position.y)
+        // Reset positions for continuous scrolling
+        if cityFront.position.x <= -cityFront.size.width {
+                cityFront.position.x = cityFront2.position.x + cityFront2.size.width
+        }
+        if cityFront2.position.x <= -cityFront2.size.width {
+            cityFront2.position.x = cityFront.position.x + cityFront.size.width
+        }
+        if cityBack.position.x <= -cityBack.size.width {
+            cityBack.position.x = cityBack2.position.x + cityBack2.size.width
+        }
+        if cityBack2.position.x <= -cityBack2.size.width {
+            cityBack2.position.x = cityBack.position.x + cityBack.size.width
         }
         
-        if(cityFront2.position.x <= cityFront2.size.width){
-            cityFront2.position = CGPointMake(cityFront.position.x + cityFront.size.width, cityFront2.position.y)
+        // Reset sky positions for continuous scrolling
+        if sky.position.x <= -sky.size.width {
+            sky.position.x = sky3.position.x + sky3.size.width
         }
-        
-        if(cityBack.position.x <= cityBack.size.width){
-            cityBack.position = CGPointMake(cityBack2.position.x + cityBack2.size.width, cityBack.position.y)
+        if sky2.position.x <= -sky2.size.width {
+            sky2.position.x = sky.position.x + sky.size.width
         }
-        
-        if(cityBack2.position.x <= cityBack2.size.width){
-            cityBack2.position = CGPointMake(cityBack.position.x + cityBack.size.width, cityBack2.position.y)
+        if sky3.position.x <= -sky3.size.width {
+            sky3.position.x = sky2.position.x + sky2.size.width
         }
-        
-        
-        //when sky goes off screen
-        if(sky.position.x <= sky.size.width){
-            sky.position = CGPointMake(sky2.position.x + sky2.size.width, sky.position.y)
-        }
-        
-        if(sky2.position.x <= sky2.size.width){
-            sky2.position = CGPointMake(sky3.position.x + sky3.size.width, sky2.position.y)
-        }
-        
-        if(sky3.position.x <= sky3.size.width){
-            sky3.position = CGPointMake(sky.position.x + sky.size.width, sky3.position.y)
-        }
-    
-        
     }
+
+
+
     /*
     var cityBack = SKSpriteNode()
     let backgroundVelocity: CGFloat = 3.0
