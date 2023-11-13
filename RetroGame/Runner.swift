@@ -26,10 +26,24 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     let backgroundVelocity1: CGFloat = 2.0
     let skyVelocity: CGFloat = 1.0
     
-    let jumpForce: CGFloat = 150.0
+    let jumpForce: CGFloat = 50.0
     var isJumping = false
             
     override func didMove(to view: SKView){
+        // Set the size of the scene
+        self.size = view.bounds.size
+        
+        // Set up constraints to keep the character within the scene
+        let minX = character.size.width / 2
+        let maxX = size.width - character.size.width / 2
+        let minY = character.size.height / 2
+        let maxY = size.height
+        
+        let rangeX = SKRange(lowerLimit: minX, upperLimit: maxX)
+        let rangeY = SKRange(lowerLimit: minY, upperLimit: maxY)
+        
+        let characterConstraint = SKConstraint.positionX(rangeX, y: rangeY)
+        character.constraints = [characterConstraint]
         createSky()
         createCity()
         addCharacter()
@@ -37,7 +51,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         addCityCollision()
         physicsWorld.gravity = CGVector(dx: 0, dy: -5.0)
         // Add an initial impulse to start the constant running motion
-        character.physicsBody?.applyImpulse(CGVector(dx: 50.0, dy: 0.0))
+        //character.physicsBody?.applyImpulse(CGVector(dx: 50.0, dy: 0.0))
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         // Check if the character is not already jumping
@@ -53,6 +67,9 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         if character.position.y <= cityFront.position.y + cityFront.size.height * 0.5 + character.size.height * 0.5 {
             isJumping = false
         }
+        // Ensure the character stays within the constraints
+        character.constraints?.forEach { $0.referenceNode?.position = character.position }
+
     }
     
     func createSky() {
@@ -89,11 +106,21 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     }
     
     func addCityCollision() {
-        let cityHeight = cityFront.size.height/3
-        let cityWidth = frame.size.width * 3
-        cityFront.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: cityWidth, height: cityHeight))
-        cityFront2.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: cityWidth, height: cityHeight))
-        cityFront3.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: cityWidth, height: cityHeight))
+//        let cityHeight = cityFront.size.height/3
+//        let cityWidth = frame.size.width * 3
+//        cityFront.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: cityWidth, height: cityHeight))
+//        cityFront2.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: cityWidth, height: cityHeight))
+//        cityFront3.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: cityWidth, height: cityHeight))
+        cityFront.physicsBody = SKPhysicsBody(texture: cityFront.texture!,
+                                              alphaThreshold: 0.7,
+                                              size: cityFront.texture!.size())
+        cityFront2.physicsBody = SKPhysicsBody(texture: cityFront2.texture!,
+                                               alphaThreshold: 0.7,
+                                               size: cityFront2.texture!.size())
+        cityFront3.physicsBody = SKPhysicsBody(texture: cityFront3.texture!,
+                                               alphaThreshold: 0.7,
+                                               size: cityFront3.texture!.size())
+
         cityFront.physicsBody?.isDynamic = false
         cityFront2.physicsBody?.isDynamic = false
         cityFront3.physicsBody?.isDynamic = false
@@ -113,11 +140,15 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     }
     
     func addCharacter() {
-        character.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
+        character.position = CGPoint(x: size.width * 0.5, y: cityFront.size.height)
         character.zPosition = 3
-        character.physicsBody = SKPhysicsBody(rectangleOf: character.size)
+        //character.physicsBody = SKPhysicsBody(rectangleOf: character.size)
+        character.physicsBody = SKPhysicsBody(texture: character.texture!,
+                                               size: character.texture!.size())
         character.physicsBody?.isDynamic = true
+        character.physicsBody?.allowsRotation = false
         character.physicsBody?.categoryBitMask = characterCategory
+        character.physicsBody?.collisionBitMask = groundCategory
         print("Character Added!")
         addChild(character)
         print("Character Initial Position: \(character.position)")
