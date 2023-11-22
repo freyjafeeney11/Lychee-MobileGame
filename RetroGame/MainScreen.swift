@@ -26,6 +26,58 @@ class MainScreen: SKScene {
         
         runnerButton = SKSpriteNode(imageNamed: "RunnerButton")
         
+        //walk animation
+        // setting movement
+        let moveDistance: CGFloat = 100.0
+        let moveDuration: TimeInterval = 1.0
+        
+        // stay still for 5
+        let wait = SKAction.wait(forDuration: 5)
+        
+        let moveLeft = SKAction.moveBy(x: -moveDistance, y: 0, duration: moveDuration)
+        let moveRight = SKAction.moveBy(x: moveDistance, y: 0, duration: moveDuration)
+        
+        //setting animation
+        let tex1 = SKTexture(imageNamed: "batcat_walk_1")
+        let tex2 = SKTexture(imageNamed: "batcat_walk_2")
+        let tex3 = SKTexture(imageNamed: "batcat_walk_3")
+        let walking = [tex1, tex2, tex3]
+        
+        // change sprite to sitting when sitting
+        let sittingSprite = SKTexture(imageNamed: "catbat_ver2-export.png")
+        let sitAction = SKAction.setTexture(sittingSprite)
+        
+        // might add in an idle animation, or smth like paw licking for the cat and feathers for the chicken
+        // eventually will set this to random distance + time within a limit for less repetitive movement
+        
+        // walking animation
+        let walkingAnimation = SKAction.animate(with: walking, timePerFrame: 0.2)
+        // this action plays the walking animation
+        let walkAction = SKAction.repeat(walkingAnimation, count: 2)
+        
+        // move left and walk
+        let moveAndAnimateLeft = SKAction.group([moveLeft, walkAction])
+        // move right and walk
+        let moveAndAnimateRight = SKAction.group([moveRight, walkAction])
+
+        // flipping left and right
+        let flipLeft = SKAction.scaleX(to: -1, duration: 0.0)
+        let flipRight = SKAction.scaleX(to: 1, duration: 0.0)
+
+        // sequence where flip left for move left
+        let moveLeftAndFlip = SKAction.sequence([flipLeft, moveAndAnimateLeft, sitAction, wait])
+        // flip right for move right
+        let moveRightAndFlip = SKAction.sequence([flipRight, moveAndAnimateRight, sitAction, wait])
+
+        // repeat the movement forever
+        let moveAndAnimateRepeat = SKAction.repeatForever(SKAction.sequence([moveLeftAndFlip, moveRightAndFlip]))
+
+        // initial scale to face right
+        player.xScale = 1
+
+        // entire sequence forever
+        player.run(moveAndAnimateRepeat)
+        
         //levels
         let hunger = SKSpriteNode(imageNamed: "100Hunger")
         let social = SKSpriteNode(imageNamed: "100social")
@@ -79,6 +131,7 @@ class MainScreen: SKScene {
         
         
     }
+
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
