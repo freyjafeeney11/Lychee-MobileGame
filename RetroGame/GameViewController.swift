@@ -21,7 +21,10 @@ class GameViewController: UIViewController {
             let titleScene = TitleScreen(size: view.frame.size)
             titleScene.scaleMode = .aspectFill
             view.presentScene(titleScene)
+            view.showsFPS = true
+            view.showsNodeCount = true
             view.showsPhysics = true
+            
         }
         
     }
