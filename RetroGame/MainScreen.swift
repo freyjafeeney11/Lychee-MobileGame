@@ -19,11 +19,64 @@ class MainScreen: SKScene {
     
     override func didMove(to view: SKView) {
         
-        
+        menuBar = SKSpriteNode(imageNamed: "SideMenuOpen")
+
         let room = SKSpriteNode(imageNamed: "FullLivingRoom")
         let player = SKSpriteNode(imageNamed: "catbat_prototype")
-        menuBar = SKSpriteNode(imageNamed: "SideMenuClosed")
+        
         runnerButton = SKSpriteNode(imageNamed: "RunnerButton")
+        
+        //walk animation
+        // setting movement
+        let moveDistance: CGFloat = 100.0
+        let moveDuration: TimeInterval = 1.0
+        
+        // stay still for 5
+        let wait = SKAction.wait(forDuration: 5)
+        
+        let moveLeft = SKAction.moveBy(x: -moveDistance, y: 0, duration: moveDuration)
+        let moveRight = SKAction.moveBy(x: moveDistance, y: 0, duration: moveDuration)
+        
+        //setting animation
+        let tex1 = SKTexture(imageNamed: "batcat_walk_1")
+        let tex2 = SKTexture(imageNamed: "batcat_walk_2")
+        let tex3 = SKTexture(imageNamed: "batcat_walk_3")
+        let walking = [tex1, tex2, tex3]
+        
+        // change sprite to sitting when sitting
+        let sittingSprite = SKTexture(imageNamed: "catbat_ver2-export.png")
+        let sitAction = SKAction.setTexture(sittingSprite)
+        
+        // might add in an idle animation, or smth like paw licking for the cat and feathers for the chicken
+        // eventually will set this to random distance + time within a limit for less repetitive movement
+        
+        // walking animation
+        let walkingAnimation = SKAction.animate(with: walking, timePerFrame: 0.2)
+        // this action plays the walking animation
+        let walkAction = SKAction.repeat(walkingAnimation, count: 2)
+        
+        // move left and walk
+        let moveAndAnimateLeft = SKAction.group([moveLeft, walkAction])
+        // move right and walk
+        let moveAndAnimateRight = SKAction.group([moveRight, walkAction])
+
+        // flipping left and right
+        let flipLeft = SKAction.scaleX(to: -1, duration: 0.0)
+        let flipRight = SKAction.scaleX(to: 1, duration: 0.0)
+
+        // sequence where flip left for move left
+        let moveLeftAndFlip = SKAction.sequence([flipLeft, moveAndAnimateLeft, sitAction, wait])
+        // flip right for move right
+        let moveRightAndFlip = SKAction.sequence([flipRight, moveAndAnimateRight, sitAction, wait])
+
+        // repeat the movement forever
+        let moveAndAnimateRepeat = SKAction.repeatForever(SKAction.sequence([moveLeftAndFlip, moveRightAndFlip]))
+
+        // initial scale to face right
+        player.xScale = 1
+
+        // entire sequence forever
+        player.run(moveAndAnimateRepeat)
         
         //levels
         let hunger = SKSpriteNode(imageNamed: "100Hunger")
@@ -32,10 +85,7 @@ class MainScreen: SKScene {
         let energy = SKSpriteNode(imageNamed: "100Energy")
         let happy = SKSpriteNode(imageNamed: "100Happy")
         
-        
         runnerButton?.position = CGPoint(x: size.width * 0.8, y: size.height * 0.7)
-        
-        menuBar?.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         
         //level position
         hunger.position = CGPoint(x: 100, y: 350)
@@ -53,7 +103,6 @@ class MainScreen: SKScene {
         backgroundColor = SKColor.white
         room.setScale(0.85)
         runnerButton?.setScale(0.21)
-        menuBar?.setScale(3)
         
         //level scale
         hunger.setScale(2)
@@ -62,10 +111,12 @@ class MainScreen: SKScene {
         energy.setScale(2)
         happy.setScale(2)
         
+        //menu
+        menuBar?.setScale(0.8)
+        menuBar?.position = CGPoint(x: -248, y: size.height * 0.5)
         
         room.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         player.position = CGPoint(x: size.width * 0.45, y: size.height * 0.4)
-
         
         addChild(hunger)
         addChild(social)
@@ -78,7 +129,7 @@ class MainScreen: SKScene {
         addChild(menuBar!)
         
     }
-    
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
@@ -89,12 +140,12 @@ class MainScreen: SKScene {
                 runnerGame.scaleMode = .aspectFill
                 view?.presentScene(runnerGame)
             }
-            //if menuBar?.contains(location) == true {
-                // Opens Side Menu
-            //    let sideMenu = SideMenu(size: size)
-            //    sideMenu.scaleMode = .aspectFill
-            //    view?.presentScene(sideMenu)
-            //}
+            
+            if menuBar?.contains(location) == true {
+                let menu = SideMenu(size: size)
+                menu.scaleMode = .aspectFill
+                view?.presentScene(menu)
+            }
         }
     }
 }
