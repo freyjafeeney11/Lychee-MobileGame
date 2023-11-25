@@ -30,6 +30,10 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     let jumpForce: CGFloat = 50.0
     var isJumping = false
     
+    var swipeCount = 0
+    let maxSwipeCount = 3
+    let forwardForce: CGFloat = 100.0
+    
     let loseThresholdX: CGFloat = 0
             
     override func didMove(to view: SKView){
@@ -46,6 +50,10 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         let rangeY = SKRange(lowerLimit: minY, upperLimit: maxY)
         
         let characterConstraint = SKConstraint.positionX(rangeX, y: rangeY)
+        // Add gesture recognizer for swipes
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
+        swipeRight.direction = .right
+        view.addGestureRecognizer(swipeRight)
         
         character.constraints = [characterConstraint]
         createSky()
@@ -55,8 +63,17 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         physicsWorld.gravity = CGVector(dx: 0, dy: -5.0)
         addCityCollision()
         startCoinSpawning()
+        
         // Add an initial impulse to start the constant running motion
         //character.physicsBody?.applyImpulse(CGVector(dx: 50.0, dy: 0.0))
+    }
+    @objc func handleSwipe(_ sender: UISwipeGestureRecognizer) {
+        if sender.direction == .right && swipeCount < maxSwipeCount {
+            // Apply force only if the swipe is to the right and the swipe count is within limit
+            character.physicsBody?.applyForce(CGVector(dx: forwardForce, dy: 0))
+            swipeCount += 1
+            print("Swipe Count: \(swipeCount)")
+        }
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         // Check if the character is not already jumping
@@ -72,13 +89,21 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         if character.position.y <= cityFront.position.y + cityFront.size.height * 0.5 + character.size.height * 0.5 {
             isJumping = false
         }
-        // Checking if the character goes beyond min X
         if character.position.x < loseThresholdX {
             characterOutOfBounds()
         }
-        // Ensure the character stays within the constraints
         character.constraints?.forEach { $0.referenceNode?.position = character.position }
-
+        enumerateChildNodes(withName: "coin") { node, _ in
+            if let coin = node as? SKSpriteNode {
+                // Move the coins to the left
+                coin.position.x -= self.backgroundVelocity1
+                
+                // Remove the coin if it's off the screen
+                if coin.position.x < -coin.size.width / 2 {
+                    coin.removeFromParent()
+                }
+            }
+        }
     }
     
     func characterOutOfBounds() {
@@ -173,6 +198,8 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         character.physicsBody?.allowsRotation = false
         character.physicsBody?.categoryBitMask = characterCategory
         character.physicsBody?.collisionBitMask = groundCategory
+        character.physicsBody?.contactTestBitMask = groundCategory // Detect contact with buildings
+
         character.physicsBody?.usesPreciseCollisionDetection = true
         print("Character Added!")
         addChild(character)
@@ -180,7 +207,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     }
     func startCoinSpawning() {
         let spawnCoinAction = SKAction.run(spawnCoin)
-        let waitDuration = SKAction.wait(forDuration: 3.0) // Adjust this interval
+        let waitDuration = SKAction.wait(forDuration: 3.0)
         let sequence = SKAction.sequence([spawnCoinAction, waitDuration])
         let repeatForever = SKAction.repeatForever(sequence)
         
@@ -189,22 +216,23 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     
     func spawnCoin() {
         let coin = SKSpriteNode(imageNamed: "coin")
-        // Define the range within which you want to spawn the coins
-        let minX = coin.size.width / 2
+        coin.name = "coin"
+        
+        let minX = character.position.x + 50
         let maxX = size.width - coin.size.width / 2
-        let minY = character.size.height + 50 // Adjust this value to position coins above the buildings
-        let maxY = size.height - coin.size.height / 2
+        let minY = character.size.height + 50
+        let maxY = size.height - coin.size.height * 2
         
         let randomX = CGFloat(arc4random_uniform(UInt32(maxX - minX))) + minX
         let randomY = CGFloat(arc4random_uniform(UInt32(maxY - minY))) + minY
         
         coin.position = CGPoint(x: randomX, y: randomY)
-        coin.zPosition = 2 // Ensure coins appear above other nodes
-        coin.physicsBody = SKPhysicsBody(rectangleOf: coin.size)
-        coin.physicsBody?.isDynamic = false // Ensure coins stay still
+        coin.zPosition = 2
+        coin.physicsBody = SKPhysicsBody(circleOfRadius: (coin.size.width / 2)-3)
+        coin.physicsBody?.isDynamic = false
         coin.physicsBody?.categoryBitMask = coinCategory
-        coin.physicsBody?.collisionBitMask = 0 // No collision with other physics bodies
-        coin.physicsBody?.contactTestBitMask = characterCategory // Check for contact with the character
+        coin.physicsBody?.collisionBitMask = 0
+        coin.physicsBody?.contactTestBitMask = characterCategory
         addChild(coin)
     }
     func updateSky() {
