@@ -35,6 +35,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     let forwardForce: CGFloat = 100.0
     
     let loseThresholdX: CGFloat = 0
+    var coinCounter = 0
             
     override func didMove(to view: SKView){
         // Set the size of the scene
@@ -83,6 +84,20 @@ class Runner: SKScene, SKPhysicsContactDelegate{
             isJumping = true
         }
     }
+
+    func didBegin(_ contact: SKPhysicsContact) {
+        let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+
+        if contactMask == characterCategory | coinCategory {
+            if contact.bodyA.categoryBitMask == characterCategory {
+                coinCollected(contact.bodyB.node as? SKSpriteNode ?? SKSpriteNode())
+            } else {
+                coinCollected(contact.bodyA.node as? SKSpriteNode ?? SKSpriteNode())
+            }
+        }
+    }
+
+
     override func update(_ currentTime: TimeInterval){
         updateSky()
         updateCity()
@@ -189,7 +204,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     
     func addCharacter() {
         character.position = CGPoint(x: size.width * 0.5, y: cityFront.size.height)
-        character.zPosition = 3
+        character.zPosition = 2
 
         character.physicsBody = SKPhysicsBody(texture: character.texture!,
                                                size: character.texture!.size())
@@ -227,7 +242,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         let randomY = CGFloat(arc4random_uniform(UInt32(maxY - minY))) + minY
         
         coin.position = CGPoint(x: randomX, y: randomY)
-        coin.zPosition = 2
+        coin.zPosition = 3
         coin.physicsBody = SKPhysicsBody(circleOfRadius: (coin.size.width / 2)-3)
         coin.physicsBody?.isDynamic = false
         coin.physicsBody?.categoryBitMask = coinCategory
@@ -235,6 +250,17 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         coin.physicsBody?.contactTestBitMask = characterCategory
         addChild(coin)
     }
+    func coinCollected(_ coin: SKSpriteNode) {
+        updateCoinCounter(by: 1)
+        coin.removeFromParent()
+    }
+
+    func updateCoinCounter(by value: Int) {
+        coinCounter += value
+        print("Collected Coins: \(coinCounter)")
+        // Update UI or perform any action with the collected coins count here
+    }
+
     func updateSky() {
         // Update sky positions
         sky.position = CGPoint(x: sky.position.x - skyVelocity, y: sky.position.y)
