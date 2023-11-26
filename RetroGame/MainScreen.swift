@@ -96,17 +96,18 @@ class MainScreen: SKScene {
         runnerButton?.position = CGPoint(x: size.width * 0.8, y: size.height * 0.7)
         
         //level position
-        hunger.position = CGPoint(x: 100, y: 350)
-        happy.position = CGPoint(x: 100, y: 310)
-        hygiene.position = CGPoint(x: 100, y: 270)
-        energy.position = CGPoint(x: 250, y: 350)
-        social.position = CGPoint(x: 250, y: 310)
-        
-        hunger.zPosition = 1
-        social.zPosition = 1
-        hygiene.zPosition = 1
-        energy.zPosition = 1
-        happy.zPosition = 1
+        // commented these out for levels menu instead
+//        hunger.position = CGPoint(x: 100, y: 350)
+//        happy.position = CGPoint(x: 100, y: 310)
+//        hygiene.position = CGPoint(x: 100, y: 270)
+//        energy.position = CGPoint(x: 250, y: 350)
+//        social.position = CGPoint(x: 250, y: 310)
+//        
+//        hunger.zPosition = 1
+//        social.zPosition = 1
+//        hygiene.zPosition = 1
+//        energy.zPosition = 1
+//        happy.zPosition = 1
         
         backgroundColor = SKColor.white
         room.setScale(0.85)
