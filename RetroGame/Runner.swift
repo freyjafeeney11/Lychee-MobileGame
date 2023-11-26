@@ -14,10 +14,11 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     // To detect collision, bitmask category
     let characterCategory:UInt32 = 0x100
     let groundCategory:UInt32 = 0x1000
+    let coinCategory:UInt32 = 0x10000
     
-    let cityFront = SKSpriteNode(imageNamed: "frontbuilding 1")
-    let cityFront2 = SKSpriteNode(imageNamed: "frontbuilding 1")
-    let cityFront3 = SKSpriteNode(imageNamed: "frontbuilding 1")
+    let cityFront = SKSpriteNode(imageNamed: "frontbuilding")
+    let cityFront2 = SKSpriteNode(imageNamed: "frontbuilding")
+    let cityFront3 = SKSpriteNode(imageNamed: "frontbuilding")
     
     let sky = SKSpriteNode(imageNamed: "background")
     let sky2 = SKSpriteNode(imageNamed: "background")
@@ -28,13 +29,20 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     
     let jumpForce: CGFloat = 50.0
     var isJumping = false
+    
+    var swipeCount = 0
+    let maxSwipeCount = 3
+    let forwardForce: CGFloat = 100.0
+    
+    let loseThresholdX: CGFloat = 0
+    var coinCounter = 0
             
     override func didMove(to view: SKView){
         // Set the size of the scene
         self.size = view.bounds.size
-        
-        // Set up constraints to keep the character within the scene
-        let minX = character.size.width / 2
+        // constraints to keep the character within the scene
+        let minX = -20.0
+        print("minX: ", minX)
         let maxX = size.width - character.size.width / 2
         let minY = character.size.height / 2
         let maxY = size.height
@@ -43,15 +51,30 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         let rangeY = SKRange(lowerLimit: minY, upperLimit: maxY)
         
         let characterConstraint = SKConstraint.positionX(rangeX, y: rangeY)
+        // Add gesture recognizer for swipes
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
+        swipeRight.direction = .right
+        view.addGestureRecognizer(swipeRight)
+        
         character.constraints = [characterConstraint]
         createSky()
         createCity()
         addCharacter()
         physicsWorld.contactDelegate = self
-        addCityCollision()
         physicsWorld.gravity = CGVector(dx: 0, dy: -5.0)
+        addCityCollision()
+        startCoinSpawning()
+        
         // Add an initial impulse to start the constant running motion
         //character.physicsBody?.applyImpulse(CGVector(dx: 50.0, dy: 0.0))
+    }
+    @objc func handleSwipe(_ sender: UISwipeGestureRecognizer) {
+        if sender.direction == .right && swipeCount < maxSwipeCount {
+            // Apply force only if the swipe is to the right and the swipe count is within limit
+            character.physicsBody?.applyForce(CGVector(dx: forwardForce, dy: 0))
+            swipeCount += 1
+            print("Swipe Count: \(swipeCount)")
+        }
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         // Check if the character is not already jumping
@@ -61,15 +84,49 @@ class Runner: SKScene, SKPhysicsContactDelegate{
             isJumping = true
         }
     }
+
+    func didBegin(_ contact: SKPhysicsContact) {
+        let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+
+        if contactMask == characterCategory | coinCategory {
+            if contact.bodyA.categoryBitMask == characterCategory {
+                coinCollected(contact.bodyB.node as? SKSpriteNode ?? SKSpriteNode())
+            } else {
+                coinCollected(contact.bodyA.node as? SKSpriteNode ?? SKSpriteNode())
+            }
+        }
+    }
+
+
     override func update(_ currentTime: TimeInterval){
         updateSky()
         updateCity()
         if character.position.y <= cityFront.position.y + cityFront.size.height * 0.5 + character.size.height * 0.5 {
             isJumping = false
         }
-        // Ensure the character stays within the constraints
+        if character.position.x < loseThresholdX {
+            characterOutOfBounds()
+        }
         character.constraints?.forEach { $0.referenceNode?.position = character.position }
-
+        enumerateChildNodes(withName: "coin") { node, _ in
+            if let coin = node as? SKSpriteNode {
+                // Move the coins to the left
+                coin.position.x -= self.backgroundVelocity1
+                
+                // Remove the coin if it's off the screen
+                if coin.position.x < -coin.size.width / 2 {
+                    coin.removeFromParent()
+                }
+            }
+        }
+    }
+    
+    func characterOutOfBounds() {
+        print("Character went out of bounds!")
+        // Move to EndScreen
+        let endScene = EndScreen(size: self.size, collectedCoins: coinCounter)
+        endScene.scaleMode = .aspectFill
+        self.view?.presentScene(endScene, transition: SKTransition.fade(withDuration: 0.5))
     }
     
     func createSky() {
@@ -106,21 +163,30 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     }
     
     func addCityCollision() {
-//        let cityHeight = cityFront.size.height/3
-//        let cityWidth = frame.size.width * 3
-//        cityFront.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: cityWidth, height: cityHeight))
-//        cityFront2.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: cityWidth, height: cityHeight))
-//        cityFront3.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: cityWidth, height: cityHeight))
         cityFront.physicsBody = SKPhysicsBody(texture: cityFront.texture!,
-                                              alphaThreshold: 0.7,
                                               size: cityFront.texture!.size())
         cityFront2.physicsBody = SKPhysicsBody(texture: cityFront2.texture!,
-                                               alphaThreshold: 0.7,
                                                size: cityFront2.texture!.size())
         cityFront3.physicsBody = SKPhysicsBody(texture: cityFront3.texture!,
-                                               alphaThreshold: 0.7,
                                                size: cityFront3.texture!.size())
 
+//        let path = CGMutablePath()
+//        path.addLines(between: [CGPoint(x: -10, y: -200),CGPoint(x: -10, y: -80), CGPoint(x: 40, y: -80), CGPoint(x: 40, y: -95),
+//                                CGPoint(x: 180, y: -95), CGPoint(x: 180, y: -75), CGPoint(x: 280, y: -75),
+//                                CGPoint(x: 280, y: -70), CGPoint(x: 370, y: -70), CGPoint(x: 370, y: -200),
+//                                CGPoint(x: 410, y: -200), CGPoint(x: 410, y: -80), CGPoint(x: 490, y: -80),
+//                                CGPoint(x: 490, y: -95), CGPoint(x: 600, y: -95), CGPoint(x: 600, y: -70),
+//                                CGPoint(x: 700, y: -70), CGPoint(x: 700, y: -55), CGPoint(x: 810, y: -55),
+//                                CGPoint(x: 810, y: -55), CGPoint(x: 810, y: -80), CGPoint(x: 850, y: -80),
+//                                CGPoint(x: 850, y: -200)])
+//        path.closeSubpath()
+//        cityFront.physicsBody = SKPhysicsBody(polygonFrom: path)
+//        cityFront2.physicsBody = SKPhysicsBody(polygonFrom: path)
+//        cityFront3.physicsBody = SKPhysicsBody(polygonFrom: path)
+        
+        cityFront.physicsBody?.usesPreciseCollisionDetection = true
+        cityFront2.physicsBody?.usesPreciseCollisionDetection = true
+        cityFront3.physicsBody?.usesPreciseCollisionDetection = true
         cityFront.physicsBody?.isDynamic = false
         cityFront2.physicsBody?.isDynamic = false
         cityFront3.physicsBody?.isDynamic = false
@@ -136,24 +202,69 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         cityFront.physicsBody?.collisionBitMask = characterCategory
         cityFront2.physicsBody?.collisionBitMask = characterCategory
         cityFront3.physicsBody?.collisionBitMask = characterCategory
+        
 
     }
     
     func addCharacter() {
         character.position = CGPoint(x: size.width * 0.5, y: cityFront.size.height)
-        character.zPosition = 3
-        //character.physicsBody = SKPhysicsBody(rectangleOf: character.size)
+        character.zPosition = 2
+
         character.physicsBody = SKPhysicsBody(texture: character.texture!,
                                                size: character.texture!.size())
+        character.physicsBody?.affectedByGravity = true
         character.physicsBody?.isDynamic = true
         character.physicsBody?.allowsRotation = false
         character.physicsBody?.categoryBitMask = characterCategory
         character.physicsBody?.collisionBitMask = groundCategory
+        character.physicsBody?.contactTestBitMask = groundCategory // Detect contact with buildings
+
+        character.physicsBody?.usesPreciseCollisionDetection = true
         print("Character Added!")
         addChild(character)
         print("Character Initial Position: \(character.position)")
     }
+    func startCoinSpawning() {
+        let spawnCoinAction = SKAction.run(spawnCoin)
+        let waitDuration = SKAction.wait(forDuration: 3.0)
+        let sequence = SKAction.sequence([spawnCoinAction, waitDuration])
+        let repeatForever = SKAction.repeatForever(sequence)
+        
+        run(repeatForever)
+    }
     
+    func spawnCoin() {
+        let coin = SKSpriteNode(imageNamed: "coin")
+        coin.name = "coin"
+        
+        let minX = character.position.x + 50
+        let maxX = size.width - coin.size.width / 2
+        let minY = character.size.height + 50
+        let maxY = size.height - coin.size.height * 2
+        
+        let randomX = CGFloat(arc4random_uniform(UInt32(maxX - minX))) + minX
+        let randomY = CGFloat(arc4random_uniform(UInt32(maxY - minY))) + minY
+        
+        coin.position = CGPoint(x: randomX, y: randomY)
+        coin.zPosition = 3
+        coin.physicsBody = SKPhysicsBody(circleOfRadius: (coin.size.width / 2)-3)
+        coin.physicsBody?.isDynamic = false
+        coin.physicsBody?.categoryBitMask = coinCategory
+        coin.physicsBody?.collisionBitMask = 0
+        coin.physicsBody?.contactTestBitMask = characterCategory
+        addChild(coin)
+    }
+    func coinCollected(_ coin: SKSpriteNode) {
+        updateCoinCounter(by: 1)
+        coin.removeFromParent()
+    }
+
+    func updateCoinCounter(by value: Int) {
+        coinCounter += value
+        print("Collected Coins: \(coinCounter)")
+        // Update UI or perform any action with the collected coins count here
+    }
+
     func updateSky() {
         // Update sky positions
         sky.position = CGPoint(x: sky.position.x - skyVelocity, y: sky.position.y)
