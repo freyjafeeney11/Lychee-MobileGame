@@ -25,10 +25,14 @@ class MainScreen: SKScene {
         menuBar = SKSpriteNode(imageNamed: "SideMenuClosed")
         runnerButton = SKSpriteNode(imageNamed: "RunnerButton")
         
+//        func addRandom() -> Double {
+//            let randomDouble = Double.random(in: 0.9...2)
+//            return randomDouble
+//        }
         //walk animation
         // setting movement
-        let moveDistance: CGFloat = 100.0
-        let moveDuration: TimeInterval = 1.0
+        let moveDistance: CGFloat = 150.0
+        let moveDuration: TimeInterval = 0.8
         
         // stay still for 5
         let wait = SKAction.wait(forDuration: 5)
@@ -37,10 +41,11 @@ class MainScreen: SKScene {
         let moveRight = SKAction.moveBy(x: moveDistance, y: 0, duration: moveDuration)
         
         //setting animation
-        let tex1 = SKTexture(imageNamed: "batcat_walk_1")
-        let tex2 = SKTexture(imageNamed: "batcat_walk_2")
-        let tex3 = SKTexture(imageNamed: "batcat_walk_3")
-        let walking = [tex1, tex2, tex3]
+        let tex1 = SKTexture(imageNamed: "batcat_run1")
+        let tex2 = SKTexture(imageNamed: "batcat_run2")
+        let tex3 = SKTexture(imageNamed: "batcat_run3")
+        let tex4 = SKTexture(imageNamed: "batcat_run4")
+        let walking = [tex1, tex2, tex3, tex4]
         
         // change sprite to sitting when sitting
         let sittingSprite = SKTexture(imageNamed: "catbat_ver2-export.png")
@@ -50,9 +55,12 @@ class MainScreen: SKScene {
         // eventually will set this to random distance + time within a limit for less repetitive movement
         
         // walking animation
-        let walkingAnimation = SKAction.animate(with: walking, timePerFrame: 0.2)
+        let walkingAnimation = SKAction.animate(with: walking, timePerFrame: 0.13)
         // this action plays the walking animation
-        let walkAction = SKAction.repeat(walkingAnimation, count: 2)
+        
+        // try doing distance based off of count of animations, reverse
+        
+        let walkAction = SKAction.repeat(walkingAnimation, count: Int(floor(2.0)))
         
         // move left and walk
         let moveAndAnimateLeft = SKAction.group([moveLeft, walkAction])
@@ -60,8 +68,8 @@ class MainScreen: SKScene {
         let moveAndAnimateRight = SKAction.group([moveRight, walkAction])
 
         // flipping left and right
-        let flipLeft = SKAction.scaleX(to: -1, duration: 0.0)
-        let flipRight = SKAction.scaleX(to: 1, duration: 0.0)
+        let flipLeft = SKAction.scaleX(to: 1, duration: 0.0)
+        let flipRight = SKAction.scaleX(to: -1, duration: 0.0)
 
         // sequence where flip left for move left
         let moveLeftAndFlip = SKAction.sequence([flipLeft, moveAndAnimateLeft, sitAction, wait])
