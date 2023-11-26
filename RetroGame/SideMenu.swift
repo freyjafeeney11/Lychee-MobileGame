@@ -24,6 +24,7 @@ class SideMenu: SKScene {
     
     override func didMove(to view: SKView) {
         
+        let room = SKSpriteNode(imageNamed: "FullLivingRoom")
         let menu = SKSpriteNode(imageNamed: "SideMenu")
         home = SKSpriteNode(imageNamed: "HomeButton")
         closet = SKSpriteNode(imageNamed: "ClosetButton")
@@ -33,6 +34,8 @@ class SideMenu: SKScene {
         social = SKSpriteNode(imageNamed: "SocialButton")
         settings = SKSpriteNode(imageNamed: "SettingsButton")
         
+        room.setScale(0.85)
+        room.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         menu.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         home?.position = CGPoint(x: size.width * 0.135, y: size.height * 0.688)
         closet?.position = CGPoint(x: size.width * 0.338, y: size.height * 0.69)
@@ -42,6 +45,7 @@ class SideMenu: SKScene {
         social?.position = CGPoint(x: size.width * 0.34, y: size.height * 0.31)
         settings?.position = CGPoint(x: size.width * 0.737, y: size.height * 0.309)
         
+        addChild(room)
         addChild(menu)
         addChild(home!)
         addChild(closet!)
