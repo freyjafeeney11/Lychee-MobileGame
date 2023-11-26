@@ -11,6 +11,7 @@
 		73A526862AE386CA00EE3693 /* TitleScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A526852AE386CA00EE3693 /* TitleScreen.swift */; };
 		ABACE2D12B0D626A0004D944 /* SettingsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABACE2D02B0D626A0004D944 /* SettingsMenu.swift */; };
 		ABE4E8232AE4703A0092ECA6 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE4E8222AE4703A0092ECA6 /* SideMenu.swift */; };
+		BDB138232B13DE2D00D7AF32 /* EndScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB138222B13DE2D00D7AF32 /* EndScreen.swift */; };
 		CD1F68A02AD47BEF002B1EF5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1F689F2AD47BEF002B1EF5 /* AppDelegate.swift */; };
 		CD1F68A22AD47BEF002B1EF5 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CD1F68A12AD47BEF002B1EF5 /* GameScene.sks */; };
 		CD1F68A42AD47BEF002B1EF5 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = CD1F68A32AD47BEF002B1EF5 /* Actions.sks */; };
@@ -47,6 +48,8 @@
 		73A526852AE386CA00EE3693 /* TitleScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleScreen.swift; sourceTree = "<group>"; };
 		ABACE2D02B0D626A0004D944 /* SettingsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMenu.swift; sourceTree = "<group>"; };
 		ABE4E8222AE4703A0092ECA6 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
+		BDB138222B13DE2D00D7AF32 /* EndScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndScreen.swift; sourceTree = "<group>"; };
+		BDB138262B13EEDD00D7AF32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		CD1F689C2AD47BEF002B1EF5 /* RetroGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RetroGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD1F689F2AD47BEF002B1EF5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CD1F68A12AD47BEF002B1EF5 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -112,6 +115,7 @@
 		CD1F689E2AD47BEF002B1EF5 /* RetroGame */ = {
 			isa = PBXGroup;
 			children = (
+				BDB138262B13EEDD00D7AF32 /* Info.plist */,
 				CD1F689F2AD47BEF002B1EF5 /* AppDelegate.swift */,
 				CD1F68A12AD47BEF002B1EF5 /* GameScene.sks */,
 				CD1F68A32AD47BEF002B1EF5 /* Actions.sks */,
@@ -120,6 +124,7 @@
 				CD1F68A72AD47BEF002B1EF5 /* GameViewController.swift */,
 				ABE4E8222AE4703A0092ECA6 /* SideMenu.swift */,
 				CDBE2AB42AE2025A00712D94 /* Runner.swift */,
+				BDB138222B13DE2D00D7AF32 /* EndScreen.swift */,
 				CD1F68A92AD47BEF002B1EF5 /* Main.storyboard */,
 				73A526832AE386B800EE3693 /* MainScreen.swift */,
 				73A526852AE386CA00EE3693 /* TitleScreen.swift */,
@@ -283,6 +288,7 @@
 				CDBE2AB52AE2025A00712D94 /* Runner.swift in Sources */,
 				73A526862AE386CA00EE3693 /* TitleScreen.swift in Sources */,
 				ABACE2D12B0D626A0004D944 /* SettingsMenu.swift in Sources */,
+				BDB138232B13DE2D00D7AF32 /* EndScreen.swift in Sources */,
 				ABE4E8232AE4703A0092ECA6 /* SideMenu.swift in Sources */,
 				73A526842AE386B900EE3693 /* MainScreen.swift in Sources */,
 				CD1F68A82AD47BEF002B1EF5 /* GameViewController.swift in Sources */,
@@ -470,6 +476,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5QKV29RWCX;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RetroGame/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -497,6 +504,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5QKV29RWCX;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RetroGame/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

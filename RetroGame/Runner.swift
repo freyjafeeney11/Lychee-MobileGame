@@ -123,6 +123,10 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     
     func characterOutOfBounds() {
         print("Character went out of bounds!")
+        // Move to EndScreen
+        let endScene = EndScreen(size: self.size, collectedCoins: coinCounter)
+        endScene.scaleMode = .aspectFill
+        self.view?.presentScene(endScene, transition: SKTransition.fade(withDuration: 0.5))
     }
     
     func createSky() {
