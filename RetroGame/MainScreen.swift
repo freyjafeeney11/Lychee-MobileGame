@@ -19,10 +19,11 @@ class MainScreen: SKScene {
     
     override func didMove(to view: SKView) {
         
-        
+        menuBar = SKSpriteNode(imageNamed: "SideMenuOpen")
+
         let room = SKSpriteNode(imageNamed: "FullLivingRoom")
-        let player = SKSpriteNode(imageNamed: "catbat_ver2-export.png")
-        menuBar = SKSpriteNode(imageNamed: "SideMenuClosed")
+        let player = SKSpriteNode(imageNamed: "catbat_prototype")
+        
         runnerButton = SKSpriteNode(imageNamed: "RunnerButton")
         
 //        func addRandom() -> Double {
@@ -92,10 +93,7 @@ class MainScreen: SKScene {
         let energy = SKSpriteNode(imageNamed: "100Energy")
         let happy = SKSpriteNode(imageNamed: "100Happy")
         
-        
         runnerButton?.position = CGPoint(x: size.width * 0.8, y: size.height * 0.7)
-        
-        menuBar?.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         
         //level position
         hunger.position = CGPoint(x: 100, y: 350)
@@ -113,7 +111,6 @@ class MainScreen: SKScene {
         backgroundColor = SKColor.white
         room.setScale(0.85)
         runnerButton?.setScale(0.21)
-        menuBar?.setScale(3)
         
         //level scale
         hunger.setScale(2)
@@ -122,10 +119,12 @@ class MainScreen: SKScene {
         energy.setScale(2)
         happy.setScale(2)
         
+        //menu
+        menuBar?.setScale(0.8)
+        menuBar?.position = CGPoint(x: -248, y: size.height * 0.5)
         
         room.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         player.position = CGPoint(x: size.width * 0.45, y: size.height * 0.4)
-
         
         addChild(hunger)
         addChild(social)
@@ -136,11 +135,9 @@ class MainScreen: SKScene {
         addChild(player)
         addChild(runnerButton!)
         addChild(menuBar!)
-
         
     }
 
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
@@ -151,12 +148,12 @@ class MainScreen: SKScene {
                 runnerGame.scaleMode = .aspectFill
                 view?.presentScene(runnerGame)
             }
-            //if menuBar?.contains(location) == true {
-                // Opens Side Menu
-            //    let sideMenu = SideMenu(size: size)
-            //    sideMenu.scaleMode = .aspectFill
-            //    view?.presentScene(sideMenu)
-            //}
+            
+            if menuBar?.contains(location) == true {
+                let menu = SideMenu(size: size)
+                menu.scaleMode = .aspectFill
+                view?.presentScene(menu)
+            }
         }
     }
 }
