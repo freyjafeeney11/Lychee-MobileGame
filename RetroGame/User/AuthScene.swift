@@ -23,52 +23,73 @@ struct AuthScene: View {
         self.userSession = Auth.auth().currentUser
     } */
     
+    
+    @State private var showMainScreen = false
+    
     var body: some View {
-        ZStack {
-            Image("keypad")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 8000, height: 420)
-            VStack(spacing:40){
-                TextField("USERNAME!!", text:$user)
-                    .foregroundColor(.white)
-                SecureField("PASSWORD!!", text:$pass)
-                    .foregroundColor(.white)
-                
-                //register here
-                Button {
-                    Task{
-                        await self.register(withEmail: self.user, password: self.pass)
+        NavigationView {
+            ZStack {
+                NavigationLink(
+                    destination: MainView(),
+                    isActive: $showMainScreen
+                ) {
+                    EmptyView()
+                }
+                Image("keypad")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 8000, height: 420)
+                NavigationLink(destination: MainView(), isActive: $showMainScreen) {
+                    EmptyView()}
+                VStack(spacing:40){
+                    TextField("USERNAME!!", text:$user)
+                        .foregroundColor(.white)
+                    SecureField("PASSWORD!!", text:$pass)
+                        .foregroundColor(.white)
+                    
+                    //register here
+                    Button {
+                        Task{
+                            await self.register(withEmail: self.user, password: self.pass)
+                        }
+                    } label: {
+                        Text("Create Account")
+                            .bold()
+                            .frame(width:200, height:20)
+                            .background(
+                                RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.linearGradient(colors:[.pink, .red], startPoint: .top, endPoint: .bottomTrailing)))
                     }
-                } label: {
-                    Text("Create Account")
-                        .bold()
-                        .frame(width:200, height:20)
-                        .background(
-                            RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.linearGradient(colors:[.pink, .red], startPoint: .top, endPoint: .bottomTrailing)))
+                    // login here
+                    Button {
+                        login()
+                    } label: {
+                        Text("Login")
+                            .bold()
+                            .foregroundColor(.white)
+                    }
+                    // added this to bypass and move to main screen for now
+                    Button {
+                        showMainScreen = true
+                    } label: {
+                        Text("Go to main screen")
+                            .bold()
+                            .foregroundColor(.white)
+                    }
                 }
-                // login here
-                Button {
-                    self.login()
-                } label: {
-                    Text("Login")
-                        .bold()
-                        .foregroundColor(.white)
-                }
-                // added this to bypass and move to main screen for now
-                Button {
-                    self.mainScreen()
-                } label: {
-                    Text("Go to main screen")
-                        .bold()
-                        .foregroundColor(.white)
-                }
-                
+                .frame(width: 350)
+                .padding(.trailing, -1800)
             }
-            .frame(width: 350)
-            .padding(.trailing, -1800)
+            .onAppear {
+                if showMainScreen {
+                    withAnimation(.interactiveSpring) {
+                        // You can choose a different transition effect here
+                        // For example: scaleEffect, rotationEffect, etc.
+                        // destinationViewTransitionEffect = ...
+                    }
+                }
+            }
+            .ignoresSafeArea()
         }
-        .ignoresSafeArea()
     }
     func login() {
         Auth.auth().signIn(withEmail: user, password: pass) { result, error in if error != nil {
