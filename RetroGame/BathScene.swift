@@ -11,15 +11,10 @@ import GameplayKit
 import Firebase
 import _SpriteKit_SwiftUI
 
-public struct petChoice {
-    static var pet = "catbat_ver2-export"
-}
-
-class MainScreen: SKScene {
+class BathScene: SKScene {
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
     var runnerButton: SKSpriteNode?
-    var foodCollectButton: SKSpriteNode?
     var menuBar: SKSpriteNode?
     let currentUser = AuthScene.init()
     var editUser = EditUser()
@@ -33,15 +28,14 @@ class MainScreen: SKScene {
         let providerFactory = AppCheckDebugProviderFactory()
         AppCheck.setAppCheckProviderFactory(providerFactory)
         
-        let player = SKSpriteNode(imageNamed: petChoice.pet)
         
         menuBar = SKSpriteNode(imageNamed: "SideMenuOpen")
 
-        let room = SKSpriteNode(imageNamed: "FullLivingRoom")
-        
+        let room = SKSpriteNode(imageNamed: "backgroundTiles")
+        let tub = SKSpriteNode(imageNamed: "bathtub")
+        let player = SKSpriteNode(imageNamed: "catbat_prototype")
         
         runnerButton = SKSpriteNode(imageNamed: "RunnerButton")
-        foodCollectButton = SKSpriteNode(imageNamed: "FoodCollectButton")
         
 //        func addRandom() -> Double {
 //            let randomDouble = Double.random(in: 0.9...2)
@@ -111,7 +105,6 @@ class MainScreen: SKScene {
         let happy = SKSpriteNode(imageNamed: "100Happy")
         
         runnerButton?.position = CGPoint(x: size.width * 0.8, y: size.height * 0.7)
-        foodCollectButton?.position = CGPoint(x: size.width * 0.146, y: size.height * 0.69)
         
         //level position
         // commented these out for levels menu instead
@@ -128,9 +121,9 @@ class MainScreen: SKScene {
 //        happy.zPosition = 1
         
         backgroundColor = SKColor.white
-        room.setScale(0.85)
+        room.setScale(3.4)
+        tub.setScale(2.6)
         runnerButton?.setScale(0.21)
-        foodCollectButton?.setScale(1.12)
         
         //level scale
         hunger.setScale(2)
@@ -141,9 +134,10 @@ class MainScreen: SKScene {
         
         //menu
         menuBar?.setScale(0.8)
-        menuBar?.position = CGPoint(x: -245, y: size.height * 0.5)
+        menuBar?.position = CGPoint(x: -237, y: size.height * 0.5)
         
         room.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
+        tub.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         player.position = CGPoint(x: size.width * 0.45, y: size.height * 0.4)
         
         addChild(hunger)
@@ -152,9 +146,9 @@ class MainScreen: SKScene {
         addChild(hygiene)
         addChild(happy)
         addChild(room)
+        addChild(tub)
         addChild(player)
         addChild(runnerButton!)
-        addChild(foodCollectButton!)
         addChild(menuBar!)
         
     }
@@ -170,12 +164,6 @@ class MainScreen: SKScene {
                 runnerGame.scaleMode = .aspectFill
                 view?.presentScene(runnerGame)
             }
-            if foodCollectButton?.contains(location) == true {
-                // Transition to the runner game scene
-                let foodCollectGame = FoodCollect(size: size)
-                foodCollectGame.scaleMode = .aspectFill
-                view?.presentScene(foodCollectGame)
-            }
             
             if menuBar?.contains(location) == true {
                 let menu = SideMenu(size: size)
@@ -188,3 +176,15 @@ class MainScreen: SKScene {
 
 }
 
+struct BathView: View {
+    var scene: SKScene {
+        let scene = BathScene(size: CGSize(width: 900, height: 400))
+        scene.scaleMode = .aspectFill
+        return scene
+    }
+
+    var body: some View {
+        SpriteView(scene: scene)
+            .ignoresSafeArea()
+    }
+}

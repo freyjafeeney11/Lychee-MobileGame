@@ -36,14 +36,14 @@ class SideMenu: SKScene {
         
         room.setScale(0.85)
         room.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
-        menu.position = CGPoint(x: size.width * 0.4848, y: size.height * 0.5)
-        home?.position = CGPoint(x: size.width * 0.138, y: size.height * 0.688)
-        closet?.position = CGPoint(x: size.width * 0.335, y: size.height * 0.69)
-        bath?.position = CGPoint(x: size.width * 0.51, y: size.height * 0.688)
-        fridge?.position = CGPoint(x: size.width * 0.711, y: size.height * 0.6875)
+        menu.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
+        home?.position = CGPoint(x: size.width * 0.135, y: size.height * 0.688)
+        closet?.position = CGPoint(x: size.width * 0.338, y: size.height * 0.69)
+        bath?.position = CGPoint(x: size.width * 0.5235, y: size.height * 0.688)
+        fridge?.position = CGPoint(x: size.width * 0.735, y: size.height * 0.6875)
         walking?.position = CGPoint(x: size.width * 0.1346, y: size.height * 0.314)
-        social?.position = CGPoint(x: size.width * 0.335, y: size.height * 0.31)
-        settings?.position = CGPoint(x: size.width * 0.71, y: size.height * 0.309)
+        social?.position = CGPoint(x: size.width * 0.34, y: size.height * 0.31)
+        settings?.position = CGPoint(x: size.width * 0.737, y: size.height * 0.309)
         
         addChild(room)
         addChild(menu)
@@ -72,19 +72,5 @@ class SideMenu: SKScene {
                 view?.presentScene(settingsScreen)
             }
         }
-    }
-}
-
-//added view here but not in use yet
-struct MenuView: View {
-    var scene: SKScene {
-        let scene = SideMenu(size: CGSize(width: 900, height: 400))
-        scene.scaleMode = .aspectFill
-        return scene
-    }
-
-    var body: some View {
-        SpriteView(scene: scene)
-            .ignoresSafeArea()
     }
 }

@@ -13,6 +13,7 @@
 		731D933A2B142F2B00EA8A55 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 731D93392B142F2B00EA8A55 /* FirebaseAnalyticsSwift */; };
 		731D933C2B142F2B00EA8A55 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 731D933B2B142F2B00EA8A55 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		731D933E2B142F2B00EA8A55 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 731D933D2B142F2B00EA8A55 /* FirebaseAppCheck */; };
+		738F57082B167AD700CA1A25 /* BathScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738F57072B167AD700CA1A25 /* BathScene.swift */; };
 		73A526842AE386B900EE3693 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A526832AE386B800EE3693 /* MainScreen.swift */; };
 		73A526862AE386CA00EE3693 /* TitleScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A526852AE386CA00EE3693 /* TitleScreen.swift */; };
 		ABACE2D12B0D626A0004D944 /* SettingsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABACE2D02B0D626A0004D944 /* SettingsMenu.swift */; };
@@ -64,6 +65,7 @@
 
 /* Begin PBXFileReference section */
 		731D93332B1412E000EA8A55 /* AuthScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthScene.swift; sourceTree = "<group>"; };
+		738F57072B167AD700CA1A25 /* BathScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BathScene.swift; sourceTree = "<group>"; };
 		73A526832AE386B800EE3693 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
 		73A526852AE386CA00EE3693 /* TitleScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleScreen.swift; sourceTree = "<group>"; };
 		ABACE2D02B0D626A0004D944 /* SettingsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMenu.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				CD1F68A52AD47BEF002B1EF5 /* GameScene.swift */,
 				ABACE2D02B0D626A0004D944 /* SettingsMenu.swift */,
 				CD1F68A72AD47BEF002B1EF5 /* GameViewController.swift */,
+				738F57072B167AD700CA1A25 /* BathScene.swift */,
 				ABE4E8222AE4703A0092ECA6 /* SideMenu.swift */,
 				CDBE2AB42AE2025A00712D94 /* Runner.swift */,
 				BD1AED362B166B36007801C5 /* FoodCollect.swift */,
@@ -379,6 +382,7 @@
 				73A526862AE386CA00EE3693 /* TitleScreen.swift in Sources */,
 				ABACE2D12B0D626A0004D944 /* SettingsMenu.swift in Sources */,
 				BDB138232B13DE2D00D7AF32 /* EndScreen.swift in Sources */,
+				738F57082B167AD700CA1A25 /* BathScene.swift in Sources */,
 				ABE4E8232AE4703A0092ECA6 /* SideMenu.swift in Sources */,
 				BD1AED372B166B37007801C5 /* FoodCollect.swift in Sources */,
 				73A526842AE386B900EE3693 /* MainScreen.swift in Sources */,
