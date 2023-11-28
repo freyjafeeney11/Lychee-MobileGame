@@ -29,18 +29,10 @@ struct AuthScene: View {
     var body: some View {
         NavigationView {
             ZStack {
-                NavigationLink(
-                    destination: MainView(),
-                    isActive: $showMainScreen
-                ) {
-                    EmptyView()
-                }
                 Image("keypad")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 8000, height: 420)
-                NavigationLink(destination: MainView(), isActive: $showMainScreen) {
-                    EmptyView()}
                 VStack(spacing:40){
                     TextField("USERNAME!!", text:$user)
                         .foregroundColor(.white)

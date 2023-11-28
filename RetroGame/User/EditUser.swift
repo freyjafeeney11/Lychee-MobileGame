@@ -15,7 +15,7 @@ public class EditUser: ObservableObject{
     
     private var db = Firestore.firestore()
     
-    let curr = db.collection("users").document("Tess")
+    //let curr = db.collection("users").document("Tess")
     
     
     func runner_levels(){

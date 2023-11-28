@@ -11,11 +11,7 @@ import GameplayKit
 import Firebase
 import _SpriteKit_SwiftUI
 
-struct petChoice {
-    static var pet = SKSpriteNode(imageNamed: "catbat_prototype")
-}
-
-class MainScreen: SKScene {
+class BathScene: SKScene {
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
     var runnerButton: SKSpriteNode?
@@ -32,12 +28,12 @@ class MainScreen: SKScene {
         let providerFactory = AppCheckDebugProviderFactory()
         AppCheck.setAppCheckProviderFactory(providerFactory)
         
-        let player = petChoice.pet
         
         menuBar = SKSpriteNode(imageNamed: "SideMenuOpen")
 
-        let room = SKSpriteNode(imageNamed: "FullLivingRoom")
-        
+        let room = SKSpriteNode(imageNamed: "backgroundTiles")
+        let tub = SKSpriteNode(imageNamed: "bathtub")
+        let player = SKSpriteNode(imageNamed: "catbat_prototype")
         
         runnerButton = SKSpriteNode(imageNamed: "RunnerButton")
         
@@ -125,7 +121,8 @@ class MainScreen: SKScene {
 //        happy.zPosition = 1
         
         backgroundColor = SKColor.white
-        room.setScale(0.85)
+        room.setScale(3.4)
+        tub.setScale(2.6)
         runnerButton?.setScale(0.21)
         
         //level scale
@@ -137,9 +134,10 @@ class MainScreen: SKScene {
         
         //menu
         menuBar?.setScale(0.8)
-        menuBar?.position = CGPoint(x: -245, y: size.height * 0.5)
+        menuBar?.position = CGPoint(x: -237, y: size.height * 0.5)
         
         room.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
+        tub.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         player.position = CGPoint(x: size.width * 0.45, y: size.height * 0.4)
         
         addChild(hunger)
@@ -148,6 +146,7 @@ class MainScreen: SKScene {
         addChild(hygiene)
         addChild(happy)
         addChild(room)
+        addChild(tub)
         addChild(player)
         addChild(runnerButton!)
         addChild(menuBar!)
@@ -177,3 +176,15 @@ class MainScreen: SKScene {
 
 }
 
+struct BathView: View {
+    var scene: SKScene {
+        let scene = BathScene(size: CGSize(width: 900, height: 400))
+        scene.scaleMode = .aspectFill
+        return scene
+    }
+
+    var body: some View {
+        SpriteView(scene: scene)
+            .ignoresSafeArea()
+    }
+}
