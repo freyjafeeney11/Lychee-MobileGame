@@ -9,8 +9,8 @@ import SpriteKit
 import GameplayKit
 
 class Runner: SKScene, SKPhysicsContactDelegate{
-    let character = SKSpriteNode(imageNamed: "chicken-hamster")
-    
+    let character = SKSpriteNode(imageNamed: petChoice.pet)
+
     // To detect collision, bitmask category
     let characterCategory:UInt32 = 0x100
     let groundCategory:UInt32 = 0x1000
