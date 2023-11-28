@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import GameplayKit
+import Firebase
 
 class MainScreen: SKScene {
     
@@ -15,9 +16,18 @@ class MainScreen: SKScene {
     private var spinnyNode : SKShapeNode?
     var runnerButton: SKSpriteNode?
     var menuBar: SKSpriteNode?
+    let currentUser = AuthScene.init()
+    var editUser = EditUser()
     
     
     override func didMove(to view: SKView) {
+        
+        
+        //firebase
+        
+        let providerFactory = AppCheckDebugProviderFactory()
+        AppCheck.setAppCheckProviderFactory(providerFactory)
+        
         
         menuBar = SKSpriteNode(imageNamed: "SideMenuOpen")
 
@@ -144,6 +154,7 @@ class MainScreen: SKScene {
             let location = touch.location(in: self)
 
             if runnerButton?.contains(location) == true {
+                editUser.runner_levels()
                 // Transition to the runner game scene
                 let runnerGame = Runner(size: size)
                 runnerGame.scaleMode = .aspectFill
@@ -157,5 +168,7 @@ class MainScreen: SKScene {
             }
         }
     }
+    
+
 }
 

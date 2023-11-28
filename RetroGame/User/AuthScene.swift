@@ -9,10 +9,19 @@ import Foundation
 import Firebase
 import SwiftUI
 import SpriteKit
+import FirebaseFirestoreSwift
 
+@MainActor
 struct AuthScene: View {
     @State private var user = ""
     @State private var pass = ""
+    //@Published var userSession: FirebaseAuth.User?
+    //@Published var currentUser: User?
+    
+    /*
+    init(){
+        self.userSession = Auth.auth().currentUser
+    } */
     
     var body: some View {
         ZStack {
@@ -28,7 +37,9 @@ struct AuthScene: View {
                 
                 //register here
                 Button {
-                    register()
+                    Task{
+                        await self.register(withEmail: self.user, password: self.pass)
+                    }
                 } label: {
                     Text("Create Account")
                         .bold()
@@ -38,7 +49,7 @@ struct AuthScene: View {
                 }
                 // login here
                 Button {
-                    login()
+                    self.login()
                 } label: {
                     Text("Login")
                         .bold()
@@ -46,7 +57,7 @@ struct AuthScene: View {
                 }
                 // added this to bypass and move to main screen for now
                 Button {
-                    mainScreen()
+                    self.mainScreen()
                 } label: {
                     Text("Go to main screen")
                         .bold()
@@ -69,10 +80,18 @@ struct AuthScene: View {
     func mainScreen() {
         //
     }
-    func register() {
-        Auth.auth().createUser(withEmail: user, password: pass) { result, error in if error != nil {
-            print(error!.localizedDescription)
+    func register(withEmail email: String, password: String) async {
+        do{
+            let _ = try await Auth.auth().createUser(withEmail: user, password: pass)
+            let userID = Auth.auth().currentUser!.uid
+            var atSign = email.firstIndex(of: "@")!
+            var name = email[...atSign]
+            let user = UserHealth(id: userID, name: String(name), user: email, pass: password, hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: true, coins: 0)
+            let encodedUser = try Firestore.Encoder().encode(user)
+            try await Firestore.firestore().collection("users").document(email).setData(encodedUser)
         }
+        catch {
+            print("DEBUG: Failed to create user with error \(error)")
         }
     }
 }
