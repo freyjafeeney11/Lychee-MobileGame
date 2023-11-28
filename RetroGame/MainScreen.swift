@@ -14,6 +14,7 @@ class MainScreen: SKScene {
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
     var runnerButton: SKSpriteNode?
+    var foodCollectButton: SKSpriteNode?
     var menuBar: SKSpriteNode?
     
     
@@ -25,6 +26,7 @@ class MainScreen: SKScene {
         let player = SKSpriteNode(imageNamed: "catbat_prototype")
         
         runnerButton = SKSpriteNode(imageNamed: "RunnerButton")
+        foodCollectButton = SKSpriteNode(imageNamed: "FoodCollectButton")
         
 //        func addRandom() -> Double {
 //            let randomDouble = Double.random(in: 0.9...2)
@@ -94,6 +96,7 @@ class MainScreen: SKScene {
         let happy = SKSpriteNode(imageNamed: "100Happy")
         
         runnerButton?.position = CGPoint(x: size.width * 0.8, y: size.height * 0.7)
+        foodCollectButton?.position = CGPoint(x: size.width * 0.146, y: size.height * 0.69)
         
         //level position
         // commented these out for levels menu instead
@@ -112,6 +115,7 @@ class MainScreen: SKScene {
         backgroundColor = SKColor.white
         room.setScale(0.85)
         runnerButton?.setScale(0.21)
+        foodCollectButton?.setScale(1.12)
         
         //level scale
         hunger.setScale(2)
@@ -135,6 +139,7 @@ class MainScreen: SKScene {
         addChild(room)
         addChild(player)
         addChild(runnerButton!)
+        addChild(foodCollectButton!)
         addChild(menuBar!)
         
     }
@@ -148,6 +153,12 @@ class MainScreen: SKScene {
                 let runnerGame = Runner(size: size)
                 runnerGame.scaleMode = .aspectFill
                 view?.presentScene(runnerGame)
+            }
+            if foodCollectButton?.contains(location) == true {
+                // Transition to the runner game scene
+                let foodCollectGame = FoodCollect(size: size)
+                foodCollectGame.scaleMode = .aspectFill
+                view?.presentScene(foodCollectGame)
             }
             
             if menuBar?.contains(location) == true {
