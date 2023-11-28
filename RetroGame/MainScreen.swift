@@ -8,17 +8,27 @@
 import Foundation
 import SwiftUI
 import GameplayKit
+import Firebase
+import _SpriteKit_SwiftUI
 
 class MainScreen: SKScene {
-    
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
     var runnerButton: SKSpriteNode?
     var foodCollectButton: SKSpriteNode?
     var menuBar: SKSpriteNode?
+    let currentUser = AuthScene.init()
+    var editUser = EditUser()
     
     
     override func didMove(to view: SKView) {
+        
+        
+        //firebase
+        
+        let providerFactory = AppCheckDebugProviderFactory()
+        AppCheck.setAppCheckProviderFactory(providerFactory)
+        
         
         menuBar = SKSpriteNode(imageNamed: "SideMenuOpen")
 
@@ -105,7 +115,7 @@ class MainScreen: SKScene {
 //        hygiene.position = CGPoint(x: 100, y: 270)
 //        energy.position = CGPoint(x: 250, y: 350)
 //        social.position = CGPoint(x: 250, y: 310)
-//        
+//
 //        hunger.zPosition = 1
 //        social.zPosition = 1
 //        hygiene.zPosition = 1
@@ -126,7 +136,7 @@ class MainScreen: SKScene {
         
         //menu
         menuBar?.setScale(0.8)
-        menuBar?.position = CGPoint(x: -248, y: size.height * 0.5)
+        menuBar?.position = CGPoint(x: -240, y: size.height * 0.5)
         
         room.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         player.position = CGPoint(x: size.width * 0.45, y: size.height * 0.4)
@@ -149,6 +159,7 @@ class MainScreen: SKScene {
             let location = touch.location(in: self)
 
             if runnerButton?.contains(location) == true {
+                editUser.runner_levels()
                 // Transition to the runner game scene
                 let runnerGame = Runner(size: size)
                 runnerGame.scaleMode = .aspectFill
@@ -168,5 +179,19 @@ class MainScreen: SKScene {
             }
         }
     }
+    
+
 }
 
+struct MainView: View {
+    var scene: SKScene {
+        let scene = MainScreen(size: CGSize(width: 900, height: 400))
+        scene.scaleMode = .aspectFill
+        return scene
+    }
+
+    var body: some View {
+        SpriteView(scene: scene)
+            .ignoresSafeArea()
+    }
+}

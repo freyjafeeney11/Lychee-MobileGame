@@ -37,6 +37,7 @@
 		CD2080EE2B0464FC00D50141 /* FirebaseInAppMessaging-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = CD2080ED2B0464FC00D50141 /* FirebaseInAppMessaging-Beta */; };
 		CD2080F02B04656C00D50141 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = CD2080EF2B04656C00D50141 /* FirebaseFirestore */; };
 		CD6379262B0705D600E887B9 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CD6379252B0705D600E887B9 /* FirebaseFirestoreSwift */; };
+		CD6525CD2B165D6600708DC0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD6525CC2B165D6600708DC0 /* GoogleService-Info.plist */; };
 		CDBE2AB52AE2025A00712D94 /* Runner.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBE2AB42AE2025A00712D94 /* Runner.swift */; };
 		CDF98A832B066F7800BB78D6 /* Backend.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF98A822B066F7800BB78D6 /* Backend.swift */; };
 		CDF98A852B0670AC00BB78D6 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = CDF98A842B0670AC00BB78D6 /* FirebaseAppCheck */; };
@@ -85,6 +86,7 @@
 		CD1F68BF2AD47BF2002B1EF5 /* RetroGameUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RetroGameUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD1F68C32AD47BF2002B1EF5 /* RetroGameUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetroGameUITests.swift; sourceTree = "<group>"; };
 		CD1F68C52AD47BF2002B1EF5 /* RetroGameUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetroGameUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		CD6525CC2B165D6600708DC0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CDBE2AB42AE2025A00712D94 /* Runner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Runner.swift; sourceTree = "<group>"; };
 		CDF98A822B066F7800BB78D6 /* Backend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backend.swift; sourceTree = "<group>"; };
 		CDF98A862B06767100BB78D6 /* UserHealth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHealth.swift; sourceTree = "<group>"; };
@@ -155,9 +157,13 @@
 				BDB138262B13EEDD00D7AF32 /* Info.plist */,
 				CD1F689F2AD47BEF002B1EF5 /* AppDelegate.swift */,
 				CDF98A882B06781F00BB78D6 /* User */,
+<<<<<<< HEAD
 				BD1AED342B1656B6007801C5 /* GoogleService-Info.plist */,
+=======
+>>>>>>> refs/remotes/origin/main
 				CD1F68A12AD47BEF002B1EF5 /* GameScene.sks */,
 				CD1F68A32AD47BEF002B1EF5 /* Actions.sks */,
+				CD6525CC2B165D6600708DC0 /* GoogleService-Info.plist */,
 				CD1F68A52AD47BEF002B1EF5 /* GameScene.swift */,
 				ABACE2D02B0D626A0004D944 /* SettingsMenu.swift */,
 				CD1F68A72AD47BEF002B1EF5 /* GameViewController.swift */,
@@ -337,7 +343,11 @@
 				CD1F68AD2AD47BF1002B1EF5 /* Assets.xcassets in Resources */,
 				CD1F68B02AD47BF1002B1EF5 /* LaunchScreen.storyboard in Resources */,
 				CD1F68A42AD47BEF002B1EF5 /* Actions.sks in Resources */,
+<<<<<<< HEAD
 				BD1AED352B1656B7007801C5 /* GoogleService-Info.plist in Resources */,
+=======
+				CD6525CD2B165D6600708DC0 /* GoogleService-Info.plist in Resources */,
+>>>>>>> refs/remotes/origin/main
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
