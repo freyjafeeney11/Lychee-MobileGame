@@ -41,10 +41,16 @@ class TitleScreen: SKScene {
             let location = touch.location(in: self)
 
             if startButton?.contains(location) == true {
-                // Transition to the main game scene
-                let mainGameScreen = MainScreen(size: size)
-                mainGameScreen.scaleMode = .aspectFill
-                view?.presentScene(mainGameScreen)
+                
+                let MainScreen = MainScreen(size: size)
+                MainScreen.scaleMode = .aspectFill
+                view?.presentScene(MainScreen)
+                
+                // this is auth stuff uncomment it to add users.. Spritekit -> SwiftUI
+//                let authSceneView = AuthScene()
+                // need this controller to display swiftUI from spritekit
+//                let hostingController = UIHostingController(rootView: authSceneView)
+//                self.view?.window?.rootViewController?.present(hostingController, animated: true, completion: nil)
             }
         }
     }
