@@ -12,6 +12,7 @@ import GameplayKit
 
 
 class TitleScreen: SKScene {
+    @State private var showMainScreen = false
     
     var startButton: SKSpriteNode?
     
@@ -41,16 +42,24 @@ class TitleScreen: SKScene {
             let location = touch.location(in: self)
 
             if startButton?.contains(location) == true {
+                print("startButton touched")
+                showMainScreen = true
+                print(showMainScreen)
                 
-                let MainScreen = MainScreen(size: size)
-                MainScreen.scaleMode = .aspectFill
-                view?.presentScene(MainScreen)
-                
-                // this is auth stuff uncomment it to add users.. Spritekit -> SwiftUI
-//                let authSceneView = AuthScene()
-                // need this controller to display swiftUI from spritekit
+//                let authSceneView = MainView()
+//                                // need this controller to display swiftUI from spritekit
 //                let hostingController = UIHostingController(rootView: authSceneView)
 //                self.view?.window?.rootViewController?.present(hostingController, animated: true, completion: nil)
+                
+//                let MainScreen = MainScreen(size: size)
+//                MainScreen.scaleMode = .aspectFill
+//                view?.presentScene(MainScreen)
+                
+                //this is auth stuff uncomment it to add users.. Spritekit -> SwiftUI
+                let authSceneView = AuthScene()
+                //need this controller to display swiftUI from spritekit
+                let hostingController = UIHostingController(rootView: authSceneView)
+                self.view?.window?.rootViewController?.present(hostingController, animated: true, completion: nil)
             }
         }
     }
