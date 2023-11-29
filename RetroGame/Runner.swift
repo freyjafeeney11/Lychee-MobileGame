@@ -51,7 +51,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         let rangeY = SKRange(lowerLimit: minY, upperLimit: maxY)
         
         let characterConstraint = SKConstraint.positionX(rangeX, y: rangeY)
-        // Add gesture recognizer for swipes
+        // gesture recognizer for swipes
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
         swipeRight.direction = .right
         view.addGestureRecognizer(swipeRight)

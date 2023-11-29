@@ -9,26 +9,54 @@ import Foundation
 import FirebaseFirestoreSwift
 
 
-struct UserHealth: Identifiable, Codable{
+class UserHealth: Identifiable, Codable{
     @DocumentID
     var id: String?
-    let hunger_level: Int
-    let social_level: Int
-    let hygiene_level: Int
-    let happiness_level: Int
-    let energy_level: Int
-    let user: String
-    let pass: String
+    var hunger_level: Int
+    var social_level: Int
+    var hygiene_level: Int
+    var happiness_level: Int
+    var energy_level: Int
+    var name: String
+    var user: String
+    var pass: String
+    var volume: Bool
+    var coins: Int
     
-    init(user: String, pass: String, hunger: Int, social: Int, hygiene: Int, happiness: Int, energy: Int){
+    
+    init(id: String, name: String, user: String, pass: String, hunger: Int, social: Int, hygiene: Int, happiness: Int, energy: Int, volume: Bool, coins: Int){
         self.user = user
+        self.name = name
         self.hunger_level = hunger
         self.social_level = social
         self.hygiene_level = hygiene
         self.happiness_level = happiness
         self.energy_level = energy
         self.pass = pass
+        self.volume = volume
+        self.coins = coins
     }
+    
+    func setHunger(newHunger: Int){
+        hunger_level = newHunger
+    }
+    func setSocial(newSocial: Int){
+        self.social_level = newSocial
+    }
+    func setHygiene(newHygiene: Int){
+        self.hygiene_level = newHygiene
+    }
+    func setHappiness(newHappiness: Int){
+        self.happiness_level = newHappiness
+    }
+    func setEnergy(newEnergy: Int){
+        self.energy_level = newEnergy
+    }
+    
+    func updateLevel(level: Int, type: String){
+        
+    }
+    
 }
 
     /*

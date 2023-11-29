@@ -12,14 +12,13 @@ import FirebaseFirestoreSwift
 
 
 public class EditUser: ObservableObject{
-    @Published
-    var users = [UserHealth]()
+    
+    private var db = Firestore.firestore()
+    
+    //let curr = db.collection("users").document("Tess")
     
     
-    func addUser(_ user: UserHealth) throws {
-        try Firestore
-            .firestore()
-            .collection("users")
-            .addDocument(from: user)
+    func runner_levels(){
+        db.collection("users")
     }
 }
