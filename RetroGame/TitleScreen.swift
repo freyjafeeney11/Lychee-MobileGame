@@ -46,7 +46,29 @@ class TitleScreen: SKScene {
                 let MainScreen = MainScreen(size: size)
                 MainScreen.scaleMode = .aspectFill
                 view?.presentScene(MainScreen)*/
+<<<<<<< HEAD
 
+=======
+                
+                // this is auth stuff uncomment it to add users.. Spritekit -> SwiftUI
+                let authSceneView = AuthScene()
+                // need this controller to display swiftUI from spritekit
+                let hostingController = UIHostingController(rootView: authSceneView)
+                self.view?.window?.rootViewController?.present(hostingController, animated: true, completion: nil)
+                print("startButton touched")
+                showMainScreen = true
+                print(showMainScreen)
+                
+//                let authSceneView = MainView()
+//                                // need this controller to display swiftUI from spritekit
+//                let hostingController = UIHostingController(rootView: authSceneView)
+//                self.view?.window?.rootViewController?.present(hostingController, animated: true, completion: nil)
+                
+                //let MainScreen = MainScreen(size: size)
+                //MainScreen.scaleMode = .aspectFill
+                //view?.presentScene(MainScreen)
+                
+>>>>>>> f1d4831ae3c0d5fa64d0123a7e3fd930069da6be
                 //this is auth stuff uncomment it to add users.. Spritekit -> SwiftUI
                 let authSceneView = AuthScene()
                 //need this controller to display swiftUI from spritekit

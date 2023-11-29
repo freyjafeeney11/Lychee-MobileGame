@@ -11,8 +11,8 @@ import GameplayKit
 import Firebase
 import _SpriteKit_SwiftUI
 
-public struct petChoice {
-    static var pet = "catbat_ver2-export"
+struct petChoice {
+    static var pet = SKSpriteNode(imageNamed: "catbat_prototype")
 }
 
 public var shared = MainScreen()
@@ -35,7 +35,7 @@ public class MainScreen: SKScene {
         let providerFactory = AppCheckDebugProviderFactory()
         AppCheck.setAppCheckProviderFactory(providerFactory)
         
-        let player = SKSpriteNode(imageNamed: petChoice.pet)
+        let player = petChoice.pet
         
         menuBar = SKSpriteNode(imageNamed: "SideMenuOpen")
 
