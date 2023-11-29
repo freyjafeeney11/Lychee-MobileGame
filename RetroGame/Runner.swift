@@ -79,7 +79,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         timerLabel.text = "Time: \(Int(remainingTime))s"
         
         if elapsedTime >= gameDuration {
-            gameTimer?.invalidate() // Stop the timer
+            print("Game over! Time's up.")
             handleGameEnd()
         }
     }
@@ -119,7 +119,8 @@ class Runner: SKScene, SKPhysicsContactDelegate{
             isJumping = false
         }
         if character.position.x < loseThresholdX {
-            characterOutOfBounds()
+            print("Game Over! Character went out of bounds.")
+            handleGameEnd()
         }
         character.constraints?.forEach { $0.referenceNode?.position = character.position }
         enumerateChildNodes(withName: "coin") { node, _ in
@@ -136,17 +137,11 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     }
     
     func handleGameEnd() {
-        print("Game over! Time's up.")
-    }
-    
-    func characterOutOfBounds() {
-        print("Character went out of bounds!")
         gameTimer?.invalidate()
         if let skView = self.view {
             let endScene = EndScreen(size: self.size, collectedCoins: coinCounter)
             endScene.scaleMode = .aspectFill
             skView.presentScene(endScene)
-            print("Transitioning to endscreen.")
         }
     }
     
