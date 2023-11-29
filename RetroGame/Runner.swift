@@ -145,7 +145,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         if let skView = self.view {
             let endScene = EndScreen(size: self.size, collectedCoins: coinCounter)
             endScene.scaleMode = .aspectFill
-            skView.presentScene(endScene, transition: SKTransition.fade(withDuration: 0.5))
+            skView.presentScene(endScene)
             print("Transitioning to endscreen.")
         }
     }
