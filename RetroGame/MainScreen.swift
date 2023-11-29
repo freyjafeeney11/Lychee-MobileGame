@@ -15,7 +15,9 @@ public struct petChoice {
     static var pet = "catbat_ver2-export"
 }
 
-class MainScreen: SKScene {
+public var shared = MainScreen()
+
+public class MainScreen: SKScene {
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
     var runnerButton: SKSpriteNode?
@@ -24,7 +26,8 @@ class MainScreen: SKScene {
     var editUser = EditUser()
     
     
-    override func didMove(to view: SKView) {
+    
+    public override func didMove(to view: SKView) {
         
         
         //firebase
@@ -154,7 +157,7 @@ class MainScreen: SKScene {
         
     }
 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
 
@@ -165,7 +168,6 @@ class MainScreen: SKScene {
                 runnerGame.scaleMode = .aspectFill
                 view?.presentScene(runnerGame)
             }
-            
             if menuBar?.contains(location) == true {
                 let menu = SideMenu(size: size)
                 menu.scaleMode = .aspectFill
@@ -177,3 +179,9 @@ class MainScreen: SKScene {
 
 }
 
+struct MainGameSceneView: View {
+    var body: some View {
+        SpriteKitContainer(scene: MainScreen(size: UIScreen.main.bounds.size))
+            .ignoresSafeArea()
+    }
+}

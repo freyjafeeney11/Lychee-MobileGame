@@ -9,7 +9,7 @@ import SpriteKit
 import GameplayKit
 
 class Runner: SKScene, SKPhysicsContactDelegate{
-    let character = SKSpriteNode(imageNamed: petChoice.pet)
+    let character = SKSpriteNode(imageNamed: "chicken-hamster")
 
     // To detect collision, bitmask category
     let characterCategory:UInt32 = 0x100
@@ -127,6 +127,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         let endScene = EndScreen(size: self.size, collectedCoins: coinCounter)
         endScene.scaleMode = .aspectFill
         self.view?.presentScene(endScene, transition: SKTransition.fade(withDuration: 0.5))
+        print("presented scene")
     }
     
     func createSky() {
