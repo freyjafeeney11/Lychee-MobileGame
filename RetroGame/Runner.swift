@@ -10,6 +10,8 @@ import GameplayKit
 
 class Runner: SKScene, SKPhysicsContactDelegate{
     let character = SKSpriteNode(imageNamed: "chicken-hamster")
+    
+    // To detect collision, bitmask category
     let characterCategory:UInt32 = 0x100
     let groundCategory:UInt32 = 0x1000
     let coinCategory:UInt32 = 0x10000
@@ -32,7 +34,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     let maxSwipeCount = 3
     let forwardForce: CGFloat = 100.0
     
-    let loseThresholdX: CGFloat = 0
+    let loseThresholdX: CGFloat = 0.0
     var coinCounter = 0
             
     override func didMove(to view: SKView){
@@ -49,7 +51,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         let rangeY = SKRange(lowerLimit: minY, upperLimit: maxY)
         
         let characterConstraint = SKConstraint.positionX(rangeX, y: rangeY)
-        // gesture recognizer for swipes
+        // Add gesture recognizer for swipes
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
         swipeRight.direction = .right
         view.addGestureRecognizer(swipeRight)
@@ -121,11 +123,12 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     
     func characterOutOfBounds() {
         print("Character went out of bounds!")
-        // Move to EndScreen
-        let endScene = EndScreen(size: self.size, collectedCoins: coinCounter)
-        endScene.scaleMode = .aspectFill
-        self.view?.presentScene(endScene, transition: SKTransition.fade(withDuration: 0.5))
-        print("presented scene")
+        if let skView = self.view {
+            let endScene = EndScreen(size: self.size, collectedCoins: coinCounter)
+            endScene.scaleMode = .aspectFill
+            skView.presentScene(endScene, transition: SKTransition.fade(withDuration: 0.5))
+            print("Transitioning to endscreen.")
+        }
     }
     
     func createSky() {

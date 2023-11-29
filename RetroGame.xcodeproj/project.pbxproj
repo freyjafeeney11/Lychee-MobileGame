@@ -20,6 +20,7 @@
 		ABACE2D12B0D626A0004D944 /* SettingsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABACE2D02B0D626A0004D944 /* SettingsMenu.swift */; };
 		ABE4E8232AE4703A0092ECA6 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE4E8222AE4703A0092ECA6 /* SideMenu.swift */; };
 		BD3EFA012B16B2600099B85A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD3EFA002B16B2600099B85A /* GoogleService-Info.plist */; };
+		BD8427522B17CC3C0011D458 /* Harvest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8427512B17CC3C0011D458 /* Harvest.swift */; };
 		BDB138232B13DE2D00D7AF32 /* EndScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB138222B13DE2D00D7AF32 /* EndScreen.swift */; };
 		CD1F68A02AD47BEF002B1EF5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1F689F2AD47BEF002B1EF5 /* AppDelegate.swift */; };
 		CD1F68A22AD47BEF002B1EF5 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CD1F68A12AD47BEF002B1EF5 /* GameScene.sks */; };
@@ -71,6 +72,7 @@
 		ABACE2D02B0D626A0004D944 /* SettingsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMenu.swift; sourceTree = "<group>"; };
 		ABE4E8222AE4703A0092ECA6 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
 		BD3EFA002B16B2600099B85A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BD8427512B17CC3C0011D458 /* Harvest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Harvest.swift; sourceTree = "<group>"; };
 		BDB138222B13DE2D00D7AF32 /* EndScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndScreen.swift; sourceTree = "<group>"; };
 		BDB138262B13EEDD00D7AF32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		CD1F689C2AD47BEF002B1EF5 /* RetroGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RetroGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -166,6 +168,7 @@
 				738F57072B167AD700CA1A25 /* BathScene.swift */,
 				ABE4E8222AE4703A0092ECA6 /* SideMenu.swift */,
 				CDBE2AB42AE2025A00712D94 /* Runner.swift */,
+				BD8427512B17CC3C0011D458 /* Harvest.swift */,
 				BDB138222B13DE2D00D7AF32 /* EndScreen.swift */,
 				CD1F68A92AD47BEF002B1EF5 /* Main.storyboard */,
 				73A526832AE386B800EE3693 /* MainScreen.swift */,
@@ -370,10 +373,10 @@
 				CD1F68A62AD47BEF002B1EF5 /* GameScene.swift in Sources */,
 				CDBE2AB52AE2025A00712D94 /* Runner.swift in Sources */,
 				73A526862AE386CA00EE3693 /* TitleScreen.swift in Sources */,
+				BD8427522B17CC3C0011D458 /* Harvest.swift in Sources */,
 				ABACE2D12B0D626A0004D944 /* SettingsMenu.swift in Sources */,
 				BDB138232B13DE2D00D7AF32 /* EndScreen.swift in Sources */,
 				738F57082B167AD700CA1A25 /* BathScene.swift in Sources */,
-				ABACE2EF2B1653980004D944 /* SocialMenu.swift in Sources */,
 				ABE4E8232AE4703A0092ECA6 /* SideMenu.swift in Sources */,
 				73A526842AE386B900EE3693 /* MainScreen.swift in Sources */,
 				738F570A2B170EBA00CA1A25 /* SpriteKitContainer.swift in Sources */,
