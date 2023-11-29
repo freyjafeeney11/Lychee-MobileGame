@@ -47,10 +47,10 @@ class TitleScreen: SKScene {
                 view?.presentScene(MainScreen)
                 
                 // this is auth stuff uncomment it to add users.. Spritekit -> SwiftUI
-//                let authSceneView = AuthScene()
+                let authSceneView = AuthScene()
                 // need this controller to display swiftUI from spritekit
-//                let hostingController = UIHostingController(rootView: authSceneView)
-//                self.view?.window?.rootViewController?.present(hostingController, animated: true, completion: nil)
+                let hostingController = UIHostingController(rootView: authSceneView)
+                self.view?.window?.rootViewController?.present(hostingController, animated: true, completion: nil)
             }
         }
     }
