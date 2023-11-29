@@ -32,8 +32,14 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     var isJumping = false
     var canJump = true
     
+    // Game over mech
     let loseThresholdX: CGFloat = 0.0
     var coinCounter = 0
+    
+    var gameTimer: Timer?
+    let gameDuration: TimeInterval = 30 // play for 3 mins at a time?
+    var elapsedTime: TimeInterval = 0
+    var timerLabel: SKLabelNode!
             
     override func didMove(to view: SKView){
         // Set the size of the scene
@@ -59,10 +65,24 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         addCityCollision()
         startCoinSpawning()
         
-        // Add an initial impulse to start the constant running motion
-        //character.physicsBody?.applyImpulse(CGVector(dx: 50.0, dy: 0.0))
+        gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+        timerLabel = SKLabelNode(fontNamed: "Arial")
+        timerLabel.text = "Time: \(Int(gameDuration - elapsedTime))s"
+        timerLabel.fontSize = 24
+        timerLabel.position = CGPoint(x: size.width * 0.1, y: size.height - 50)
+        addChild(timerLabel)
     }
 
+    @objc func updateTimer() {
+        elapsedTime += 1
+        let remainingTime = max(gameDuration - elapsedTime, 0)
+        timerLabel.text = "Time: \(Int(remainingTime))s"
+        
+        if elapsedTime >= gameDuration {
+            gameTimer?.invalidate() // Stop the timer
+            handleGameEnd()
+        }
+    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         // Check if the character is not already jumping
         if !isJumping && canJump {
@@ -115,8 +135,13 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         }
     }
     
+    func handleGameEnd() {
+        print("Game over! Time's up.")
+    }
+    
     func characterOutOfBounds() {
         print("Character went out of bounds!")
+        gameTimer?.invalidate()
         if let skView = self.view {
             let endScene = EndScreen(size: self.size, collectedCoins: coinCounter)
             endScene.scaleMode = .aspectFill
