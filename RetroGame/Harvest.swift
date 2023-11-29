@@ -30,7 +30,7 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
     let forwardForce: CGFloat = 100.0
     
     let loseThresholdX: CGFloat = 0
-    var coinCounter = 0
+    var foodCounter = 0
             
     override func didMove(to view: SKView){
         // Set the size of the scene
@@ -56,7 +56,7 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
         addCharacter()
         physicsWorld.contactDelegate = self
         physicsWorld.gravity = CGVector(dx: 0, dy: -5.0)
-        startCoinSpawning()
+        startFoodSpawning()
         
         // Add an initial impulse to start the constant running motion
         //character.physicsBody?.applyImpulse(CGVector(dx: 50.0, dy: 0.0))
@@ -83,9 +83,9 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
 
         if contactMask == characterCategory | foodCategory {
             if contact.bodyA.categoryBitMask == characterCategory {
-                coinCollected(contact.bodyB.node as? SKSpriteNode ?? SKSpriteNode())
+                foodCollected(contact.bodyB.node as? SKSpriteNode ?? SKSpriteNode())
             } else {
-                coinCollected(contact.bodyA.node as? SKSpriteNode ?? SKSpriteNode())
+                foodCollected(contact.bodyA.node as? SKSpriteNode ?? SKSpriteNode())
             }
         }
     }
@@ -104,9 +104,7 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
     func characterOutOfBounds() {
         print("Character went out of bounds!")
         // Move to EndScreen
-        let endScene = EndScreen(size: self.size, collectedCoins: coinCounter)
-        endScene.scaleMode = .aspectFill
-        self.view?.presentScene(endScene, transition: SKTransition.fade(withDuration: 0.5))
+
     }
     
     func createSky() {
@@ -116,77 +114,77 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
         addChild(sky)
 
     }
-    
+
     func createGround() {
-        ground.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: ground.size.width, height: ground.size.height))
+        let groundSize = CGSize(width: ground.size.width, height: ground.size.height + 20)
+        ground.physicsBody = SKPhysicsBody(texture: ground.texture!, size: groundSize)
         ground.physicsBody?.usesPreciseCollisionDetection = true
         ground.physicsBody?.isDynamic = false
         ground.physicsBody?.friction = 0.0
         ground.physicsBody?.categoryBitMask = groundCategory
         ground.physicsBody?.collisionBitMask = characterCategory
         
-        ground.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
+        ground.position = CGPoint(x: size.width * 0.5, y: ground.size.height * 0.5)
         ground.zPosition = 1
         addChild(ground)
     }
-    
-    func addCharacter() {
-        character.position = CGPoint(x: size.width * 0.5, y: size.height/2)
-        character.zPosition = 2
 
+    func addCharacter() {
+        let groundHeight = ground.size.height
+        character.position = CGPoint(x: size.width * 0.5, y: groundHeight)
+        character.zPosition = 2
+        
         character.physicsBody = SKPhysicsBody(texture: character.texture!,
-                                               size: character.texture!.size())
+                                              size: character.texture!.size())
         character.physicsBody?.affectedByGravity = true
         character.physicsBody?.isDynamic = true
         character.physicsBody?.allowsRotation = false
         character.physicsBody?.categoryBitMask = characterCategory
         character.physicsBody?.collisionBitMask = groundCategory
-        character.physicsBody?.contactTestBitMask = groundCategory // Detect contact with buildings
-
+        character.physicsBody?.contactTestBitMask = groundCategory
+        
         character.physicsBody?.usesPreciseCollisionDetection = true
-        print("Character Added!")
         addChild(character)
-        print("Character Initial Position: \(character.position)")
     }
-    func startCoinSpawning() {
-        let spawnCoinAction = SKAction.run(spawnCoin)
+    func startFoodSpawning() {
+        let spawnFoodAction = SKAction.run(spawnFood)
         let waitDuration = SKAction.wait(forDuration: 3.0)
-        let sequence = SKAction.sequence([spawnCoinAction, waitDuration])
+        let sequence = SKAction.sequence([spawnFoodAction, waitDuration])
         let repeatForever = SKAction.repeatForever(sequence)
         
         run(repeatForever)
     }
     
-    func spawnCoin() {
-        let coin = SKSpriteNode(imageNamed: "watermelon")
-        coin.name = "coin"
+    func spawnFood() {
+        let food = SKSpriteNode(imageNamed: "watermelon")
+        food.name = "food"
         
         let minX = character.position.x + 50
-        let maxX = size.width - coin.size.width / 2
+        let maxX = size.width - food.size.width / 2
         let minY = character.size.height + 50
-        let maxY = size.height - coin.size.height * 2
+        let maxY = size.height - food.size.height * 2
         
         let randomX = CGFloat(arc4random_uniform(UInt32(maxX - minX))) + minX
         let randomY = CGFloat(arc4random_uniform(UInt32(maxY - minY))) + minY
         
-        coin.position = CGPoint(x: randomX, y: randomY)
-        coin.zPosition = 3
-        coin.physicsBody = SKPhysicsBody(circleOfRadius: (coin.size.width / 2)-3)
-        coin.physicsBody?.isDynamic = true
-        coin.physicsBody?.categoryBitMask = foodCategory
-        coin.physicsBody?.collisionBitMask = 0
-        coin.physicsBody?.contactTestBitMask = characterCategory
-        addChild(coin)
+        food.position = CGPoint(x: randomX, y: randomY)
+        food.zPosition = 3
+        food.physicsBody = SKPhysicsBody(circleOfRadius: (food.size.width / 2)-3)
+        food.physicsBody?.isDynamic = true
+        food.physicsBody?.categoryBitMask = foodCategory
+        food.physicsBody?.collisionBitMask = 0
+        food.physicsBody?.contactTestBitMask = characterCategory
+        addChild(food)
     }
-    func coinCollected(_ coin: SKSpriteNode) {
-        updateCoinCounter(by: 1)
-        coin.removeFromParent()
+    func foodCollected(_ food: SKSpriteNode) {
+        updateFoodCounter(by: 1)
+        food.removeFromParent()
     }
 
-    func updateCoinCounter(by value: Int) {
-        coinCounter += value
-        print("Collected Coins: \(coinCounter)")
-        // Update UI or perform any action with the collected coins count here
+    func updateFoodCounter(by value: Int) {
+        foodCounter += value
+        print("Collected Food: \(foodCounter)")
+        // Update UI or perform any action with the collected food count here
     }
 
     
