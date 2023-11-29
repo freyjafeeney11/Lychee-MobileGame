@@ -82,10 +82,10 @@ struct AuthScene: View {
                     .position(x: 500, y: 275)
                     .ignoresSafeArea()
                 VStack {
-                    TextField("", text:$user)
+                    TextField("username", text:$user)
                         .foregroundColor(.white)
                         .padding(30)
-                    SecureField("", text:$pass)
+                    SecureField("password", text:$pass)
                         .foregroundColor(.white)
                         .padding(30)
                     //register here

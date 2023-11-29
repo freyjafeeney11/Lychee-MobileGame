@@ -11,10 +11,9 @@ import GameplayKit
 import Firebase
 import _SpriteKit_SwiftUI
 
-struct petChoice {
-    static var pet = SKSpriteNode(imageNamed: "catbat_prototype")
+public struct petChoice {
+    static var pet = "catbat_ver2-export"
 }
-
 public var shared = MainScreen()
 
 public class MainScreen: SKScene {
@@ -35,7 +34,7 @@ public class MainScreen: SKScene {
         let providerFactory = AppCheckDebugProviderFactory()
         AppCheck.setAppCheckProviderFactory(providerFactory)
         
-        let player = petChoice.pet
+        let player = SKSpriteNode(imageNamed: petChoice.pet)
         
         menuBar = SKSpriteNode(imageNamed: "SideMenuOpen")
 
@@ -140,7 +139,7 @@ public class MainScreen: SKScene {
         
         //menu
         menuBar?.setScale(0.8)
-        menuBar?.position = CGPoint(x: -245, y: size.height * 0.5)
+        menuBar?.position = CGPoint(x: -249, y: size.height * 0.5)
         
         room.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         player.position = CGPoint(x: size.width * 0.45, y: size.height * 0.4)
