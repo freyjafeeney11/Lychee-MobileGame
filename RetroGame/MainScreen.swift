@@ -131,7 +131,7 @@ public class MainScreen: SKScene {
 //        happy.zPosition = 1
         
         backgroundColor = SKColor.white
-        room.setScale(0.85)
+        room.setScale(0.6)
         runnerButton?.setScale(0.21)
         harvestButton?.setScale(1.12)
         

@@ -20,8 +20,9 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
     let sky = SKSpriteNode(imageNamed: "NewTree")
     let ground = SKSpriteNode(imageNamed: "Grass")
     
-    var isMovingLeft = false
-    var isMovingRight = false
+//    var isMovingLeft = false
+//    var isMovingRight = false
+    var targetX: CGFloat = 0.0
     
     var foodCounter = 0
             
@@ -52,19 +53,19 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let touchLocation = touch.location(in: self)
-            
-            if touchLocation.x < size.width / 2 {
-                isMovingLeft = true
-            } else {
-                isMovingRight = true
-            }
+            targetX = touchLocation.x
+//            if touchLocation.x < size.width / 2 {
+//                isMovingLeft = true
+//            } else {
+//                isMovingRight = true
+//            }
         }
     }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        isMovingLeft = false
-        isMovingRight = false
-    }
+//    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        isMovingLeft = false
+//        isMovingRight = false
+//    }
     
     func didBegin(_ contact: SKPhysicsContact) {
         let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
@@ -80,10 +81,20 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
 
     override func update(_ currentTime: TimeInterval){
         character.constraints?.forEach { $0.referenceNode?.position = character.position }
-        if isMovingLeft {
-            character.position.x -= 8.0
-        } else if isMovingRight {
-            character.position.x += 8.0
+//        if isMovingLeft {
+//            character.position.x -= 8.0
+//        } else if isMovingRight {
+//            character.position.x += 8.0
+//        }
+        
+        let speed: CGFloat = 8.0
+        let distanceThreshold: CGFloat = 8.0
+        if abs(character.position.x - targetX) > distanceThreshold {
+            if character.position.x < targetX {
+                character.position.x += speed
+            } else if character.position.x > targetX {
+                character.position.x -= speed
+            }
         }
     }
     
