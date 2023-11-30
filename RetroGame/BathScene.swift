@@ -18,6 +18,7 @@ class BathScene: SKScene {
     var menuBar: SKSpriteNode?
     let currentUser = AuthScene.init()
     var editUser = EditUser()
+    var coins = 0;
     
     
     override func didMove(to view: SKView) {
@@ -158,7 +159,7 @@ class BathScene: SKScene {
             let location = touch.location(in: self)
 
             if runnerButton?.contains(location) == true {
-                editUser.runner_levels()
+                
                 // Transition to the runner game scene
                 let runnerGame = Runner(size: size)
                 runnerGame.scaleMode = .aspectFill
