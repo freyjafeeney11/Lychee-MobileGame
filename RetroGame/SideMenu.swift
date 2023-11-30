@@ -89,14 +89,12 @@ class SideMenu: SKScene {
                 bathScene.scaleMode = .aspectFill
                 view?.presentScene(bathScene)
                 editUser.bath_levels()
-
-                
             }
-//            if fridge?.contains(location) == true {
-//                let mainGameScreen = MainScreen(size: size)
-//                mainGameScreen.scaleMode = .aspectFill
-//                view?.presentScene(mainGameScreen)
-//            }
+            if fridge?.contains(location) == true {
+               let harvestGame = Harvest(size: size)
+                harvestGame.scaleMode = .aspectFill
+                view?.presentScene(harvestGame)
+            }
             if walking?.contains(location) == true {
                 let runnerGame = Runner(size: size)
                 runnerGame.scaleMode = .aspectFill

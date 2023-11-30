@@ -13,7 +13,6 @@ import GameplayKit
 class StatsMenu: SKScene {
     
     
-    
     override func didMove(to view: SKView) {
         
         let room = SKSpriteNode(imageNamed: "FullLivingRoom")
@@ -29,7 +28,7 @@ class StatsMenu: SKScene {
         hygiene.position = CGPoint(x: 100, y: 270)
         energy.position = CGPoint(x: 250, y: 350)
         social.position = CGPoint(x: 250, y: 310)
-//
+
         hunger.zPosition = 1
         social.zPosition = 1
         hygiene.zPosition = 1
@@ -46,8 +45,6 @@ class StatsMenu: SKScene {
         energy.setScale(2)
         happy.setScale(2)
         
-        
-        
         addChild(room)
         addChild(hunger)
         addChild(social)
@@ -61,6 +58,7 @@ class StatsMenu: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
+            
             
             
               
