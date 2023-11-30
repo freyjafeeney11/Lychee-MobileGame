@@ -40,6 +40,9 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     let gameDuration: TimeInterval = 30 // play for 3 mins at a time?
     var elapsedTime: TimeInterval = 0
     var timerLabel: SKLabelNode!
+    
+    //call edituser to update coins
+    var editUser = EditUser()
             
     override func didMove(to view: SKView){
         // Set the size of the scene
@@ -142,6 +145,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
             let endScene = EndScreen(size: self.size, collectedCoins: coinCounter)
             endScene.scaleMode = .aspectFill
             skView.presentScene(endScene)
+            editUser.runner_levels(coins: coinCounter)
         }
     }
     
