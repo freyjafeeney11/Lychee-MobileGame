@@ -141,8 +141,8 @@ public class MainScreen: SKScene {
         happy.setScale(2)
         
         //menu
-        menuBar?.setScale(0.8)
-        menuBar?.position = CGPoint(x: -249, y: size.height * 0.5)
+        menuBar?.setScale(0.79)
+        menuBar?.position = CGPoint(x: -245, y: size.height * 0.5)
         
         room.position = CGPoint(x: size.width * 0.5, y: size.height * 0.45)
         player.position = CGPoint(x: size.width * 0.45, y: size.height * 0.3)
