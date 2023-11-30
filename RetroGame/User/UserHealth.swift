@@ -24,6 +24,20 @@ class UserHealth: Identifiable, Codable{
     var coins: Int
     
     
+    init(){
+        id = ""
+        hunger_level = 100
+        social_level = 100
+        hygiene_level = 100
+        happiness_level = 100
+        energy_level = 100
+        name = ""
+        user = ""
+        pass = ""
+        volume = true
+        coins = 0
+    }
+    
     init(id: String, name: String, user: String, pass: String, hunger: Int, social: Int, hygiene: Int, happiness: Int, energy: Int, volume: Bool, coins: Int){
         self.user = user
         self.name = name

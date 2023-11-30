@@ -167,11 +167,11 @@ public class MainScreen: SKScene {
             let location = touch.location(in: self)
 
             if runnerButton?.contains(location) == true {
-                editUser.runner_levels()
                 // Transition to the runner game scene
                 let runnerGame = Runner(size: size)
                 runnerGame.scaleMode = .aspectFill
                 view?.presentScene(runnerGame)
+                
             }
             if harvestButton?.contains(location) == true {
                 // Transition to the harvest game
