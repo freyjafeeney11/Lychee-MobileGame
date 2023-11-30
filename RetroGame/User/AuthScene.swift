@@ -20,20 +20,15 @@ class Authentication: SKScene {
     var startButton: SKSpriteNode?
     
     override func didMove(to view: SKView) {
-        let keypad = SKSpriteNode(imageNamed: "keypad")
+        let keypad = SKSpriteNode(imageNamed: "keypad 1")
         
         backgroundColor = SKColor.green
         
-        //change this to play button
-        startButton = SKSpriteNode(imageNamed: "PlayButton")
-        startButton?.position = CGPoint(x: size.width * 0.5, y: size.height * 0.4)
         keypad.position = CGPoint(x: size.width * 0.5, y: size.height * 0.6)
         
-        keypad.setScale(0.8)
-        startButton?.setScale(2)
+        keypad.setScale(0.65)
         
         self.addChild(keypad)
-        self.addChild(startButton!)
     }
     
 //    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -79,13 +74,13 @@ struct AuthScene: View {
             ZStack {
                 SpriteView(scene: scene)
                     .frame(width: 1000, height: 600)
-                    .position(x: 500, y: 275)
+                    .position(x: 420, y: 266)
                     .ignoresSafeArea()
                 VStack {
-                    TextField("username", text:$user)
+                    TextField("", text:$user)
                         .foregroundColor(.white)
                         .padding(30)
-                    SecureField("password", text:$pass)
+                    SecureField("", text:$pass)
                         .foregroundColor(.white)
                         .padding(30)
                     //register here
@@ -99,8 +94,9 @@ struct AuthScene: View {
                             .bold()
                             .frame(width:200, height:30)
                             .background(
-                                RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.linearGradient(colors:[.pink, .green], startPoint: .top, endPoint: .bottomTrailing)))
+                                RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.linearGradient(colors:[.blue, .green], startPoint: .top, endPoint: .bottomTrailing)))
                     }
+                    .offset(x: -20)
                     // login here
                     Button {
                         login()
@@ -109,6 +105,7 @@ struct AuthScene: View {
                             .bold()
                             .foregroundColor(.white)
                     }
+                    .offset(x: -20)
                     Button {
                         authenticated = true
                     } label: {
@@ -116,14 +113,14 @@ struct AuthScene: View {
                             .bold()
                             .foregroundColor(.white)
                     }
+                    .offset(x: -20)
                 }
                 .frame(width: 350)
-                .offset(x: 250, y:30)
+                .offset(x: 264, y:-29)
             }
             .fullScreenCover(isPresented: $authenticated, content: {
                 // Switch to SpriteKit scene
                 MainGameSceneView()
-                    .transition(.opacity)
             })
             .ignoresSafeArea()
         }
