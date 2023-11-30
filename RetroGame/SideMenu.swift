@@ -22,6 +22,16 @@ class SideMenu: SKScene {
     var stats: SKSpriteNode?
     var settings: SKSpriteNode?
     var editUser = EditUser()
+    
+    let homeLabel = SKLabelNode(fontNamed: "Avenir-Black ")
+    let closetLabel = SKLabelNode(fontNamed: "Avenir-Balck ")
+    let bathLabel = SKLabelNode(fontNamed: "Avenir-Black ")
+    let fridgeLabel = SKLabelNode(fontNamed: "Avenir-Black ")
+    let walkingLabel = SKLabelNode(fontNamed: "Avenir-Black ")
+    let socialLabel = SKLabelNode(fontNamed: "Avenir-Black ")
+    let statsLabel = SKLabelNode(fontNamed: "Avenir-Black ")
+    let settingLabel = SKLabelNode(fontNamed: "Avenir-Black ")
+    
 
     
     override func didMove(to view: SKView) {
@@ -79,14 +89,12 @@ class SideMenu: SKScene {
                 bathScene.scaleMode = .aspectFill
                 view?.presentScene(bathScene)
                 editUser.bath_levels()
-
-                
             }
-//            if fridge?.contains(location) == true {
-//                let mainGameScreen = MainScreen(size: size)
-//                mainGameScreen.scaleMode = .aspectFill
-//                view?.presentScene(mainGameScreen)
-//            }
+            if fridge?.contains(location) == true {
+               let harvestGame = Harvest(size: size)
+                harvestGame.scaleMode = .aspectFill
+                view?.presentScene(harvestGame)
+            }
             if walking?.contains(location) == true {
                 let runnerGame = Runner(size: size)
                 runnerGame.scaleMode = .aspectFill
@@ -97,11 +105,11 @@ class SideMenu: SKScene {
 //                mainGameScreen.scaleMode = .aspectFill
 //                view?.presentScene(mainGameScreen)
 //            }
-//            if stats?.contains(location) == true {
-//                let mainGameScreen = MainScreen(size: size)
-//                mainGameScreen.scaleMode = .aspectFill
-//                view?.presentScene(mainGameScreen)
-//            }
+            if stats?.contains(location) == true {
+                let statsScreen = StatsMenu(size: size)
+                statsScreen.scaleMode = .aspectFill
+                view?.presentScene(statsScreen)
+            }
             if settings?.contains(location) == true {
                 let settingsScreen = SettingsMenu(size: size)
                 settingsScreen.scaleMode = .aspectFill
