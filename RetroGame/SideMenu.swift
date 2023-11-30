@@ -32,7 +32,6 @@ class SideMenu: SKScene {
     let statsLabel = SKLabelNode(fontNamed: "Avenir-Black ")
     let settingLabel = SKLabelNode(fontNamed: "Avenir-Black ")
     
-
     
     override func didMove(to view: SKView) {
         
@@ -68,6 +67,72 @@ class SideMenu: SKScene {
         addChild(social!)
         addChild(stats!)
         addChild(settings!)
+        
+        setupHomeLabel()
+        setupClosetLabel()
+        setupBathLabel()
+        setupFridgeLabel()
+        setupWalkingLabel()
+        setupSocialLabel()
+        setupStatsLabel()
+        setupSettingLabel()
+    }
+    
+    func setupHomeLabel() {
+        homeLabel.text = "Home"
+        homeLabel.fontSize = 23
+        homeLabel.fontColor = (.black)
+        homeLabel.position = CGPoint(x: size.width * 0.682, y: size.height * 0.185)
+        addChild(homeLabel)
+    }
+    func setupClosetLabel() {
+        closetLabel.text = "Closet"
+        closetLabel.fontSize = 23
+        closetLabel.fontColor = (.black)
+        closetLabel.position = CGPoint(x: size.width * 0.682, y: size.height * 0.185)
+        addChild(closetLabel)
+    }
+    func setupBathLabel() {
+        bathLabel.text = "Bath"
+        bathLabel.fontSize = 23
+        bathLabel.fontColor = (.black)
+        bathLabel.position = CGPoint(x: size.width * 0.682, y: size.height * 0.185)
+        addChild(bathLabel)
+    }
+    func setupFridgeLabel() {
+        fridgeLabel.text = "Fridge"
+        fridgeLabel.fontSize = 23
+        fridgeLabel.fontColor = (.black)
+        fridgeLabel.position = CGPoint(x: size.width * 0.682, y: size.height * 0.185)
+        addChild(fridgeLabel)
+    }
+    func setupWalkingLabel() {
+        walkingLabel.text = "Walking"
+        walkingLabel.fontSize = 23
+        walkingLabel.fontColor = (.black)
+        walkingLabel.position = CGPoint(x: size.width * 0.682, y: size.height * 0.185)
+        addChild(walkingLabel)
+    }
+    func setupSocialLabel() {
+        socialLabel.text = "Social"
+        socialLabel.fontSize = 23
+        socialLabel.fontColor = (.black)
+        socialLabel.position = CGPoint(x: size.width * 0.682, y: size.height * 0.185)
+        addChild(socialLabel)
+    }
+    func setupStatsLabel() {
+        statsLabel.text = "Stats"
+        statsLabel.fontSize = 23
+        statsLabel.fontColor = (.black)
+        statsLabel.position = CGPoint(x: size.width * 0.682, y: size.height * 0.185)
+        addChild(statsLabel)
+    }
+    func setupSettingLabel() {
+        settingLabel.text = "Settings"
+        settingLabel.fontSize = 23
+        settingLabel.fontColor = (.black)
+        settingLabel.position = CGPoint(x: size.width * 0.682, y: size.height * 0.185)
+        addChild(settingLabel)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
