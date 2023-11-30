@@ -43,6 +43,10 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     
     //call edituser to update coins
     var editUser = EditUser()
+    var currUser = UserHealth()
+    
+    //have to either call firebase each time and get userData and update or have
+    //object that does this
             
     override func didMove(to view: SKView){
         // Set the size of the scene

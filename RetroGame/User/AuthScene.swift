@@ -53,7 +53,8 @@ struct AuthScene: View {
     @State private var pass = ""
     @State private var isContentVisible = true
     
-    @State public var currData = UserHealth()
+    
+    @State public var edit = EditUser()
     //@Published var userSession: FirebaseAuth.User?
     //@Published var currentUser: User?
     
@@ -88,7 +89,7 @@ struct AuthScene: View {
                     //register here
                     Button {
                         Task{
-                            currData = await self.register(withEmail: self.user, password: self.pass)
+                            await self.register(withEmail: self.user, password: self.pass)
                         }
                     } label: {
                         Text("Create Account")
@@ -137,21 +138,20 @@ struct AuthScene: View {
         }
     }
     // create a user
-    func register(withEmail email: String, password: String) async -> UserHealth{
-        var currData = currData
+    func register(withEmail email: String, password: String) async{
         do{
             let _ = try await Auth.auth().createUser(withEmail: user, password: pass)
             let userID = Auth.auth().currentUser!.uid
             var atSign = email.firstIndex(of: "@")!
             var name = email[...atSign]
             // user levels initial
-            currData = UserHealth(id: userID, name: String(name), user: email, pass: password, hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: true, coins: 0)
-            let encodedUser = try Firestore.Encoder().encode(currData)
+            edit.new_update = UserHealth(id: userID, name: String(name), user: email, pass: password, hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: true, coins: 0)
+            let encodedUser = try Firestore.Encoder().encode(edit.new_update)
             try await Firestore.firestore().collection("users").document(email).setData(encodedUser)
         }
         catch {
             print("DEBUG: Failed to create user with error \(error)")
         }
-        return currData
+
     }
 }

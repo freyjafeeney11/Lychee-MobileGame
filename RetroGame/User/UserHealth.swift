@@ -67,8 +67,58 @@ class UserHealth: Identifiable, Codable{
         self.energy_level = newEnergy
     }
     
-    func updateLevel(level: Int, type: String){
-        
+    func addHunger(newHunger: Int){
+        if(hunger_level + newHunger <= 100){
+            hunger_level += newHunger
+        }
+        else{
+            hunger_level = 100
+        }
+    }
+    func addSocial(newSocial: Int){
+        if(social_level + newSocial <= 100){
+            self.social_level += newSocial
+        }
+        else{
+            social_level = 100
+        }
+    }
+    func addHygiene(newHygiene: Int){
+        if(hygiene_level + newHygiene <= 100){
+            self.hygiene_level += newHygiene
+        }
+        else{
+            hygiene_level = 100
+        }
+    }
+    func addHappiness(newHappiness: Int){
+        if(happiness_level + newHappiness <= 100){
+            self.happiness_level += newHappiness
+        }
+        else{
+            happiness_level = 100
+        }
+    }
+    func addEnergy(newEnergy: Int){
+        if(energy_level + newEnergy <= 100){
+            self.energy_level += newEnergy
+        }
+        else{
+            energy_level = 100
+        }
+    }
+    func addCoins(moreCoins: Int){
+        self.coins += moreCoins
+    }
+    
+
+    
+    func getHunger() -> Int{
+        return hunger_level
+    }
+    
+    func getSocial() -> Int{
+        return social_level
     }
     
 }

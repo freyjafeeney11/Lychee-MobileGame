@@ -21,6 +21,7 @@ class SideMenu: SKScene {
     var social: SKSpriteNode?
     var stats: SKSpriteNode?
     var settings: SKSpriteNode?
+    var editUser = EditUser()
 
     
     override func didMove(to view: SKView) {
@@ -77,6 +78,9 @@ class SideMenu: SKScene {
                 let bathScene = BathScene(size: size)
                 bathScene.scaleMode = .aspectFill
                 view?.presentScene(bathScene)
+                editUser.bath_levels()
+
+                
             }
 //            if fridge?.contains(location) == true {
 //                let mainGameScreen = MainScreen(size: size)
