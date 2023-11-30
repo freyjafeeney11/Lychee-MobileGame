@@ -11,10 +11,49 @@ import SwiftUI
 import SpriteKit
 import FirebaseFirestoreSwift
 
+
 @MainActor
+
+class Authentication: SKScene {
+    static var shared = Authentication()
+
+    var startButton: SKSpriteNode?
+    
+    override func didMove(to view: SKView) {
+        let keypad = SKSpriteNode(imageNamed: "keypad 1")
+        
+        backgroundColor = SKColor.green
+        
+        keypad.position = CGPoint(x: size.width * 0.5, y: size.height * 0.6)
+        
+        keypad.setScale(0.65)
+        
+        self.addChild(keypad)
+    }
+    
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        for touch in touches {
+//            let location = touch.location(in: self)
+//
+//            if startButton?.contains(location) == true {
+//                callMainScreen()
+//            }
+//        }
+//    }
+//    func callMainScreen() {
+//        let MainScreen = MainScreen(size: size)
+//        MainScreen.scaleMode = .aspectFill
+//        view?.presentScene(MainScreen)
+//    }
+}
+
 struct AuthScene: View {
+    @State private var authenticated = false
     @State private var user = ""
     @State private var pass = ""
+    @State private var isContentVisible = true
+    
+    @State public var currData = UserHealth()
     //@Published var userSession: FirebaseAuth.User?
     //@Published var currentUser: User?
     
@@ -27,84 +66,92 @@ struct AuthScene: View {
     @State private var showMainScreen = false
     
     var body: some View {
-        NavigationView {
+        var scene: SKScene {
+            let scene = Authentication.shared
+            scene.size = CGSize(width: 1100, height: 600)
+            scene.scaleMode = .aspectFill
+            scene.backgroundColor = .white
+            return scene
+        }
             ZStack {
-                Image("keypad")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 8000, height: 420)
-                VStack(spacing:40){
-                    TextField("USERNAME!!", text:$user)
+                SpriteView(scene: scene)
+                    .frame(width: 1000, height: 600)
+                    .position(x: 420, y: 266)
+                    .ignoresSafeArea()
+                VStack {
+                    TextField("", text:$user)
                         .foregroundColor(.white)
-                    SecureField("PASSWORD!!", text:$pass)
+                        .padding(30)
+                    SecureField("", text:$pass)
                         .foregroundColor(.white)
-                    
+                        .padding(30)
                     //register here
                     Button {
                         Task{
-                            await self.register(withEmail: self.user, password: self.pass)
+                            currData = await self.register(withEmail: self.user, password: self.pass)
                         }
                     } label: {
                         Text("Create Account")
+                            .foregroundColor(.white)
                             .bold()
-                            .frame(width:200, height:20)
+                            .frame(width:200, height:30)
                             .background(
-                                RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.linearGradient(colors:[.pink, .red], startPoint: .top, endPoint: .bottomTrailing)))
+                                RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.linearGradient(colors:[.blue, .green], startPoint: .top, endPoint: .bottomTrailing)))
                     }
+                    .offset(x: -20)
                     // login here
                     Button {
                         login()
                     } label: {
-                        Text("Login")
+                        Text("Already have an account? Login")
                             .bold()
                             .foregroundColor(.white)
                     }
-                    // added this to bypass and move to main screen for now
+                    .offset(x: -20)
                     Button {
-                        showMainScreen = true
+                        authenticated = true
                     } label: {
-                        Text("Go to main screen")
+                        Text("Skip for now")
                             .bold()
                             .foregroundColor(.white)
                     }
+                    .offset(x: -20)
                 }
                 .frame(width: 350)
-                .padding(.trailing, -1800)
+                .offset(x: 264, y:-29)
             }
-            .onAppear {
-                if showMainScreen {
-                    withAnimation(.interactiveSpring) {
-                        // You can choose a different transition effect here
-                        // For example: scaleEffect, rotationEffect, etc.
-                        // destinationViewTransitionEffect = ...
-                    }
-                }
-            }
+            .fullScreenCover(isPresented: $authenticated, content: {
+                // Switch to SpriteKit scene
+                MainGameSceneView()
+            })
             .ignoresSafeArea()
         }
-    }
+
+    // log in
     func login() {
         Auth.auth().signIn(withEmail: user, password: pass) { result, error in if error != nil {
             print(error!.localizedDescription)
+        } else {
+            authenticated = true
         }
         }
     }
-    //not sure how to do this
-    func mainScreen() {
-        //
-    }
-    func register(withEmail email: String, password: String) async {
+    // create a user
+    func register(withEmail email: String, password: String) async -> UserHealth{
+        var currData = currData
         do{
             let _ = try await Auth.auth().createUser(withEmail: user, password: pass)
             let userID = Auth.auth().currentUser!.uid
             var atSign = email.firstIndex(of: "@")!
             var name = email[...atSign]
-            let user = UserHealth(id: userID, name: String(name), user: email, pass: password, hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: true, coins: 0)
-            let encodedUser = try Firestore.Encoder().encode(user)
+            // user levels initial
+            currData = UserHealth(id: userID, name: String(name), user: email, pass: password, hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: true, coins: 0)
+            let encodedUser = try Firestore.Encoder().encode(currData)
             try await Firestore.firestore().collection("users").document(email).setData(encodedUser)
         }
         catch {
             print("DEBUG: Failed to create user with error \(error)")
         }
+        return currData
     }
 }

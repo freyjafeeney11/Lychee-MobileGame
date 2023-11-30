@@ -17,8 +17,8 @@ class TitleScreen: SKScene {
     var startButton: SKSpriteNode?
     
     override func didMove(to view: SKView) {
-        let titleBg = SKSpriteNode(imageNamed: "title_BG")
-        let title = SKSpriteNode(imageNamed: "title-export")
+        let titleBg = SKSpriteNode(imageNamed: "NewTree")
+        let title = SKSpriteNode(imageNamed: "title-export 1")
         
         backgroundColor = SKColor.white
         
@@ -27,9 +27,9 @@ class TitleScreen: SKScene {
         startButton?.position = CGPoint(x: size.width * 0.5, y: size.height * 0.4)
         
         titleBg.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
-        title.position = CGPoint(x: size.width * 0.5, y: size.height * 0.6)
+        title.position = CGPoint(x: size.width * 0.47, y: size.height * 0.6)
         
-        title.setScale(0.6)
+        title.setScale(0.5)
         startButton?.setScale(2)
         
         self.addChild(titleBg)
@@ -40,36 +40,17 @@ class TitleScreen: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
-
+            
             if startButton?.contains(location) == true {
-                
-                let MainScreen = MainScreen(size: size)
-                MainScreen.scaleMode = .aspectFill
-                view?.presentScene(MainScreen)//*/
-                
+                /*
+                 let MainScreen = MainScreen(size: size)
+                 MainScreen.scaleMode = .aspectFill
+                 view?.presentScene(MainScreen)*/
                 // this is auth stuff uncomment it to add users.. Spritekit -> SwiftUI
-//                let authSceneView = AuthScene()
+                let authSceneView = AuthScene()
                 // need this controller to display swiftUI from spritekit
-  //              let hostingController = UIHostingController(rootView: authSceneView)
-   //             self.view?.window?.rootViewController?.present(hostingController, animated: true, completion: nil)
-   //             print("startButton touched")
-                showMainScreen = true
-                print(showMainScreen)
-                
-//                let authSceneView = MainView()
-//                                // need this controller to display swiftUI from spritekit
-//                let hostingController = UIHostingController(rootView: authSceneView)
-//                self.view?.window?.rootViewController?.present(hostingController, animated: true, completion: nil)
-                
-                //let MainScreen = MainScreen(size: size)
-                //MainScreen.scaleMode = .aspectFill
-                //view?.presentScene(MainScreen)
-                
-                //this is auth stuff uncomment it to add users.. Spritekit -> SwiftUI
-                //let authSceneView = AuthScene()
-                //need this controller to display swiftUI from spritekit
-//                let hostingController = UIHostingController(rootView: authSceneView)
-//                self.view?.window?.rootViewController?.present(hostingController, animated: true, completion: nil)
+                let hostingController = UIHostingController(rootView: authSceneView)
+                self.view?.window?.rootViewController?.present(hostingController, animated: true, completion: nil)
             }
         }
     }
