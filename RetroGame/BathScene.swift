@@ -11,23 +11,16 @@ import GameplayKit
 import Firebase
 import _SpriteKit_SwiftUI
 
-public struct petChoice {
-    static var pet = "catbat_ver2-export"
-}
-public var shared = MainScreen()
-
-public class MainScreen: SKScene {
+class BathScene: SKScene {
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
     var runnerButton: SKSpriteNode?
-    var harvestButton: SKSpriteNode?
     var menuBar: SKSpriteNode?
     let currentUser = AuthScene.init()
     var editUser = EditUser()
     
     
-    
-    public override func didMove(to view: SKView) {
+    override func didMove(to view: SKView) {
         
         
         //firebase
@@ -35,15 +28,14 @@ public class MainScreen: SKScene {
         let providerFactory = AppCheckDebugProviderFactory()
         AppCheck.setAppCheckProviderFactory(providerFactory)
         
-        let player = SKSpriteNode(imageNamed: petChoice.pet)
         
         menuBar = SKSpriteNode(imageNamed: "SideMenuOpen")
 
-        let room = SKSpriteNode(imageNamed: "FullLivingRoom")
-        
+        let room = SKSpriteNode(imageNamed: "backgroundTiles")
+        let tub = SKSpriteNode(imageNamed: "bathtub")
+        let player = SKSpriteNode(imageNamed: "catbat_prototype")
         
         runnerButton = SKSpriteNode(imageNamed: "RunnerButton")
-        harvestButton = SKSpriteNode(imageNamed: "foodCollectButton")
         
 //        func addRandom() -> Double {
 //            let randomDouble = Double.random(in: 0.9...2)
@@ -113,8 +105,6 @@ public class MainScreen: SKScene {
         let happy = SKSpriteNode(imageNamed: "100Happy")
         
         runnerButton?.position = CGPoint(x: size.width * 0.8, y: size.height * 0.7)
-        harvestButton?.position = CGPoint(x: size.width * 0.146, y: size.height * 0.69)
-                
         
         //level position
         // commented these out for levels menu instead
@@ -131,9 +121,9 @@ public class MainScreen: SKScene {
 //        happy.zPosition = 1
         
         backgroundColor = SKColor.white
-        room.setScale(0.85)
+        room.setScale(3.4)
+        tub.setScale(2.6)
         runnerButton?.setScale(0.21)
-        harvestButton?.setScale(1.12)
         
         //level scale
         hunger.setScale(2)
@@ -144,9 +134,10 @@ public class MainScreen: SKScene {
         
         //menu
         menuBar?.setScale(0.8)
-        menuBar?.position = CGPoint(x: -249, y: size.height * 0.5)
+        menuBar?.position = CGPoint(x: -237, y: size.height * 0.5)
         
         room.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
+        tub.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         player.position = CGPoint(x: size.width * 0.45, y: size.height * 0.4)
         
         addChild(hunger)
@@ -155,14 +146,14 @@ public class MainScreen: SKScene {
         addChild(hygiene)
         addChild(happy)
         addChild(room)
+        addChild(tub)
         addChild(player)
         addChild(runnerButton!)
-        addChild(harvestButton!)
         addChild(menuBar!)
         
     }
 
-    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
 
@@ -173,12 +164,7 @@ public class MainScreen: SKScene {
                 runnerGame.scaleMode = .aspectFill
                 view?.presentScene(runnerGame)
             }
-            if harvestButton?.contains(location) == true {
-                // Transition to the harvest game
-                let harvestGame = Harvest(size: size)
-                harvestGame.scaleMode = .aspectFill
-                view?.presentScene(harvestGame)
-            }
+            
             if menuBar?.contains(location) == true {
                 let menu = SideMenu(size: size)
                 menu.scaleMode = .aspectFill
@@ -190,9 +176,15 @@ public class MainScreen: SKScene {
 
 }
 
-struct MainGameSceneView: View {
+struct BathView: View {
+    var scene: SKScene {
+        let scene = BathScene(size: CGSize(width: 900, height: 400))
+        scene.scaleMode = .aspectFill
+        return scene
+    }
+
     var body: some View {
-        SpriteKitContainer(scene: MainScreen(size: UIScreen.main.bounds.size))
+        SpriteView(scene: scene)
             .ignoresSafeArea()
     }
 }

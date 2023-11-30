@@ -57,7 +57,7 @@ class EndScreen: SKScene {
                 // Transition to the home scene
                 let homeScene = MainScreen(size: size)
                 homeScene.scaleMode = .aspectFill
-                view?.presentScene(homeScene, transition: SKTransition.fade(withDuration: 0.5))
+                view?.presentScene(homeScene)
             }
         }
     }

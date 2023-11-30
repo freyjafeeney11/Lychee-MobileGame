@@ -15,11 +15,13 @@ class SettingsMenu: SKScene {
     var toggleMusic: SKSpriteNode?
     var seePass: SKSpriteNode?
     var returnToMenu: SKSpriteNode?
+    let backButton = SKLabelNode(fontNamed: "Avenir-Black ")
     @State private var showPass = false
 
     override func didMove(to view: SKView) {
         
-        let text = Text("Return To Menu...").font(.title)
+        
+        
         let room = SKSpriteNode(imageNamed: "FullLivingRoom")
         let settingsMenu = SKSpriteNode(imageNamed: "SettingsMenu")
         toggleMusic = SKSpriteNode(imageNamed: "MusicOnButton")
@@ -37,9 +39,19 @@ class SettingsMenu: SKScene {
         
         addChild(seePass!)
         
+        setupBackButton()
         
         
         
+        
+    }
+    
+    func setupBackButton() {
+        backButton.text = "Return to Menu"
+        backButton.fontSize = 25
+        //backButton.color = UIColor(red: 3, green: 2, blue: 0, alpha: 100)
+        backButton.position = CGPoint(x: size.width * 0.68, y: size.height * 0.17)
+        addChild(backButton)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -53,6 +65,11 @@ class SettingsMenu: SKScene {
             if seePass?.contains(location) == true {
                 showPass.toggle()
                 print("ShowPass")
+            }
+            if backButton.contains(location) == true {
+                let menu = SideMenu(size: size)
+                menu.scaleMode = .aspectFill
+                view?.presentScene(menu)
             }
         }
     }
