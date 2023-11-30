@@ -20,9 +20,16 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
     let sky = SKSpriteNode(imageNamed: "NewTree")
     let ground = SKSpriteNode(imageNamed: "Grass")
     
-    var isMovingLeft = false
-    var isMovingRight = false
+//    var isMovingLeft = false
+//    var isMovingRight = false
+    var targetX: CGFloat = 0.0
     
+    var collectedFood: [String: Int] = [
+        "apple": 0,
+        "watermelon": 0,
+        "meat": 0,
+        "tuna": 0,
+    ]
     var foodCounter = 0
             
     override func didMove(to view: SKView){
@@ -52,19 +59,19 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let touchLocation = touch.location(in: self)
-            
-            if touchLocation.x < size.width / 2 {
-                isMovingLeft = true
-            } else {
-                isMovingRight = true
-            }
+            targetX = touchLocation.x
+//            if touchLocation.x < size.width / 2 {
+//                isMovingLeft = true
+//            } else {
+//                isMovingRight = true
+//            }
         }
     }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        isMovingLeft = false
-        isMovingRight = false
-    }
+//    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        isMovingLeft = false
+//        isMovingRight = false
+//    }
     
     func didBegin(_ contact: SKPhysicsContact) {
         let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
@@ -80,10 +87,20 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
 
     override func update(_ currentTime: TimeInterval){
         character.constraints?.forEach { $0.referenceNode?.position = character.position }
-        if isMovingLeft {
-            character.position.x -= 8.0
-        } else if isMovingRight {
-            character.position.x += 8.0
+//        if isMovingLeft {
+//            character.position.x -= 8.0
+//        } else if isMovingRight {
+//            character.position.x += 8.0
+//        }
+        
+        let speed: CGFloat = 8.0
+        let distanceThreshold: CGFloat = 8.0
+        if abs(character.position.x - targetX) > distanceThreshold {
+            if character.position.x < targetX {
+                character.position.x += speed
+            } else if character.position.x > targetX {
+                character.position.x -= speed
+            }
         }
     }
     
@@ -132,9 +149,10 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
         character.physicsBody?.usesPreciseCollisionDetection = true
         addChild(character)
     }
+    
     func startFoodSpawning() {
         let spawnFoodAction = SKAction.run(spawnFood)
-        let waitDuration = SKAction.wait(forDuration: 3.0)
+        let waitDuration = SKAction.wait(forDuration: 1.0)
         let sequence = SKAction.sequence([spawnFoodAction, waitDuration])
         let repeatForever = SKAction.repeatForever(sequence)
         
@@ -142,8 +160,13 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
     }
     
     func spawnFood() {
-        let food = SKSpriteNode(imageNamed: "watermelon")
-        food.name = "food"
+        let foodTypes = ["apple", "watermelon", "meat", "tuna"]
+        let randomFoodIndex = Int(arc4random_uniform(UInt32(foodTypes.count)))
+        let foodType = foodTypes[randomFoodIndex]
+        
+        let food = SKSpriteNode(imageNamed: foodType)
+        food.name = foodType
+        food.setScale(1.4)
         
         let minX = character.size.width
         let maxX = size.width - character.size.width
@@ -163,14 +186,19 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
         addChild(food)
     }
     func foodCollected(_ food: SKSpriteNode) {
-        updateFoodCounter(by: 1)
+        if let foodType = food.name {
+            if let count = collectedFood[foodType] {
+                collectedFood[foodType] = count + 1
+                print("Collected \(foodType). \(foodType) count: \(collectedFood[foodType] ?? 0)")
+            }
+        }
         food.removeFromParent()
+        checkFoodRequirements()
+    }
+    func checkFoodRequirements() {
+        if collectedFood["apple"] == 1 && collectedFood["watermelon"] == 1 {
+            print("Character has collected enough apples and watermelons!")
+        }
     }
 
-    func updateFoodCounter(by value: Int) {
-        foodCounter += value
-        print("Collected Food: \(foodCounter)")
-    }
-
-    
 }
