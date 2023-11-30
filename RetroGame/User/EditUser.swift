@@ -46,12 +46,12 @@ public class EditUser: ObservableObject{
             
             for doc in docs { //iterate over each document and update
                 let docRef = doc.reference
-                docRef.updateData(["energy_level" : user.energy_level])
-                docRef.updateData(["hunger_level" : user.hunger_level])
-                docRef.updateData(["social_level" : user.social_level])
-                docRef.updateData(["hygiene_level" : user.hygiene_level])
-                docRef.updateData(["coins" : user.coins])
-                docRef.updateData(["happiness_level" : user.happiness_level])
+                docRef.updateData(["energy_level" : self.new_update.energy_level])
+                docRef.updateData(["hunger_level" : self.new_update.hunger_level])
+                docRef.updateData(["social_level" : self.new_update.social_level])
+                docRef.updateData(["hygiene_level" : self.new_update.hygiene_level])
+                docRef.updateData(["coins" : self.new_update.coins])
+                docRef.updateData(["happiness_level" : self.new_update.happiness_level])
             }
         })
     }
@@ -90,6 +90,7 @@ public class EditUser: ObservableObject{
             for doc in docs { //iterate over each document and update
                 let docRef = doc.reference
                 docRef.updateData(["energy_level" : self.new_update.addEnergy(newEnergy: 10)])
+                docRef.updateData(["happiness_level" : self.new_update.addHappiness(newHappiness: 50)])
                 docRef.updateData(["hygiene_levels" : self.new_update.setHygiene(newHygiene: 100)])
             }
         })

@@ -43,7 +43,6 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     
     //call edituser to update coins
     var editUser = EditUser()
-    var currUser = UserHealth()
     
     //have to either call firebase each time and get userData and update or have
     //object that does this
@@ -150,6 +149,8 @@ class Runner: SKScene, SKPhysicsContactDelegate{
             endScene.scaleMode = .aspectFill
             skView.presentScene(endScene)
             editUser.runner_levels(coins: coinCounter)
+            print("Username is: \(editUser.new_update.name)")
+            print("\nNum of coins is: \(editUser.new_update.coins)")
         }
     }
     

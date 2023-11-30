@@ -146,6 +146,7 @@ struct AuthScene: View {
             var name = email[...atSign]
             // user levels initial
             edit.new_update = UserHealth(id: userID, name: String(name), user: email, pass: password, hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: true, coins: 0)
+            print(edit.new_update)
             let encodedUser = try Firestore.Encoder().encode(edit.new_update)
             try await Firestore.firestore().collection("users").document(email).setData(encodedUser)
         }
