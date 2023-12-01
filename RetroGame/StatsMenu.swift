@@ -36,7 +36,7 @@ class StatsMenu: SKScene {
         happy.zPosition = 1
         
         
-        room.setScale(0.85)
+        room.setScale(0.58)
         room.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         
         hunger.setScale(2)

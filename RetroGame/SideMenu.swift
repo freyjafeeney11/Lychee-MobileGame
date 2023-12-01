@@ -32,7 +32,6 @@ class SideMenu: SKScene {
     let statsLabel = SKLabelNode(fontNamed: "Avenir-Black ")
     let settingLabel = SKLabelNode(fontNamed: "Avenir-Black ")
     
-
     
     override func didMove(to view: SKView) {
         
@@ -47,27 +46,80 @@ class SideMenu: SKScene {
         stats = SKSpriteNode(imageNamed: "StatsButton")
         settings = SKSpriteNode(imageNamed: "SettingsButton")
         
-        room.setScale(0.85)
-        room.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
-        menu.position = CGPoint(x: size.width * 0.48, y: size.height * 0.5)
-        home?.position = CGPoint(x: size.width * 0.12, y: size.height * 0.688)
-        closet?.position = CGPoint(x: size.width * 0.325, y: size.height * 0.69)
-        bath?.position = CGPoint(x: size.width * 0.5, y: size.height * 0.688)
-        fridge?.position = CGPoint(x: size.width * 0.71, y: size.height * 0.6875)
-        walking?.position = CGPoint(x: size.width * 0.12, y: size.height * 0.314)
-        social?.position = CGPoint(x: size.width * 0.325, y: size.height * 0.31)
-        settings?.position = CGPoint(x: size.width * 0.71, y: size.height * 0.309)
+        room.setScale(0.58)
+        menu.setScale(0.95)
+        room.position = CGPoint(x: size.width * 0.48, y: size.height * 0.5)
+        menu.position = CGPoint(x: size.width * 0.47, y: size.height * 0.5)
+        home?.position = CGPoint(x: size.width * 0.13, y: size.height * 0.688)
+        closet?.position = CGPoint(x: size.width * 0.31, y: size.height * 0.69)
+        bath?.position = CGPoint(x: size.width * 0.485, y: size.height * 0.688)
+        fridge?.position = CGPoint(x: size.width * 0.685, y: size.height * 0.6875)
+        walking?.position = CGPoint(x: size.width * 0.13, y: size.height * 0.314)
+        social?.position = CGPoint(x: size.width * 0.31, y: size.height * 0.31)
+        stats?.position = CGPoint(x: size.width * 0.5, y: size.height * 0.31)
+        settings?.position = CGPoint(x: size.width * 0.69, y: size.height * 0.31)
+        
         
         addChild(room)
         addChild(menu)
-        addChild(home!)
-        addChild(closet!)
-        addChild(bath!)
-        addChild(fridge!)
-        addChild(walking!)
-        addChild(social!)
-        addChild(stats!)
-        addChild(settings!)
+        
+        setupHomeLabel()
+        setupClosetLabel()
+        setupBathLabel()
+        setupFridgeLabel()
+        setupWalkingLabel()
+        setupSocialLabel()
+        setupStatsLabel()
+        setupSettingLabel()
+    }
+    
+    func setupHomeLabel() {
+        homeLabel.text = "Home"
+        homeLabel.fontSize = 23
+        homeLabel.position = CGPoint(x: size.width * 0.1585, y: size.height * 0.545)
+        addChild(homeLabel)
+    }
+    func setupClosetLabel() {
+        closetLabel.text = "Closet"
+        closetLabel.fontSize = 23
+        closetLabel.position = CGPoint(x: size.width * 0.35, y: size.height * 0.545)
+        addChild(closetLabel)
+    }
+    func setupBathLabel() {
+        bathLabel.text = "Bath"
+        bathLabel.fontSize = 23
+        bathLabel.position = CGPoint(x: size.width * 0.522, y: size.height * 0.545)
+        addChild(bathLabel)
+    }
+    func setupFridgeLabel() {
+        fridgeLabel.text = "Harvest"
+        fridgeLabel.fontSize = 23
+        fridgeLabel.position = CGPoint(x: size.width * 0.727, y: size.height * 0.545)
+        addChild(fridgeLabel)
+    }
+    func setupWalkingLabel() {
+        walkingLabel.text = "Walk"
+        walkingLabel.fontSize = 23
+        walkingLabel.position = CGPoint(x: size.width * 0.157, y: size.height * 0.19)
+        addChild(walkingLabel)
+    }
+    func setupSocialLabel() {
+        socialLabel.text = "Socials"
+        socialLabel.fontSize = 23
+        socialLabel.position = CGPoint(x: size.width * 0.353, y: size.height * 0.19)
+        addChild(socialLabel)
+    }
+    func setupStatsLabel() {
+        statsLabel.text = "Health"
+        statsLabel.fontSize = 23
+        statsLabel.position = CGPoint(x: size.width * 0.539, y: size.height * 0.19)
+        addChild(statsLabel)
+    }
+    func setupSettingLabel() {
+        settingLabel.text = "Settings"
+        settingLabel.fontSize = 23
+        settingLabel.position = CGPoint(x: size.width * 0.73, y: size.height * 0.19)
+        addChild(settingLabel)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
