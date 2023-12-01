@@ -16,15 +16,15 @@ class SettingsMenu: SKScene {
     var seePass: SKSpriteNode?
     var returnToMenu: SKSpriteNode?
     
-    let backButton = SKLabelNode(fontNamed: "Avenir-Black ")
-    let setting = SKLabelNode(fontNamed: "Avenir-Balck ")
-    let username = SKLabelNode(fontNamed: "Avenir-Black ")
-    let password = SKLabelNode(fontNamed: "Avenir-Black ")
-    let petname = SKLabelNode(fontNamed: "Avenir-Black ")
-    let changePetName = SKLabelNode(fontNamed: "Avenir-Black ")
-    let music = SKLabelNode(fontNamed: "Avenir-Black ")
+    let backButton = SKLabelNode(fontNamed: "Chalkduster")
+    let setting = SKLabelNode(fontNamed: "Chalkduster")
+    let username = SKLabelNode(fontNamed: "Chalkduster")
+    let password = SKLabelNode(fontNamed: "Chalkduster")
+    let petname = SKLabelNode(fontNamed: "Chalkduster")
+    let changePetName = SKLabelNode(fontNamed: "Chalkduster")
+    let music = SKLabelNode(fontNamed: "Chalkduster")
     
-    @State private var showPass = false
+    //@State private var showPassword
 
     override func didMove(to view: SKView) {
         
@@ -36,14 +36,19 @@ class SettingsMenu: SKScene {
         seePass = SKSpriteNode(imageNamed: "HidePassButton")
         
         room.setScale(0.58)
-        room.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
-        settingsMenu.position = CGPoint(x: size.width * 0.48, y: size.height * 0.5)
+        settingsMenu.setScale(0.95)
+        room.position = CGPoint(x: size.width * 0.5, y: size.height * 0.45)
+        settingsMenu.position = CGPoint(x: size.width * 0.47, y: size.height * 0.5)
         toggleMusic?.position = CGPoint(x: size.width * 0.65, y: size.height * 0.37)
         seePass?.position = CGPoint(x: size.width * 0.73, y: size.height * 0.51)
 
         addChild(room)
         addChild(settingsMenu)
-        addChild(toggleMusic!)
+        
+        //if showPassword == false{
+            addChild(toggleMusic!)
+        //}
+        
         addChild(seePass!)
         setupBackButton()
         setupSetting()
@@ -56,51 +61,44 @@ class SettingsMenu: SKScene {
     
     func setupBackButton() {
         backButton.text = "Return to Menu"
-        backButton.fontSize = 23
-        backButton.fontColor = (.black)
-        backButton.position = CGPoint(x: size.width * 0.662, y: size.height * 0.185)
+        backButton.fontSize = 19
+        backButton.position = CGPoint(x: size.width * 0.645, y: size.height * 0.199)
         addChild(backButton)
     }
     func setupSetting() {
         setting.text = "Settings"
-        setting.fontSize = 27
-        setting.fontColor = (.black)
-        setting.position = CGPoint(x: size.width * 0.167, y: size.height * 0.793)
+        setting.fontSize = 25
+        setting.position = CGPoint(x: size.width * 0.171, y: size.height * 0.78)
         addChild(setting)
     }
     func setupUsername() {
         username.text = "Username"
-        username.fontSize = 25
-        username.fontColor = (.black)
-        username.position = CGPoint(x: size.width * 0.414, y: size.height * 0.654)
+        username.fontSize = 23
+        username.position = CGPoint(x: size.width * 0.409, y: size.height * 0.643)
         addChild(username)
     }
     func setupPassword() {
         password.text = "Password"
-        password.fontSize = 25
-        password.fontColor = (.black)
-        password.position = CGPoint(x: size.width * 0.414, y: size.height * 0.495)
+        password.fontSize = 23
+        password.position = CGPoint(x: size.width * 0.409, y: size.height * 0.495)
         addChild(password)
     }
     func setupPetName() {
         petname.text = "PetName"
-        petname.fontSize = 25
-        petname.fontColor = (.black)
-        petname.position = CGPoint(x: size.width * 0.167, y: size.height * 0.184)
+        petname.fontSize = 23
+        petname.position = CGPoint(x: size.width * 0.171, y: size.height * 0.199)
         addChild(petname)
     }
     func setupChangePetName() {
         changePetName.text = "Change"
-        changePetName.fontSize = 23
-        changePetName.fontColor = (.black)
-        changePetName.position = CGPoint(x: size.width * 0.366, y: size.height * 0.185)
+        changePetName.fontSize = 21
+        changePetName.position = CGPoint(x: size.width * 0.361, y: size.height * 0.199)
         addChild(changePetName)
     }
     func setupMusic() {
         music.text = "Toggle Music"
-        music.fontSize = 25
-        music.fontColor = (.black)
-        music.position = CGPoint(x: size.width * 0.414, y: size.height * 0.34)
+        music.fontSize = 22
+        music.position = CGPoint(x: size.width * 0.409, y: size.height * 0.349)
         addChild(music)
     }
 
@@ -114,8 +112,15 @@ class SettingsMenu: SKScene {
             }
             
             if seePass?.contains(location) == true {
-                showPass.toggle()
-                print("ShowPass")
+                //if showPassword == false{
+                    
+                    //print("ShowPass")
+                //}
+                //if showPassword == true{
+                    
+                    //print("Hide")
+                //}
+                
             }
             if backButton.contains(location) == true {
                 let menu = SideMenu(size: size)

@@ -16,12 +16,17 @@ class StatsMenu: SKScene {
     override func didMove(to view: SKView) {
         
         let room = SKSpriteNode(imageNamed: "FullLivingRoom")
+        let menu = SKSpriteNode(imageNamed: "SideMenu")
         let hunger = SKSpriteNode(imageNamed: "100Hunger")
         let social = SKSpriteNode(imageNamed: "100social")
         let hygiene = SKSpriteNode(imageNamed: "100Hygiene")
         let energy = SKSpriteNode(imageNamed: "100Energy")
         let happy = SKSpriteNode(imageNamed: "100Happy")
         
+        room.setScale(0.58)
+        menu.setScale(0.95)
+        room.position = CGPoint(x: size.width * 0.5, y: size.height * 0.45)
+        menu.position = CGPoint(x: size.width * 0.47, y: size.height * 0.5)
         
         hunger.position = CGPoint(x: 100, y: 350)
         happy.position = CGPoint(x: 100, y: 310)
@@ -29,16 +34,6 @@ class StatsMenu: SKScene {
         energy.position = CGPoint(x: 250, y: 350)
         social.position = CGPoint(x: 250, y: 310)
 
-        hunger.zPosition = 1
-        social.zPosition = 1
-        hygiene.zPosition = 1
-        energy.zPosition = 1
-        happy.zPosition = 1
-        
-        
-        room.setScale(0.58)
-        room.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
-        
         hunger.setScale(2)
         social.setScale(2)
         hygiene.setScale(2)
@@ -51,7 +46,6 @@ class StatsMenu: SKScene {
         addChild(energy)
         addChild(hygiene)
         addChild(happy)
-        
         
     }
     
