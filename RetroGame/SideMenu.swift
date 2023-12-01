@@ -46,19 +46,23 @@ class SideMenu: SKScene {
         stats = SKSpriteNode(imageNamed: "StatsButton")
         settings = SKSpriteNode(imageNamed: "SettingsButton")
         
-        room.setScale(0.85)
-        room.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
-        menu.position = CGPoint(x: size.width * 0.48, y: size.height * 0.5)
-        home?.position = CGPoint(x: size.width * 0.12, y: size.height * 0.688)
-        closet?.position = CGPoint(x: size.width * 0.325, y: size.height * 0.69)
-        bath?.position = CGPoint(x: size.width * 0.5, y: size.height * 0.688)
-        fridge?.position = CGPoint(x: size.width * 0.71, y: size.height * 0.6875)
-        walking?.position = CGPoint(x: size.width * 0.12, y: size.height * 0.314)
-        social?.position = CGPoint(x: size.width * 0.325, y: size.height * 0.31)
-        settings?.position = CGPoint(x: size.width * 0.71, y: size.height * 0.309)
+        room.setScale(0.58)
+        menu.setScale(0.95)
+        room.position = CGPoint(x: size.width * 0.48, y: size.height * 0.5)
+        menu.position = CGPoint(x: size.width * 0.47, y: size.height * 0.5)
+        home?.position = CGPoint(x: size.width * 0.13, y: size.height * 0.688)
+        closet?.position = CGPoint(x: size.width * 0.31, y: size.height * 0.69)
+        bath?.position = CGPoint(x: size.width * 0.485, y: size.height * 0.688)
+        fridge?.position = CGPoint(x: size.width * 0.685, y: size.height * 0.6875)
+        walking?.position = CGPoint(x: size.width * 0.13, y: size.height * 0.314)
+        social?.position = CGPoint(x: size.width * 0.31, y: size.height * 0.31)
+        stats?.position = CGPoint(x: size.width * 0.5, y: size.height * 0.31)
+        settings?.position = CGPoint(x: size.width * 0.69, y: size.height * 0.31)
+        
         
         addChild(room)
         addChild(menu)
+        /*
         addChild(home!)
         addChild(closet!)
         addChild(bath!)
@@ -67,6 +71,7 @@ class SideMenu: SKScene {
         addChild(social!)
         addChild(stats!)
         addChild(settings!)
+         */
         
         setupHomeLabel()
         setupClosetLabel()

@@ -35,11 +35,11 @@ class SettingsMenu: SKScene {
         toggleMusic = SKSpriteNode(imageNamed: "MusicOnButton")
         seePass = SKSpriteNode(imageNamed: "HidePassButton")
         
-        room.setScale(0.85)
+        room.setScale(0.58)
         room.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
-        settingsMenu.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
-        toggleMusic?.position = CGPoint(x: size.width * 0.67, y: size.height * 0.37)
-        seePass?.position = CGPoint(x: size.width * 0.75, y: size.height * 0.51)
+        settingsMenu.position = CGPoint(x: size.width * 0.48, y: size.height * 0.5)
+        toggleMusic?.position = CGPoint(x: size.width * 0.65, y: size.height * 0.37)
+        seePass?.position = CGPoint(x: size.width * 0.73, y: size.height * 0.51)
 
         addChild(room)
         addChild(settingsMenu)
@@ -58,49 +58,49 @@ class SettingsMenu: SKScene {
         backButton.text = "Return to Menu"
         backButton.fontSize = 23
         backButton.fontColor = (.black)
-        backButton.position = CGPoint(x: size.width * 0.682, y: size.height * 0.185)
+        backButton.position = CGPoint(x: size.width * 0.662, y: size.height * 0.185)
         addChild(backButton)
     }
     func setupSetting() {
         setting.text = "Settings"
         setting.fontSize = 27
         setting.fontColor = (.black)
-        setting.position = CGPoint(x: size.width * 0.187, y: size.height * 0.793)
+        setting.position = CGPoint(x: size.width * 0.167, y: size.height * 0.793)
         addChild(setting)
     }
     func setupUsername() {
         username.text = "Username"
         username.fontSize = 25
         username.fontColor = (.black)
-        username.position = CGPoint(x: size.width * 0.434, y: size.height * 0.654)
+        username.position = CGPoint(x: size.width * 0.414, y: size.height * 0.654)
         addChild(username)
     }
     func setupPassword() {
         password.text = "Password"
         password.fontSize = 25
         password.fontColor = (.black)
-        password.position = CGPoint(x: size.width * 0.434, y: size.height * 0.495)
+        password.position = CGPoint(x: size.width * 0.414, y: size.height * 0.495)
         addChild(password)
     }
     func setupPetName() {
         petname.text = "PetName"
         petname.fontSize = 25
         petname.fontColor = (.black)
-        petname.position = CGPoint(x: size.width * 0.187, y: size.height * 0.184)
+        petname.position = CGPoint(x: size.width * 0.167, y: size.height * 0.184)
         addChild(petname)
     }
     func setupChangePetName() {
         changePetName.text = "Change"
         changePetName.fontSize = 23
         changePetName.fontColor = (.black)
-        changePetName.position = CGPoint(x: size.width * 0.386, y: size.height * 0.185)
+        changePetName.position = CGPoint(x: size.width * 0.366, y: size.height * 0.185)
         addChild(changePetName)
     }
     func setupMusic() {
         music.text = "Toggle Music"
         music.fontSize = 25
         music.fontColor = (.black)
-        music.position = CGPoint(x: size.width * 0.434, y: size.height * 0.34)
+        music.position = CGPoint(x: size.width * 0.414, y: size.height * 0.34)
         addChild(music)
     }
 
