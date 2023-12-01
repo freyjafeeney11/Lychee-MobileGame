@@ -111,7 +111,8 @@ public class MainScreen: SKScene {
         let energy = SKSpriteNode(imageNamed: "100Energy")
         let happy = SKSpriteNode(imageNamed: "100Happy")
         
-        runnerButton?.position = CGPoint(x: size.width * 0.82, y: size.height * 0.65)
+        runnerButton?.position = CGPoint(x: size.width * 0.81, y: size.height * 0.65)
+        harvestButton?.position = CGPoint(x: size.width * 0.137, y: size.height * 0.65)
         
         //level position
         // commented these out for levels menu instead
@@ -129,8 +130,8 @@ public class MainScreen: SKScene {
         
         backgroundColor = SKColor.white
         room.setScale(0.58)
-        runnerButton?.setScale(0.21)
-        harvestButton?.setScale(1.12)
+        runnerButton?.setScale(0.215)
+        harvestButton?.setScale(1.115)
         
         //level scale
         hunger.setScale(2)
