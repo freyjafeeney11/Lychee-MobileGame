@@ -62,16 +62,6 @@ class SideMenu: SKScene {
         
         addChild(room)
         addChild(menu)
-        /*
-        addChild(home!)
-        addChild(closet!)
-        addChild(bath!)
-        addChild(fridge!)
-        addChild(walking!)
-        addChild(social!)
-        addChild(stats!)
-        addChild(settings!)
-         */
         
         setupHomeLabel()
         setupClosetLabel()
@@ -86,57 +76,49 @@ class SideMenu: SKScene {
     func setupHomeLabel() {
         homeLabel.text = "Home"
         homeLabel.fontSize = 23
-        homeLabel.fontColor = (.black)
-        homeLabel.position = CGPoint(x: size.width * 0.682, y: size.height * 0.185)
+        homeLabel.position = CGPoint(x: size.width * 0.1585, y: size.height * 0.545)
         addChild(homeLabel)
     }
     func setupClosetLabel() {
         closetLabel.text = "Closet"
         closetLabel.fontSize = 23
-        closetLabel.fontColor = (.black)
-        closetLabel.position = CGPoint(x: size.width * 0.682, y: size.height * 0.185)
+        closetLabel.position = CGPoint(x: size.width * 0.35, y: size.height * 0.545)
         addChild(closetLabel)
     }
     func setupBathLabel() {
         bathLabel.text = "Bath"
         bathLabel.fontSize = 23
-        bathLabel.fontColor = (.black)
-        bathLabel.position = CGPoint(x: size.width * 0.682, y: size.height * 0.185)
+        bathLabel.position = CGPoint(x: size.width * 0.522, y: size.height * 0.545)
         addChild(bathLabel)
     }
     func setupFridgeLabel() {
-        fridgeLabel.text = "Fridge"
+        fridgeLabel.text = "Harvest"
         fridgeLabel.fontSize = 23
-        fridgeLabel.fontColor = (.black)
-        fridgeLabel.position = CGPoint(x: size.width * 0.682, y: size.height * 0.185)
+        fridgeLabel.position = CGPoint(x: size.width * 0.727, y: size.height * 0.545)
         addChild(fridgeLabel)
     }
     func setupWalkingLabel() {
-        walkingLabel.text = "Walking"
+        walkingLabel.text = "Walk"
         walkingLabel.fontSize = 23
-        walkingLabel.fontColor = (.black)
-        walkingLabel.position = CGPoint(x: size.width * 0.682, y: size.height * 0.185)
+        walkingLabel.position = CGPoint(x: size.width * 0.157, y: size.height * 0.19)
         addChild(walkingLabel)
     }
     func setupSocialLabel() {
-        socialLabel.text = "Social"
+        socialLabel.text = "Socials"
         socialLabel.fontSize = 23
-        socialLabel.fontColor = (.black)
-        socialLabel.position = CGPoint(x: size.width * 0.682, y: size.height * 0.185)
+        socialLabel.position = CGPoint(x: size.width * 0.353, y: size.height * 0.19)
         addChild(socialLabel)
     }
     func setupStatsLabel() {
-        statsLabel.text = "Stats"
+        statsLabel.text = "Health"
         statsLabel.fontSize = 23
-        statsLabel.fontColor = (.black)
-        statsLabel.position = CGPoint(x: size.width * 0.682, y: size.height * 0.185)
+        statsLabel.position = CGPoint(x: size.width * 0.539, y: size.height * 0.19)
         addChild(statsLabel)
     }
     func setupSettingLabel() {
         settingLabel.text = "Settings"
         settingLabel.fontSize = 23
-        settingLabel.fontColor = (.black)
-        settingLabel.position = CGPoint(x: size.width * 0.682, y: size.height * 0.185)
+        settingLabel.position = CGPoint(x: size.width * 0.73, y: size.height * 0.19)
         addChild(settingLabel)
     }
     
