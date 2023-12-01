@@ -29,7 +29,16 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
         "watermelon": 0,
         "meat": 0,
         "tuna": 0,
+        "corn": 0,
+        "pumpkin": 0,
+        "battery": 0
     ]
+    let characterFoodRequirements: [String: [String: Int]] = [
+        "chicken-hamster": ["apple": 2, "corn": 2, "pumpkin": 2],
+        "cat-bat": ["meat": 1, "fish": 3, "watermelon": 2],
+        "robot-dragon": ["meat": 2, "battery": 3, "apple": 1]
+    ]
+    
     var foodCounter = 0
             
     override func didMove(to view: SKView){
@@ -152,7 +161,7 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
     
     func startFoodSpawning() {
         let spawnFoodAction = SKAction.run(spawnFood)
-        let waitDuration = SKAction.wait(forDuration: 1.0)
+        let waitDuration = SKAction.wait(forDuration: 2.0)
         let sequence = SKAction.sequence([spawnFoodAction, waitDuration])
         let repeatForever = SKAction.repeatForever(sequence)
         
@@ -160,45 +169,64 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
     }
     
     func spawnFood() {
-        let foodTypes = ["apple", "watermelon", "meat", "tuna"]
-        let randomFoodIndex = Int(arc4random_uniform(UInt32(foodTypes.count)))
-        let foodType = foodTypes[randomFoodIndex]
+        let foodTypes = ["apple", "watermelon", "meat", "tuna", "corn", "pumpkin", "battery"]
+        let numberOfFruits = 4
         
-        let food = SKSpriteNode(imageNamed: foodType)
-        food.name = foodType
-        food.setScale(1.4)
-        
-        let minX = character.size.width
-        let maxX = size.width - character.size.width
-        let minY = size.height - character.size.height
-        let maxY = size.height
-        
-        let randomX = CGFloat(arc4random_uniform(UInt32(maxX - minX))) + minX
-        let randomY = CGFloat(arc4random_uniform(UInt32(maxY - minY))) + minY
-        
-        food.position = CGPoint(x: randomX, y: randomY)
-        food.zPosition = 3
-        food.physicsBody = SKPhysicsBody(circleOfRadius: (food.size.width / 2)-3)
-        food.physicsBody?.isDynamic = true
-        food.physicsBody?.categoryBitMask = foodCategory
-        food.physicsBody?.collisionBitMask = 0
-        food.physicsBody?.contactTestBitMask = characterCategory
-        addChild(food)
+        for _ in 1...numberOfFruits {
+            let randomFoodIndex = Int(arc4random_uniform(UInt32(foodTypes.count)))
+            let foodType = foodTypes[randomFoodIndex]
+            
+            let food = SKSpriteNode(imageNamed: foodType)
+            food.name = foodType
+            food.setScale(1.8)
+            
+            let minX = character.size.width
+            let maxX = size.width - character.size.width
+            let minY = size.height - character.size.height
+            let maxY = size.height
+            
+            let randomX = CGFloat(arc4random_uniform(UInt32(maxX - minX))) + minX
+            let randomY = CGFloat(arc4random_uniform(UInt32(maxY - minY))) + minY
+            
+            food.position = CGPoint(x: randomX, y: randomY)
+            food.zPosition = 3
+            food.physicsBody = SKPhysicsBody(circleOfRadius: (food.size.width / 2) - 3)
+            food.physicsBody?.isDynamic = true
+            food.physicsBody?.categoryBitMask = foodCategory
+            food.physicsBody?.collisionBitMask = 0
+            food.physicsBody?.contactTestBitMask = characterCategory
+            addChild(food)
+        }
     }
+
     func foodCollected(_ food: SKSpriteNode) {
         if let foodType = food.name {
             if let count = collectedFood[foodType] {
                 collectedFood[foodType] = count + 1
-                print("Collected \(foodType). \(foodType) count: \(collectedFood[foodType] ?? 0)")
+                if let requiredCount = characterFoodRequirements["chicken-hamster"]?[foodType] {
+                    print("\(foodType) collected: \(count + 1)/\(requiredCount)")
+                }
             }
         }
         food.removeFromParent()
-        checkFoodRequirements()
+        checkFoodRequirements(for: "chicken-hamster")
     }
-    func checkFoodRequirements() {
-        if collectedFood["apple"] == 1 && collectedFood["watermelon"] == 1 {
-            print("Character has collected enough apples and watermelons!")
+    
+    func checkFoodRequirements(for characterType: String) {
+        guard let requirements = characterFoodRequirements[characterType] else {
+            print("Character requirements not found.")
+            return
+        }
+        var requirementsMet = true
+        for (foodType, requiredCount) in requirements {
+            if collectedFood[foodType] ?? 0 < requiredCount {
+                requirementsMet = false
+            }
+        }
+        if requirementsMet {
+            print("Character has collected all required food for \(characterType)!")
         }
     }
+
 
 }
