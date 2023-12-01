@@ -11,20 +11,22 @@ import GameplayKit
 import Firebase
 import _SpriteKit_SwiftUI
 
-struct petChoice {
-    static var pet = SKSpriteNode(imageNamed: "catbat_prototype")
+public struct petChoice {
+    static var pet = "catbat_ver2-export"
 }
+public var shared = MainScreen()
 
-class MainScreen: SKScene {
+public class MainScreen: SKScene {
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
     var runnerButton: SKSpriteNode?
+    var harvestButton: SKSpriteNode?
     var menuBar: SKSpriteNode?
-    let currentUser = AuthScene.init()
-    var editUser = EditUser()
+    //var edit = EditUser()
     
     
-    override func didMove(to view: SKView) {
+    
+    public override func didMove(to view: SKView) {
         
         
         //firebase
@@ -32,7 +34,7 @@ class MainScreen: SKScene {
         let providerFactory = AppCheckDebugProviderFactory()
         AppCheck.setAppCheckProviderFactory(providerFactory)
         
-        let player = petChoice.pet
+        let player = SKSpriteNode(imageNamed: petChoice.pet)
         
         menuBar = SKSpriteNode(imageNamed: "SideMenuOpen")
 
@@ -40,6 +42,7 @@ class MainScreen: SKScene {
         
         
         runnerButton = SKSpriteNode(imageNamed: "RunnerButton")
+        harvestButton = SKSpriteNode(imageNamed: "foodCollectButton")
         
 //        func addRandom() -> Double {
 //            let randomDouble = Double.random(in: 0.9...2)
@@ -108,7 +111,8 @@ class MainScreen: SKScene {
         let energy = SKSpriteNode(imageNamed: "100Energy")
         let happy = SKSpriteNode(imageNamed: "100Happy")
         
-        runnerButton?.position = CGPoint(x: size.width * 0.8, y: size.height * 0.7)
+        runnerButton?.position = CGPoint(x: size.width * 0.81, y: size.height * 0.65)
+        harvestButton?.position = CGPoint(x: size.width * 0.137, y: size.height * 0.65)
         
         //level position
         // commented these out for levels menu instead
@@ -125,8 +129,9 @@ class MainScreen: SKScene {
 //        happy.zPosition = 1
         
         backgroundColor = SKColor.white
-        room.setScale(0.85)
-        runnerButton?.setScale(0.21)
+        room.setScale(0.58)
+        runnerButton?.setScale(0.215)
+        harvestButton?.setScale(1.115)
         
         //level scale
         hunger.setScale(2)
@@ -136,11 +141,11 @@ class MainScreen: SKScene {
         happy.setScale(2)
         
         //menu
-        menuBar?.setScale(0.8)
+        menuBar?.setScale(0.79)
         menuBar?.position = CGPoint(x: -245, y: size.height * 0.5)
         
-        room.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
-        player.position = CGPoint(x: size.width * 0.45, y: size.height * 0.4)
+        room.position = CGPoint(x: size.width * 0.5, y: size.height * 0.45)
+        player.position = CGPoint(x: size.width * 0.45, y: size.height * 0.3)
         
         addChild(hunger)
         addChild(social)
@@ -150,22 +155,28 @@ class MainScreen: SKScene {
         addChild(room)
         addChild(player)
         addChild(runnerButton!)
+        addChild(harvestButton!)
         addChild(menuBar!)
         
     }
 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
 
             if runnerButton?.contains(location) == true {
-                editUser.runner_levels()
                 // Transition to the runner game scene
                 let runnerGame = Runner(size: size)
                 runnerGame.scaleMode = .aspectFill
                 view?.presentScene(runnerGame)
+                
             }
-            
+            if harvestButton?.contains(location) == true {
+                // Transition to the harvest game
+                let harvestGame = Harvest(size: size)
+                harvestGame.scaleMode = .aspectFill
+                view?.presentScene(harvestGame)
+            }
             if menuBar?.contains(location) == true {
                 let menu = SideMenu(size: size)
                 menu.scaleMode = .aspectFill
@@ -177,3 +188,9 @@ class MainScreen: SKScene {
 
 }
 
+struct MainGameSceneView: View {
+    var body: some View {
+        SpriteKitContainer(scene: MainScreen(size: UIScreen.main.bounds.size))
+            .ignoresSafeArea()
+    }
+}

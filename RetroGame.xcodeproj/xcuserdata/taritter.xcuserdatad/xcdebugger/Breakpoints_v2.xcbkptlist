@@ -14,10 +14,42 @@
             filePath = "RetroGame/User/AuthScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "body"
-            landmarkType = "24">
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "Authentication"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "17E237FA-F532-4850-ACE7-ABD35CDE6A7B - e43030dc0bbcb34c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RetroGame.AuthScene.init() -&gt; RetroGame.AuthScene"
+                  moduleName = "RetroGame"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/taritter/Desktop/THISONE/RetroGame/User/AuthScene.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "57"
+                  endingLineNumber = "57"
+                  offsetFromSymbolStart = "461">
+               </Location>
+               <Location
+                  uuid = "17E237FA-F532-4850-ACE7-ABD35CDE6A7B - 52fedfa119089409"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RetroGame.AuthScene.init(edit: RetroGame.EditUser) -&gt; RetroGame.AuthScene"
+                  moduleName = "RetroGame"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/taritter/Desktop/THISONE/RetroGame/User/AuthScene.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "30">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

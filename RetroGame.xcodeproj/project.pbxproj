@@ -14,11 +14,14 @@
 		731D933C2B142F2B00EA8A55 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 731D933B2B142F2B00EA8A55 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		731D933E2B142F2B00EA8A55 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 731D933D2B142F2B00EA8A55 /* FirebaseAppCheck */; };
 		738F57082B167AD700CA1A25 /* BathScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738F57072B167AD700CA1A25 /* BathScene.swift */; };
+		738F570A2B170EBA00CA1A25 /* SpriteKitContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738F57092B170EBA00CA1A25 /* SpriteKitContainer.swift */; };
 		73A526842AE386B900EE3693 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A526832AE386B800EE3693 /* MainScreen.swift */; };
 		73A526862AE386CA00EE3693 /* TitleScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A526852AE386CA00EE3693 /* TitleScreen.swift */; };
+		AB3095342B18E8EE000F2229 /* StatsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3095332B18E8EE000F2229 /* StatsMenu.swift */; };
 		ABACE2D12B0D626A0004D944 /* SettingsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABACE2D02B0D626A0004D944 /* SettingsMenu.swift */; };
 		ABE4E8232AE4703A0092ECA6 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE4E8222AE4703A0092ECA6 /* SideMenu.swift */; };
 		BD3EFA012B16B2600099B85A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD3EFA002B16B2600099B85A /* GoogleService-Info.plist */; };
+		BD8427522B17CC3C0011D458 /* Harvest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8427512B17CC3C0011D458 /* Harvest.swift */; };
 		BDB138232B13DE2D00D7AF32 /* EndScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB138222B13DE2D00D7AF32 /* EndScreen.swift */; };
 		CD1F68A02AD47BEF002B1EF5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1F689F2AD47BEF002B1EF5 /* AppDelegate.swift */; };
 		CD1F68A22AD47BEF002B1EF5 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CD1F68A12AD47BEF002B1EF5 /* GameScene.sks */; };
@@ -64,11 +67,14 @@
 /* Begin PBXFileReference section */
 		731D93332B1412E000EA8A55 /* AuthScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthScene.swift; sourceTree = "<group>"; };
 		738F57072B167AD700CA1A25 /* BathScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BathScene.swift; sourceTree = "<group>"; };
+		738F57092B170EBA00CA1A25 /* SpriteKitContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteKitContainer.swift; sourceTree = "<group>"; };
 		73A526832AE386B800EE3693 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
 		73A526852AE386CA00EE3693 /* TitleScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleScreen.swift; sourceTree = "<group>"; };
+		AB3095332B18E8EE000F2229 /* StatsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsMenu.swift; sourceTree = "<group>"; };
 		ABACE2D02B0D626A0004D944 /* SettingsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMenu.swift; sourceTree = "<group>"; };
 		ABE4E8222AE4703A0092ECA6 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
 		BD3EFA002B16B2600099B85A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BD8427512B17CC3C0011D458 /* Harvest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Harvest.swift; sourceTree = "<group>"; };
 		BDB138222B13DE2D00D7AF32 /* EndScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndScreen.swift; sourceTree = "<group>"; };
 		BDB138262B13EEDD00D7AF32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		CD1F689C2AD47BEF002B1EF5 /* RetroGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RetroGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -163,7 +169,9 @@
 				CD1F68A72AD47BEF002B1EF5 /* GameViewController.swift */,
 				738F57072B167AD700CA1A25 /* BathScene.swift */,
 				ABE4E8222AE4703A0092ECA6 /* SideMenu.swift */,
+				AB3095332B18E8EE000F2229 /* StatsMenu.swift */,
 				CDBE2AB42AE2025A00712D94 /* Runner.swift */,
+				BD8427512B17CC3C0011D458 /* Harvest.swift */,
 				BDB138222B13DE2D00D7AF32 /* EndScreen.swift */,
 				CD1F68A92AD47BEF002B1EF5 /* Main.storyboard */,
 				73A526832AE386B800EE3693 /* MainScreen.swift */,
@@ -205,6 +213,7 @@
 				CDF98A822B066F7800BB78D6 /* Backend.swift */,
 				CDF98A892B06789600BB78D6 /* EditUser.swift */,
 				731D93332B1412E000EA8A55 /* AuthScene.swift */,
+				738F57092B170EBA00CA1A25 /* SpriteKitContainer.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -367,12 +376,14 @@
 				CD1F68A62AD47BEF002B1EF5 /* GameScene.swift in Sources */,
 				CDBE2AB52AE2025A00712D94 /* Runner.swift in Sources */,
 				73A526862AE386CA00EE3693 /* TitleScreen.swift in Sources */,
+				BD8427522B17CC3C0011D458 /* Harvest.swift in Sources */,
 				ABACE2D12B0D626A0004D944 /* SettingsMenu.swift in Sources */,
 				BDB138232B13DE2D00D7AF32 /* EndScreen.swift in Sources */,
 				738F57082B167AD700CA1A25 /* BathScene.swift in Sources */,
-				ABACE2EF2B1653980004D944 /* SocialMenu.swift in Sources */,
 				ABE4E8232AE4703A0092ECA6 /* SideMenu.swift in Sources */,
 				73A526842AE386B900EE3693 /* MainScreen.swift in Sources */,
+				738F570A2B170EBA00CA1A25 /* SpriteKitContainer.swift in Sources */,
+				AB3095342B18E8EE000F2229 /* StatsMenu.swift in Sources */,
 				CDF98A872B06767100BB78D6 /* UserHealth.swift in Sources */,
 				CD1F68A82AD47BEF002B1EF5 /* GameViewController.swift in Sources */,
 				CDF98A8A2B06789600BB78D6 /* EditUser.swift in Sources */,
@@ -558,7 +569,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 4BKTK43XW3;
+				DEVELOPMENT_TEAM = 8QB8B93JW4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RetroGame/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -586,7 +597,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 4BKTK43XW3;
+				DEVELOPMENT_TEAM = 8QB8B93JW4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RetroGame/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

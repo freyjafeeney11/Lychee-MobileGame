@@ -27,15 +27,26 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     let backgroundVelocity1: CGFloat = 2.0
     let skyVelocity: CGFloat = 1.0
     
+    //Jumping mech
     let jumpForce: CGFloat = 50.0
     var isJumping = false
+    var canJump = true
     
-    var swipeCount = 0
-    let maxSwipeCount = 3
-    let forwardForce: CGFloat = 100.0
-    
-    let loseThresholdX: CGFloat = 0
+    // Game over mech
+    let loseThresholdX: CGFloat = 0.0
     var coinCounter = 0
+    
+    var gameTimer: Timer?
+    let gameDuration: TimeInterval = 30 // play for 3 mins at a time?
+    var elapsedTime: TimeInterval = 0
+    var timerLabel: SKLabelNode!
+    
+    //call edituser to update coins
+    var edit = EditUser()
+    //var runner_user = editUser.new_update
+    
+    //have to either call firebase each time and get userData and update or have
+    //object that does this
             
     override func didMove(to view: SKView){
         // Set the size of the scene
@@ -51,11 +62,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         let rangeY = SKRange(lowerLimit: minY, upperLimit: maxY)
         
         let characterConstraint = SKConstraint.positionX(rangeX, y: rangeY)
-        // gesture recognizer for swipes
-        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
-        swipeRight.direction = .right
-        view.addGestureRecognizer(swipeRight)
-        
+
         character.constraints = [characterConstraint]
         createSky()
         createCity()
@@ -65,29 +72,43 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         addCityCollision()
         startCoinSpawning()
         
-        // Add an initial impulse to start the constant running motion
-        //character.physicsBody?.applyImpulse(CGVector(dx: 50.0, dy: 0.0))
+        gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+        timerLabel = SKLabelNode(fontNamed: "Arial")
+        timerLabel.text = "Time: \(Int(gameDuration - elapsedTime))s"
+        timerLabel.fontSize = 24
+        timerLabel.position = CGPoint(x: size.width * 0.1, y: size.height - 50)
+        addChild(timerLabel)
     }
-    @objc func handleSwipe(_ sender: UISwipeGestureRecognizer) {
-        if sender.direction == .right && swipeCount < maxSwipeCount {
-            // Apply force only if the swipe is to the right and the swipe count is within limit
-            character.physicsBody?.applyForce(CGVector(dx: forwardForce, dy: 0))
-            swipeCount += 1
-            print("Swipe Count: \(swipeCount)")
+
+    @objc func updateTimer() {
+        elapsedTime += 1
+        let remainingTime = max(gameDuration - elapsedTime, 0)
+        timerLabel.text = "Time: \(Int(remainingTime))s"
+        
+        if elapsedTime >= gameDuration {
+            print("Game over! Time's up.")
+            handleGameEnd()
         }
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         // Check if the character is not already jumping
-        if !isJumping {
-            print("Jump Applied")
-            character.physicsBody?.applyImpulse(CGVector(dx: 0.0, dy: jumpForce))
-            isJumping = true
+        if !isJumping && canJump {
+            if character.position.y <= cityFront.position.y + cityFront.size.height * 0.5 + character.size.height * 0.5 {
+                print("Jump Applied")
+                character.physicsBody?.applyImpulse(CGVector(dx: 0.0, dy: jumpForce))
+                isJumping = true
+                canJump = false // Disable jumping temporarily
+            }
         }
     }
 
     func didBegin(_ contact: SKPhysicsContact) {
         let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
-
+        // Check if character in contact with ground
+        if contactMask == characterCategory | groundCategory {
+            isJumping = false // Reset the jumping state when landing on the ground
+            canJump = true
+        }
         if contactMask == characterCategory | coinCategory {
             if contact.bodyA.categoryBitMask == characterCategory {
                 coinCollected(contact.bodyB.node as? SKSpriteNode ?? SKSpriteNode())
@@ -105,7 +126,8 @@ class Runner: SKScene, SKPhysicsContactDelegate{
             isJumping = false
         }
         if character.position.x < loseThresholdX {
-            characterOutOfBounds()
+            print("Game Over! Character went out of bounds.")
+            handleGameEnd()
         }
         character.constraints?.forEach { $0.referenceNode?.position = character.position }
         enumerateChildNodes(withName: "coin") { node, _ in
@@ -121,12 +143,19 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         }
     }
     
-    func characterOutOfBounds() {
-        print("Character went out of bounds!")
-        // Move to EndScreen
-        let endScene = EndScreen(size: self.size, collectedCoins: coinCounter)
-        endScene.scaleMode = .aspectFill
-        self.view?.presentScene(endScene, transition: SKTransition.fade(withDuration: 0.5))
+    func handleGameEnd() {
+        gameTimer?.invalidate()
+        if let skView = self.view {
+            let endScene = EndScreen(size: self.size, collectedCoins: coinCounter)
+            endScene.scaleMode = .aspectFill
+            skView.presentScene(endScene)
+            print("Username is: \(UserObject.name)")
+            print("\nNum of coins is: \(UserObject.coins)")
+            edit.runner_levels(coins: coinCounter)
+            print("Username2 is: \(UserObject.name)")
+            print("\n2Num of coins is: \(UserObject.coins)")
+            
+        }
     }
     
     func createSky() {
@@ -170,20 +199,6 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         cityFront3.physicsBody = SKPhysicsBody(texture: cityFront3.texture!,
                                                size: cityFront3.texture!.size())
 
-//        let path = CGMutablePath()
-//        path.addLines(between: [CGPoint(x: -10, y: -200),CGPoint(x: -10, y: -80), CGPoint(x: 40, y: -80), CGPoint(x: 40, y: -95),
-//                                CGPoint(x: 180, y: -95), CGPoint(x: 180, y: -75), CGPoint(x: 280, y: -75),
-//                                CGPoint(x: 280, y: -70), CGPoint(x: 370, y: -70), CGPoint(x: 370, y: -200),
-//                                CGPoint(x: 410, y: -200), CGPoint(x: 410, y: -80), CGPoint(x: 490, y: -80),
-//                                CGPoint(x: 490, y: -95), CGPoint(x: 600, y: -95), CGPoint(x: 600, y: -70),
-//                                CGPoint(x: 700, y: -70), CGPoint(x: 700, y: -55), CGPoint(x: 810, y: -55),
-//                                CGPoint(x: 810, y: -55), CGPoint(x: 810, y: -80), CGPoint(x: 850, y: -80),
-//                                CGPoint(x: 850, y: -200)])
-//        path.closeSubpath()
-//        cityFront.physicsBody = SKPhysicsBody(polygonFrom: path)
-//        cityFront2.physicsBody = SKPhysicsBody(polygonFrom: path)
-//        cityFront3.physicsBody = SKPhysicsBody(polygonFrom: path)
-        
         cityFront.physicsBody?.usesPreciseCollisionDetection = true
         cityFront2.physicsBody?.usesPreciseCollisionDetection = true
         cityFront3.physicsBody?.usesPreciseCollisionDetection = true
@@ -207,7 +222,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     }
     
     func addCharacter() {
-        character.position = CGPoint(x: size.width * 0.5, y: cityFront.size.height)
+        character.position = CGPoint(x: size.width * 0.6, y: cityFront.size.height+20.0)
         character.zPosition = 2
 
         character.physicsBody = SKPhysicsBody(texture: character.texture!,
