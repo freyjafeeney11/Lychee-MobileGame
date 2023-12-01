@@ -19,6 +19,8 @@ class Authentication: SKScene {
 
     var startButton: SKSpriteNode?
     
+    
+    
     override func didMove(to view: SKView) {
         let keypad = SKSpriteNode(imageNamed: "keypad 1")
         
@@ -53,8 +55,9 @@ struct AuthScene: View {
     @State private var pass = ""
     @State private var isContentVisible = true
     
+    var edit = EditUser()
     
-    @State public var edit = EditUser()
+    
     //@Published var userSession: FirebaseAuth.User?
     //@Published var currentUser: User?
     
@@ -132,9 +135,14 @@ struct AuthScene: View {
     func login() {
         Auth.auth().signIn(withEmail: user, password: pass) { result, error in if error != nil {
             print(error!.localizedDescription)
-        } else {
-            authenticated = true
-        }
+            }
+            else {
+                UserObject.name = user
+                authenticated = true
+                edit.pullFromFirestore()
+                print("this is user from auth scene login \(UserObject.name)")
+                print("this is user from the currUser var in edit user \(String(describing: edit.currUser?.getName()))")
+            }
         }
     }
     // create a user
@@ -145,13 +153,18 @@ struct AuthScene: View {
             var atSign = email.firstIndex(of: "@")!
             var name = email[...atSign]
             // user levels initial
-            edit.new_update = UserHealth(id: userID, name: String(name), user: email, pass: password, hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: true, coins: 0)
-            let encodedUser = try Firestore.Encoder().encode(edit.new_update)
-            try await Firestore.firestore().collection("users").document(email).setData(encodedUser)
+            let currUser = UserObject(id: userID, name: String(name), user: email, pass: password, hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: true, coins: 0)
+            print(currUser)
+            edit.updateFirestore()
+            edit.setUser(obj: currUser)
+            let encodedUser = try Firestore.Encoder().encode(currUser)
+            try await
+                Firestore.firestore().collection("users").document(UserObject.user).setData(encodedUser)
         }
         catch {
             print("DEBUG: Failed to create user with error \(error)")
         }
 
     }
+    
 }

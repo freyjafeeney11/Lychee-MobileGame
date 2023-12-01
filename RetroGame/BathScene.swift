@@ -16,9 +16,7 @@ class BathScene: SKScene {
     private var spinnyNode : SKShapeNode?
     var runnerButton: SKSpriteNode?
     var menuBar: SKSpriteNode?
-    let currentUser = AuthScene.init()
-    var editUser = EditUser()
-    var coins = 0;
+    var edit = EditUser()
     
     
     override func didMove(to view: SKView) {
