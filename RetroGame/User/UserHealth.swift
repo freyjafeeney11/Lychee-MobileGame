@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestoreSwift
 
 
-class UserHealth: Identifiable, Codable{
+struct UserHealth: Identifiable, Codable{
     @DocumentID
     var id: String?
     var hunger_level: Int
@@ -22,7 +22,6 @@ class UserHealth: Identifiable, Codable{
     var pass: String
     var volume: Bool
     var coins: Int
-    
     
     init(){
         id = ""
@@ -51,31 +50,35 @@ class UserHealth: Identifiable, Codable{
         self.coins = coins
     }
     
-    func setHunger(newHunger: Int){
-        hunger_level = newHunger
+    
+    mutating func setHunger(newHunger: Int){
+        self.hunger_level = newHunger
     }
-    func setSocial(newSocial: Int){
+    mutating func setSocial(newSocial: Int){
         self.social_level = newSocial
     }
-    func setHygiene(newHygiene: Int){
+    mutating func setHygiene(newHygiene: Int){
         self.hygiene_level = newHygiene
     }
-    func setHappiness(newHappiness: Int){
+    mutating func setHappiness(newHappiness: Int){
         self.happiness_level = newHappiness
     }
-    func setEnergy(newEnergy: Int){
+    mutating func setEnergy(newEnergy: Int){
         self.energy_level = newEnergy
     }
+    mutating func setName(newName: String){
+        self.name = newName
+    }
     
-    func addHunger(newHunger: Int){
-        if(hunger_level + newHunger <= 100){
-            hunger_level += newHunger
+    mutating func addHunger(newHunger: Int){
+        if(self.hunger_level + newHunger <= 100){
+            self.hunger_level += newHunger
         }
         else{
-            hunger_level = 100
+            self.hunger_level = 100
         }
     }
-    func addSocial(newSocial: Int){
+    mutating func addSocial(newSocial: Int){
         if(social_level + newSocial <= 100){
             self.social_level += newSocial
         }
@@ -83,7 +86,7 @@ class UserHealth: Identifiable, Codable{
             social_level = 100
         }
     }
-    func addHygiene(newHygiene: Int){
+    mutating func addHygiene(newHygiene: Int){
         if(hygiene_level + newHygiene <= 100){
             self.hygiene_level += newHygiene
         }
@@ -91,7 +94,7 @@ class UserHealth: Identifiable, Codable{
             hygiene_level = 100
         }
     }
-    func addHappiness(newHappiness: Int){
+    mutating func addHappiness(newHappiness: Int){
         if(happiness_level + newHappiness <= 100){
             self.happiness_level += newHappiness
         }
@@ -99,7 +102,7 @@ class UserHealth: Identifiable, Codable{
             happiness_level = 100
         }
     }
-    func addEnergy(newEnergy: Int){
+    mutating func addEnergy(newEnergy: Int){
         if(energy_level + newEnergy <= 100){
             self.energy_level += newEnergy
         }
@@ -107,7 +110,7 @@ class UserHealth: Identifiable, Codable{
             energy_level = 100
         }
     }
-    func addCoins(moreCoins: Int){
+    mutating func addCoins(moreCoins: Int){
         self.coins += moreCoins
     }
     

@@ -21,7 +21,7 @@ class SideMenu: SKScene {
     var social: SKSpriteNode?
     var stats: SKSpriteNode?
     var settings: SKSpriteNode?
-    var editUser = EditUser()
+    var edit = EditUser()
     
     let homeLabel = SKLabelNode(fontNamed: "Avenir-Black ")
     let closetLabel = SKLabelNode(fontNamed: "Avenir-Balck ")
@@ -88,7 +88,7 @@ class SideMenu: SKScene {
                 let bathScene = BathScene(size: size)
                 bathScene.scaleMode = .aspectFill
                 view?.presentScene(bathScene)
-                editUser.bath_levels()
+                edit.bath_levels()
             }
             if fridge?.contains(location) == true {
                let harvestGame = Harvest(size: size)

@@ -22,8 +22,7 @@ public class MainScreen: SKScene {
     var runnerButton: SKSpriteNode?
     var harvestButton: SKSpriteNode?
     var menuBar: SKSpriteNode?
-    let currentUser = AuthScene.init()
-    var editUser = EditUser()
+    //var edit = EditUser()
     
     
     

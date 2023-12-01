@@ -42,7 +42,8 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     var timerLabel: SKLabelNode!
     
     //call edituser to update coins
-    var editUser = EditUser()
+    var edit = EditUser()
+    //var runner_user = editUser.new_update
     
     //have to either call firebase each time and get userData and update or have
     //object that does this
@@ -148,9 +149,12 @@ class Runner: SKScene, SKPhysicsContactDelegate{
             let endScene = EndScreen(size: self.size, collectedCoins: coinCounter)
             endScene.scaleMode = .aspectFill
             skView.presentScene(endScene)
-            editUser.runner_levels(coins: coinCounter)
-            print("Username is: \(editUser.new_update.name)")
-            print("\nNum of coins is: \(editUser.new_update.coins)")
+            print("Username is: \(UserObject.name)")
+            print("\nNum of coins is: \(UserObject.coins)")
+            edit.runner_levels(coins: coinCounter)
+            print("Username2 is: \(UserObject.name)")
+            print("\n2Num of coins is: \(UserObject.coins)")
+            
         }
     }
     
