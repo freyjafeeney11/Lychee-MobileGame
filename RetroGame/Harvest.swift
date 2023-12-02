@@ -11,7 +11,7 @@ import CoreMotion
 
 class Harvest: SKScene, SKPhysicsContactDelegate{
     let character = SKSpriteNode(imageNamed: "chicken-hamster")
-    
+        
     // To detect collision, bitmask category
     let characterCategory:UInt32 = 0x100
     let groundCategory:UInt32 = 0x1000
@@ -23,6 +23,8 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
 //    var isMovingLeft = false
 //    var isMovingRight = false
     var targetX: CGFloat = 0.0
+    
+    let foodTypes = ["apple", "watermelon", "meat", "tuna", "corn", "pumpkin", "battery"]
     
     var collectedFood: [String: Int] = [
         "apple": 0,
@@ -63,20 +65,18 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
         physicsWorld.contactDelegate = self
         physicsWorld.gravity = CGVector(dx: 0, dy: -5.0)
         
-        
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let touchLocation = touch.location(in: self)
             targetX = touchLocation.x
-//            if touchLocation.x < size.width / 2 {
-//                isMovingLeft = true
-//            } else {
-//                isMovingRight = true
-//            }
+            //            if touchLocation.x < size.width / 2 {
+            //                isMovingLeft = true
+            //            } else {
+            //                isMovingRight = true
+            //            }
         }
     }
-    
 //    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
 //        isMovingLeft = false
 //        isMovingRight = false
@@ -169,7 +169,6 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
     }
     
     func spawnFood() {
-        let foodTypes = ["apple", "watermelon", "meat", "tuna", "corn", "pumpkin", "battery"]
         let numberOfFruits = 4
         
         for _ in 1...numberOfFruits {
