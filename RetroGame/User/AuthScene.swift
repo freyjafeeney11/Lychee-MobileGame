@@ -56,6 +56,8 @@ struct AuthScene: View {
     @State private var isContentVisible = true
     
     var edit = EditUser()
+    var userObj = UserObject(id: "someID", name: "default", user: "default@example.com", pass: "password", hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: true, coins: 0)
+
     
     
     //@Published var userSession: FirebaseAuth.User?
@@ -143,10 +145,10 @@ struct AuthScene: View {
             print(error!.localizedDescription)
             }
             else {
-                UserObject.name = user
+                userObj.name = user
                 authenticated = true
-                edit.pullFromFirestore()
-                print("this is user from auth scene login \(UserObject.name)")
+                edit.pullFromFirestore(user: userObj)
+                print("this is user from auth scene login \(userObj.name)")
                 print("this is user from the currUser var in edit user \(String(describing: edit.currUser?.getName()))")
             }
         }
@@ -156,16 +158,16 @@ struct AuthScene: View {
         do{
             let _ = try await Auth.auth().createUser(withEmail: user, password: pass)
             let userID = Auth.auth().currentUser!.uid
-            var atSign = email.firstIndex(of: "@")!
-            var name = email[...atSign]
+            let atSign = email.firstIndex(of: "@")!
+            let name = email[...atSign]
             // user levels initial
             let currUser = UserObject(id: userID, name: String(name), user: email, pass: password, hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: true, coins: 0)
             print(currUser)
-            edit.updateFirestore()
             edit.setUser(obj: currUser)
+            edit.updateFirestore(user: userObj)
             let encodedUser = try Firestore.Encoder().encode(currUser)
             try await
-                Firestore.firestore().collection("users").document(UserObject.user).setData(encodedUser)
+                Firestore.firestore().collection("users").document(userObj.user).setData(encodedUser)
         }
         catch {
             print("DEBUG: Failed to create user with error \(error)")

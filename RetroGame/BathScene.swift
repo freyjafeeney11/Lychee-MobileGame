@@ -51,17 +51,8 @@ class BathScene: SKScene, SKPhysicsContactDelegate {
         let bathing = [tex1, tex2, tex3]
 
         
-        //bubbles animation!
-        let bub1 = SKTexture(imageNamed: "bubbles_animate1")
-        let bub2 = SKTexture(imageNamed: "bubbles_animate2")
-        let bub3 = SKTexture(imageNamed: "bubbles_animate3")
-        let washing = [bub1, bub2, bub3]
-        
         let bathingIdle = SKAction.animate(with: bathing, timePerFrame: 0.3)
-        let washingAnimation = SKAction.animate(with: washing, timePerFrame: 0.2)
-        let washingAction = SKAction.repeatForever(washingAnimation)
         
-        bubbles.run(washingAction, withKey: "washingAnimation")
         let walkAction = SKAction.repeatForever(bathingIdle)
         // entire sequence forever
         player!.run(walkAction)
@@ -87,19 +78,16 @@ class BathScene: SKScene, SKPhysicsContactDelegate {
         sponge?.physicsBody = SKPhysicsBody(circleOfRadius: sponge!.size.width / 2)
         sponge?.physicsBody?.affectedByGravity = true
         sponge?.physicsBody?.isDynamic = true
-        
-        
-        
         //menu
         menuBar?.setScale(0.8)
         menuBar?.position = CGPoint(x: -248, y: size.height * 0.5)
         
         room.position = CGPoint(x: size.width * 0.5, y: size.height * 0.45)
         tub.position = CGPoint(x: size.width * 0.55, y: size.height * 0.4)
-        bubbles.position = CGPoint(x: size.width * 0.55, y: size.height * 0.42)
         shampoo.position = CGPoint(x: size.width * 0.7, y: size.height * 0.3)
         sponge?.position = CGPoint(x: size.width * 0.35, y: size.height * 0.15)
         player?.position = CGPoint(x: size.width * 0.62, y: size.height * 0.43)
+        bubbles.position = CGPoint(x: size.width * 0.55, y: size.height * 0.41)
         
         addChild(groundNode!)
         addChild(room)
@@ -139,6 +127,36 @@ class BathScene: SKScene, SKPhysicsContactDelegate {
         if let touch = touches.first, let node = self.currentNode {
             let touchLocation = touch.location(in: self)
             node.position = touchLocation
+        }
+        for touch in touches {
+            let location = touch.location(in: self)
+            if sponge!.frame.intersects(player!.frame) && !isSpongeTouchingPlayer {
+                playBubblesAnimation(at: sponge!.position)
+                isSpongeTouchingPlayer = true
+            } else if !sponge!.frame.intersects(player!.frame) {
+                isSpongeTouchingPlayer = false
+            }
+        }
+    }
+    func playBubblesAnimation(at position: CGPoint) {
+        // bubble action
+        //bubbles animation!
+        let bub1 = SKTexture(imageNamed: "bubbles_animate1")
+        let bub2 = SKTexture(imageNamed: "bubbles_animate2")
+        let bub3 = SKTexture(imageNamed: "bubbles_animate3")
+        let washing = [bub1, bub2, bub3]
+        
+        let washingAnimation = SKAction.animate(with: washing, timePerFrame: 0.1)
+        let bubbleAction = SKAction.repeat(washingAnimation, count : 5)
+
+        // bubble sprite
+        let bubble = SKSpriteNode(imageNamed: "bubbles_animate1")
+        bubble.position = CGPoint(x: size.width * 0.62, y: size.height * 0.46)
+        bubble.setScale(0.45)
+        addChild(bubble)
+
+        bubble.run(bubbleAction) {
+            bubble.removeFromParent()
         }
     }
     public override init(size: CGSize) {
