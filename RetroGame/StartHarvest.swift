@@ -9,6 +9,14 @@ import SpriteKit
 import GameplayKit
 import CoreMotion
 
+public struct foodReqs {
+    static let characterFoodReq: [String: [String: Int]] = [
+        "chicken-hamster": ["apple": 2, "corn": 2, "pumpkin": 2],
+        "cat-bat": ["meat": 1, "fish": 3, "watermelon": 2],
+        "robot-dragon": ["meat": 2, "battery": 3, "apple": 1]
+    ]
+}
+
 class StartHarvest: SKScene {
     var playButton: SKSpriteNode?
     // For start screen
@@ -19,12 +27,6 @@ class StartHarvest: SKScene {
     var isStartScreenVisible = true
     var startScreen: SKNode?
     var closeButton: SKSpriteNode?
-    
-    let characterFoodRequirements: [String: [String: Int]] = [
-        "chicken-hamster": ["apple": 2, "corn": 2, "pumpkin": 2],
-        "cat-bat": ["meat": 1, "fish": 3, "watermelon": 2],
-        "robot-dragon": ["meat": 2, "battery": 3, "apple": 1]
-    ]
     
     override func didMove(to view: SKView) {
         showStartScreen(for: "chicken-hamster")
@@ -57,7 +59,7 @@ class StartHarvest: SKScene {
         // Add food images and their requirements
         var yPosition: CGFloat = size.height - 120
         
-        if let requirements = characterFoodRequirements[characterType] {
+        if let requirements = foodReqs.characterFoodReq[characterType] {
             for (foodType, requiredCount) in requirements {
                 let foodNode = SKSpriteNode(imageNamed: foodType)
                 foodNode.position = CGPoint(x: size.width * 0.4 , y: yPosition)
