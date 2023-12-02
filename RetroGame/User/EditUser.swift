@@ -121,11 +121,12 @@ public class EditUser: ObservableObject{
     }
     
     //changes health levels after playing runner game
-    func runner_levels(coins: Int, user: UserObject){
+    func runner_levels(coins: Int){
         let currUser = self.db.collection("users")
-        print("edit user username is: \(user.name)")
-        updateFirestore(user: user)
-        currUser.whereField("name", isEqualTo: user.name).getDocuments(completion: { documentSnapshot, error in
+        let user = mostRecentUser
+        print("edit user username is: \(mostRecentUser!.name)")
+        updateFirestore(user: user!)
+        currUser.whereField("name", isEqualTo: user!.name).getDocuments(completion: { documentSnapshot, error in
             if let err = error {
                 print(err.localizedDescription)
                 return
@@ -141,14 +142,14 @@ public class EditUser: ObservableObject{
                 self.addCoins(moreCoins: coins)
                 //self.addHygiene(newHygiene: -20)
                 //self.addHunger(newHunger: -20)
-                docRef.updateData(["energy_level" : user.energy_level])
-                docRef.updateData(["coins" : user.coins])
-                docRef.updateData(["hygiene_level" : user.hygiene_level])
-                docRef.updateData(["hunger_level" : user.hunger_level])
+                docRef.updateData(["energy_level" : user!.energy_level])
+                docRef.updateData(["coins" : user!.coins])
+                docRef.updateData(["hygiene_level" : user!.hygiene_level])
+                docRef.updateData(["hunger_level" : user!.hunger_level])
             }
         })
-        self.pullFromFirestore(user: user)
-        print("edit user coins count is: \(user.coins)")
+        self.pullFromFirestore(user: user!)
+        print("edit user coins count is: \(user!.coins)")
     }
     
     

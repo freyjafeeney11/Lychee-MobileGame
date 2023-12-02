@@ -99,7 +99,7 @@ struct AuthScene: View {
                     } label: {
                         Text("Create Account")
                             .foregroundColor(.white)
-                            .font(.custom("Chalkduster", size: 20))
+                            .font(.custom("Futura", size: 20))
                             .bold()
                             .frame(width:200, height:30)
                             .background(
@@ -111,7 +111,7 @@ struct AuthScene: View {
                         login()
                     } label: {
                         Text("Login")
-                            .font(.custom("Chalkduster", size: 20))
+                            .font(.custom("Futura", size: 20))
                             .bold()
                             .foregroundColor(.white)
                             .frame(width:200, height:30)
@@ -123,7 +123,7 @@ struct AuthScene: View {
                         authenticated = true
                     } label: {
                         Text("Skip for now")
-                            .font(.custom("Chalkduster", size: 15))
+                            .font(.custom("Futura", size: 15))
                             .bold()
                             .foregroundColor(.white)
                     }
@@ -145,10 +145,10 @@ struct AuthScene: View {
             print(error!.localizedDescription)
             }
             else {
-                userObj.name = user
+                edit.currUser!.name = user
                 authenticated = true
-                edit.pullFromFirestore(user: userObj)
-                print("this is user from auth scene login \(userObj.name)")
+                edit.pullFromFirestore(user: edit.currUser!)
+                print("this is user from auth scene login \(edit.currUser!.name)")
                 print("this is user from the currUser var in edit user \(String(describing: edit.currUser?.getName()))")
             }
         }
@@ -164,10 +164,10 @@ struct AuthScene: View {
             let currUser = UserObject(id: userID, name: String(name), user: email, pass: password, hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: true, coins: 0)
             print(currUser)
             edit.setUser(obj: currUser)
-            edit.updateFirestore(user: userObj)
+            edit.updateFirestore(user: currUser)
             let encodedUser = try Firestore.Encoder().encode(currUser)
             try await
-                Firestore.firestore().collection("users").document(userObj.user).setData(encodedUser)
+                Firestore.firestore().collection("users").document(currUser.user).setData(encodedUser)
         }
         catch {
             print("DEBUG: Failed to create user with error \(error)")
