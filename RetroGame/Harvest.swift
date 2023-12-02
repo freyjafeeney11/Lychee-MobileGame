@@ -10,7 +10,10 @@ import GameplayKit
 import CoreMotion
 
 class Harvest: SKScene, SKPhysicsContactDelegate{
-    let character = SKSpriteNode(imageNamed: "chicken-hamster")
+    //let character = SKSpriteNode(imageNamed: "chicken-hamster")
+    var character = SKSpriteNode()
+    var runningTextures = [SKTexture]()
+    var currentFrame = 0
     
     // To detect collision, bitmask category
     let characterCategory:UInt32 = 0x100
@@ -36,13 +39,6 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
         "pumpkin": 0,
         "battery": 0
     ]
-//    
-//    let characterFoodRequirements: [String: [String: Int]] = [
-//        "chicken-hamster": ["apple": 2, "corn": 2, "pumpkin": 2],
-//        "cat-bat": ["meat": 1, "fish": 3, "watermelon": 2],
-//        "robot-dragon": ["meat": 2, "battery": 3, "apple": 1]
-//    ]
-//
             
     override func didMove(to view: SKView){
         view.showsPhysics = true
@@ -137,24 +133,72 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
         addChild(ground)
     }
 
-    func addCharacter() {
-        let groundHeight = ground.size.height
-        character.position = CGPoint(x: size.width * 0.5, y: groundHeight)
-        character.zPosition = 2
+//    func addCharacter() {
+//        let groundHeight = ground.size.height
+//        character.position = CGPoint(x: size.width * 0.5, y: groundHeight)
+//        character.zPosition = 2
+//        
+//        character.physicsBody = SKPhysicsBody(texture: character.texture!,
+//                                              size: character.texture!.size())
+//        character.physicsBody?.affectedByGravity = true
+//        character.physicsBody?.isDynamic = true
+//        character.physicsBody?.allowsRotation = false
+//        character.physicsBody?.categoryBitMask = characterCategory
+//        character.physicsBody?.collisionBitMask = groundCategory
+//        character.physicsBody?.contactTestBitMask = groundCategory
+//        
+//        character.physicsBody?.usesPreciseCollisionDetection = true
+//        addChild(character)
+//    }
+    
+    func loadRunningAnimationTextures() -> [SKTexture] {
+        let runImages = ["mini_batcat_run1", "mini_batcat_run2", "mini_batcat_run3", "mini_batcat_run4"]
+        let textures = runImages.map { SKTexture(imageNamed: $0) }
+        return textures
+    }
+    
+    func updateCharacterPhysics() {
+        guard currentFrame < runningTextures.count else { return }
         
-        character.physicsBody = SKPhysicsBody(texture: character.texture!,
-                                              size: character.texture!.size())
+        let currentTexture = runningTextures[currentFrame]
+        character.physicsBody = SKPhysicsBody(texture: currentTexture, size: currentTexture.size())
         character.physicsBody?.affectedByGravity = true
         character.physicsBody?.isDynamic = true
         character.physicsBody?.allowsRotation = false
         character.physicsBody?.categoryBitMask = characterCategory
         character.physicsBody?.collisionBitMask = groundCategory
         character.physicsBody?.contactTestBitMask = groundCategory
-        
         character.physicsBody?.usesPreciseCollisionDetection = true
-        addChild(character)
+        character.zPosition = 2
+        
     }
     
+    func updateRunningAnimation() {
+        guard currentFrame < runningTextures.count else { return }
+        
+        let currentTexture = runningTextures[currentFrame]
+        character.texture = currentTexture
+        updateCharacterPhysics()
+        
+        currentFrame = (currentFrame + 1) % runningTextures.count
+        
+    }
+    
+    func addCharacter() {
+        runningTextures = loadRunningAnimationTextures()
+        // Set initial character texture and physics body
+        character = SKSpriteNode(texture: runningTextures[0])
+        character.position = CGPoint(x: size.width / 2, y: size.height / 2)
+        addChild(character)
+        
+        updateCharacterPhysics()
+        
+        // Start the animation loop
+        run(SKAction.repeatForever(SKAction.sequence([
+            SKAction.run(updateRunningAnimation),
+            SKAction.wait(forDuration: 0.1)
+        ])))
+    }
     func startFoodSpawning() {
         let spawnFoodAction = SKAction.run(spawnFood)
         let waitDuration = SKAction.wait(forDuration: 2.0)
@@ -185,7 +229,7 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
             
             food.position = CGPoint(x: randomX, y: randomY)
             food.zPosition = 3
-            food.physicsBody = SKPhysicsBody(circleOfRadius: (food.size.width / 2) - 3)
+            food.physicsBody = SKPhysicsBody(circleOfRadius: (food.size.width / 2))
             food.physicsBody?.isDynamic = true
             food.physicsBody?.categoryBitMask = foodCategory
             food.physicsBody?.collisionBitMask = 0
