@@ -9,7 +9,8 @@ import SpriteKit
 import GameplayKit
 
 class Runner: SKScene, SKPhysicsContactDelegate{
-    let character = SKSpriteNode(imageNamed: "chicken-hamster")
+    //let character = SKSpriteNode(imageNamed: "chicken-hamster")
+    let character = SKSpriteNode(imageNamed: "mini_batcat_run1")
     
     // To detect collision, bitmask category
     let characterCategory:UInt32 = 0x100
@@ -67,6 +68,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         createSky()
         createCity()
         addCharacter()
+        updateCharacterTextures()
         physicsWorld.contactDelegate = self
         physicsWorld.gravity = CGVector(dx: 0, dy: -5.0)
         addCityCollision()
@@ -238,6 +240,13 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         print("Character Added!")
         addChild(character)
         print("Character Initial Position: \(character.position)")
+    }
+    func updateCharacterTextures() {
+        let textures = ["mini_batcat_run1", "mini_batcat_run2", "mini_batcat_run3", "mini_batcat_run4"]
+        let characterTextures = textures.map { SKTexture(imageNamed: $0) }
+        
+        let animateAction = SKAction.animate(with: characterTextures, timePerFrame: 0.1)
+        character.run(SKAction.repeatForever(animateAction), withKey: "runningAnimation")
     }
     func startCoinSpawning() {
         let spawnCoinAction = SKAction.run(spawnCoin)
