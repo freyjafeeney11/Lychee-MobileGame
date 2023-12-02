@@ -25,6 +25,7 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
     var targetX: CGFloat = 0.0
     
     let foodTypes = ["apple", "watermelon", "meat", "tuna", "corn", "pumpkin", "battery"]
+    let poisonFood = "mushroom"
     
     var collectedFood: [String: Int] = [
         "apple": 0,
@@ -35,15 +36,16 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
         "pumpkin": 0,
         "battery": 0
     ]
-    let characterFoodRequirements: [String: [String: Int]] = [
-        "chicken-hamster": ["apple": 2, "corn": 2, "pumpkin": 2],
-        "cat-bat": ["meat": 1, "fish": 3, "watermelon": 2],
-        "robot-dragon": ["meat": 2, "battery": 3, "apple": 1]
-    ]
-    
-    var foodCounter = 0
+//    
+//    let characterFoodRequirements: [String: [String: Int]] = [
+//        "chicken-hamster": ["apple": 2, "corn": 2, "pumpkin": 2],
+//        "cat-bat": ["meat": 1, "fish": 3, "watermelon": 2],
+//        "robot-dragon": ["meat": 2, "battery": 3, "apple": 1]
+//    ]
+//
             
     override func didMove(to view: SKView){
+        view.showsPhysics = true
         // Set the size of the scene
         self.size = view.bounds.size
         // constraints to keep the character within the scene
@@ -63,7 +65,7 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
         startFoodSpawning()
         addCharacter()
         physicsWorld.contactDelegate = self
-        physicsWorld.gravity = CGVector(dx: 0, dy: -5.0)
+        physicsWorld.gravity = CGVector(dx: 0, dy: -2.0)
         
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -111,12 +113,6 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
                 character.position.x -= speed
             }
         }
-    }
-    
-    func characterOutOfBounds() {
-        print("Character went out of bounds!")
-        // Move to EndScreen
-
     }
     
     func createSky() {
@@ -202,7 +198,8 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
         if let foodType = food.name {
             if let count = collectedFood[foodType] {
                 collectedFood[foodType] = count + 1
-                if let requiredCount = characterFoodRequirements["chicken-hamster"]?[foodType] {
+                if let requiredCount =
+                    foodReqs.characterFoodReq["chicken-hamster"]?[foodType] {
                     print("\(foodType) collected: \(count + 1)/\(requiredCount)")
                 }
             }
@@ -212,7 +209,7 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
     }
     
     func checkFoodRequirements(for characterType: String) {
-        guard let requirements = characterFoodRequirements[characterType] else {
+        guard let requirements = foodReqs.characterFoodReq[characterType] else {
             print("Character requirements not found.")
             return
         }
@@ -224,6 +221,11 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
         }
         if requirementsMet {
             print("Character has collected all required food for \(characterType)!")
+//            if let skView = self.view {
+//                let endScene = EndScreen(size: self.size, collectedCoins: coinCounter)
+//                endScene.scaleMode = .aspectFill
+//                skView.presentScene(endScene)
+//            }
         }
     }
 
