@@ -173,7 +173,7 @@ public class MainScreen: SKScene {
             }
             if harvestButton?.contains(location) == true {
                 // Transition to the harvest game
-                let harvestGame = Harvest(size: size)
+                let harvestGame = StartHarvest(size: size)
                 harvestGame.scaleMode = .aspectFill
                 view?.presentScene(harvestGame)
             }

@@ -20,6 +20,7 @@
 		AB3095342B18E8EE000F2229 /* StatsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3095332B18E8EE000F2229 /* StatsMenu.swift */; };
 		ABACE2D12B0D626A0004D944 /* SettingsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABACE2D02B0D626A0004D944 /* SettingsMenu.swift */; };
 		ABE4E8232AE4703A0092ECA6 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE4E8222AE4703A0092ECA6 /* SideMenu.swift */; };
+		BD0AE0162B1AA8FA006E122D /* StartHarvest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0AE0152B1AA8FA006E122D /* StartHarvest.swift */; };
 		BD3EFA012B16B2600099B85A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD3EFA002B16B2600099B85A /* GoogleService-Info.plist */; };
 		BD8427522B17CC3C0011D458 /* Harvest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8427512B17CC3C0011D458 /* Harvest.swift */; };
 		BDB138232B13DE2D00D7AF32 /* EndScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB138222B13DE2D00D7AF32 /* EndScreen.swift */; };
@@ -73,6 +74,7 @@
 		AB3095332B18E8EE000F2229 /* StatsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsMenu.swift; sourceTree = "<group>"; };
 		ABACE2D02B0D626A0004D944 /* SettingsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMenu.swift; sourceTree = "<group>"; };
 		ABE4E8222AE4703A0092ECA6 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
+		BD0AE0152B1AA8FA006E122D /* StartHarvest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartHarvest.swift; sourceTree = "<group>"; };
 		BD3EFA002B16B2600099B85A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BD8427512B17CC3C0011D458 /* Harvest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Harvest.swift; sourceTree = "<group>"; };
 		BDB138222B13DE2D00D7AF32 /* EndScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndScreen.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				CD1F68A52AD47BEF002B1EF5 /* GameScene.swift */,
 				ABACE2D02B0D626A0004D944 /* SettingsMenu.swift */,
 				CD1F68A72AD47BEF002B1EF5 /* GameViewController.swift */,
+				BD0AE0152B1AA8FA006E122D /* StartHarvest.swift */,
 				738F57072B167AD700CA1A25 /* BathScene.swift */,
 				ABE4E8222AE4703A0092ECA6 /* SideMenu.swift */,
 				AB3095332B18E8EE000F2229 /* StatsMenu.swift */,
@@ -387,6 +390,7 @@
 				CDF98A872B06767100BB78D6 /* UserHealth.swift in Sources */,
 				CD1F68A82AD47BEF002B1EF5 /* GameViewController.swift in Sources */,
 				CDF98A8A2B06789600BB78D6 /* EditUser.swift in Sources */,
+				BD0AE0162B1AA8FA006E122D /* StartHarvest.swift in Sources */,
 				CD1F68A02AD47BEF002B1EF5 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
