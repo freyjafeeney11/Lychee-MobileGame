@@ -33,20 +33,6 @@ class Authentication: SKScene {
         self.addChild(keypad)
     }
     
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        for touch in touches {
-//            let location = touch.location(in: self)
-//
-//            if startButton?.contains(location) == true {
-//                callMainScreen()
-//            }
-//        }
-//    }
-//    func callMainScreen() {
-//        let MainScreen = MainScreen(size: size)
-//        MainScreen.scaleMode = .aspectFill
-//        view?.presentScene(MainScreen)
-//    }
 }
 
 struct AuthScene: View {
@@ -56,18 +42,9 @@ struct AuthScene: View {
     @State private var isContentVisible = true
     
     var edit = EditUser()
-    var userObj = UserObject(id: "someID", name: "default", user: "default@example.com", pass: "password", hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: true, coins: 0)
+    var userObj = UserObject(id: "someID", name: "default", user: "default@example.com", pass: "password", hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: true, coins: 0, pet: "catbat")
 
-    
-    
-    //@Published var userSession: FirebaseAuth.User?
-    //@Published var currentUser: User?
-    
-    /*
-    init(){
-        self.userSession = Auth.auth().currentUser
-    } */
-    
+
     
     @State private var showMainScreen = false
     
@@ -85,7 +62,7 @@ struct AuthScene: View {
                     .position(x: 420, y: 266)
                     .ignoresSafeArea()
                 VStack {
-                    TextField("", text:$user)
+                    TextField(placeholder: Text(""), text:$user)
                         .foregroundColor(.white)
                         .padding(30)
                     SecureField("", text:$pass)
@@ -160,12 +137,10 @@ struct AuthScene: View {
             let userID = Auth.auth().currentUser!.uid
             let atSign = email.firstIndex(of: "@")!
             let name = email[...atSign]
-            // user levels initial
-            let currUser = UserObject(id: userID, name: String(name), user: email, pass: password, hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: true, coins: 0)
-            print(currUser)
-            edit.setUser(obj: currUser)
-            edit.updateFirestore(user: userObj)
-            let encodedUser = try Firestore.Encoder().encode(currUser)
+            print(userObj)
+            //edit.setUser(obj: userObj.name)
+            //edit.updateFirestore(user: userObj)
+            let encodedUser = try Firestore.Encoder().encode(userObj)
             try await
                 Firestore.firestore().collection("users").document(userObj.user).setData(encodedUser)
         }

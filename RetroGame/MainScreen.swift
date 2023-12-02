@@ -26,6 +26,7 @@ public class MainScreen: SKScene, SKPhysicsContactDelegate {
     var menuBar: SKSpriteNode?
     //var edit = EditUser()
     
+    var health = Levels()
     
     
     public override func didMove(to view: SKView) {
@@ -179,6 +180,9 @@ public class MainScreen: SKScene, SKPhysicsContactDelegate {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+
+    
 }
 
 struct MainGameSceneView: View {
