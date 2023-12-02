@@ -29,7 +29,8 @@ class StartHarvest: SKScene {
     var closeButton: SKSpriteNode?
     
     override func didMove(to view: SKView) {
-        showStartScreen(for: "chicken-hamster")
+        setupBackground()
+        animateScroll()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -46,16 +47,26 @@ class StartHarvest: SKScene {
         
     }
     
-    func showStartScreen(for characterType: String) {
-        // Create the background for the start screen
+    func setupBackground() {
         background.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         background.zPosition = 0
         addChild(background)
-        
+    }
+    
+    func animateScroll() {
+        let scrollImgs = ["parchment6", "parchment6", "parchment5", "parchment4", "parchment3", "parchment2", "parchment1"]
+        let scrollTextures = scrollImgs.map { SKTexture(imageNamed: $0) }
+        let openScroll = SKAction.animate(with: scrollTextures,
+                                                 timePerFrame: 0.1)
+        parchment.run(openScroll)
         parchment.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         parchment.zPosition = 1
         addChild(parchment)
         
+        showRequirments(for: "chicken-hamster")
+    }
+    
+    func showRequirments(for characterType: String) {
         // Add food images and their requirements
         var yPosition: CGFloat = size.height - 120
         
