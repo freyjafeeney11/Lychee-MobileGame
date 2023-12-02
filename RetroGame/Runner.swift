@@ -10,7 +10,11 @@ import GameplayKit
 
 class Runner: SKScene, SKPhysicsContactDelegate{
     let edit = EditUser()
-    let character = SKSpriteNode(imageNamed: "chicken-hamster")
+    //let character = SKSpriteNode(imageNamed: "chicken-hamster")
+    let character = SKSpriteNode(imageNamed: "mini_chicken-hamster_run1")
+//    var character = SKSpriteNode()
+//    var runningTextures = [SKTexture]()
+//    var currentFrame = 0
     
     // To detect collision, bitmask category
     let characterCategory:UInt32 = 0x100
@@ -29,7 +33,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     let skyVelocity: CGFloat = 1.0
     
     //Jumping mech
-    let jumpForce: CGFloat = 50.0
+    let jumpForce: CGFloat = 70.0
     var isJumping = false
     var canJump = true
     
@@ -48,8 +52,9 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     
     //have to either call firebase each time and get userData and update or have
     //object that does this
-            
+    
     override func didMove(to view: SKView){
+        view.showsPhysics = true
         // Set the size of the scene
         self.size = view.bounds.size
         // constraints to keep the character within the scene
@@ -63,12 +68,13 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         let rangeY = SKRange(lowerLimit: minY, upperLimit: maxY)
         
         let characterConstraint = SKConstraint.positionX(rangeX, y: rangeY)
-
+        
         character.constraints = [characterConstraint]
         createSky()
         createCity()
         addCharacter()
         updateCharacterTextures()
+        //addCharacter()
         physicsWorld.contactDelegate = self
         physicsWorld.gravity = CGVector(dx: 0, dy: -5.0)
         addCityCollision()
@@ -81,7 +87,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         timerLabel.position = CGPoint(x: size.width * 0.1, y: size.height - 50)
         addChild(timerLabel)
     }
-
+    
     @objc func updateTimer() {
         elapsedTime += 1
         let remainingTime = max(gameDuration - elapsedTime, 0)
@@ -103,7 +109,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
             }
         }
     }
-
+    
     func didBegin(_ contact: SKPhysicsContact) {
         let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         // Check if character in contact with ground
@@ -119,8 +125,8 @@ class Runner: SKScene, SKPhysicsContactDelegate{
             }
         }
     }
-
-
+    
+    
     override func update(_ currentTime: TimeInterval){
         updateSky()
         updateCity()
@@ -155,7 +161,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
             skView.presentScene(endScene)
             print("Username is: \(user!.name)")
             print("\nNum of coins is: \(user!.coins)")
-            edit.runner_levels(coins: coinCounter, user: user!)
+            edit.runner_levels(coins: coinCounter)
             print("Username2 is: \(user!.name)")
             print("\n2Num of coins is: \(user!.coins)")
             
@@ -202,7 +208,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
                                                size: cityFront2.texture!.size())
         cityFront3.physicsBody = SKPhysicsBody(texture: cityFront3.texture!,
                                                size: cityFront3.texture!.size())
-
+        
         cityFront.physicsBody?.usesPreciseCollisionDetection = true
         cityFront2.physicsBody?.usesPreciseCollisionDetection = true
         cityFront3.physicsBody?.usesPreciseCollisionDetection = true
@@ -222,34 +228,83 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         cityFront2.physicsBody?.collisionBitMask = characterCategory
         cityFront3.physicsBody?.collisionBitMask = characterCategory
         
-
+        
     }
     
-    func addCharacter() {
-        character.position = CGPoint(x: size.width * 0.6, y: cityFront.size.height+20.0)
-        character.zPosition = 2
-
-        character.physicsBody = SKPhysicsBody(texture: character.texture!,
-                                               size: character.texture!.size())
-        character.physicsBody?.affectedByGravity = true
-        character.physicsBody?.isDynamic = true
-        character.physicsBody?.allowsRotation = false
-        character.physicsBody?.categoryBitMask = characterCategory
-        character.physicsBody?.collisionBitMask = groundCategory
-        character.physicsBody?.contactTestBitMask = groundCategory // Detect contact with buildings
-
-        character.physicsBody?.usesPreciseCollisionDetection = true
-        print("Character Added!")
-        addChild(character)
-        print("Character Initial Position: \(character.position)")
-    }
-    func updateCharacterTextures() {
-        let textures = ["mini_batcat_run1", "mini_batcat_run2", "mini_batcat_run3", "mini_batcat_run4"]
-        let characterTextures = textures.map { SKTexture(imageNamed: $0) }
-        
-        let animateAction = SKAction.animate(with: characterTextures, timePerFrame: 0.1)
-        character.run(SKAction.repeatForever(animateAction), withKey: "runningAnimation")
-    }
+        func addCharacter() {
+            character.position = CGPoint(x: size.width * 0.6, y: cityFront.size.height+20.0)
+            character.zPosition = 2
+    
+            character.physicsBody = SKPhysicsBody(rectangleOf: character.size)
+            character.physicsBody?.affectedByGravity = true
+            character.physicsBody?.isDynamic = true
+            character.physicsBody?.allowsRotation = false
+            character.physicsBody?.categoryBitMask = characterCategory
+            character.physicsBody?.collisionBitMask = groundCategory
+            character.physicsBody?.contactTestBitMask = groundCategory // Detect contact with buildings
+    
+            character.physicsBody?.usesPreciseCollisionDetection = true
+            print("Character Added!")
+            addChild(character)
+            print("Character Initial Position: \(character.position)")
+        }
+        func updateCharacterTextures() {
+//            let textures = ["mini_batcat_run1", "mini_batcat_run2", "mini_batcat_run3", "mini_batcat_run4"]
+            let textures = ["mini_chicken-hamster_run1", "mini_chicken-hamster_run2", "mini_chicken-hamster_run3"]
+            let characterTextures = textures.map { SKTexture(imageNamed: $0) }
+    
+            let animateAction = SKAction.animate(with: characterTextures, timePerFrame: 0.1)
+            character.run(SKAction.repeatForever(animateAction), withKey: "runningAnimation")
+        }
+    
+//    func loadRunningAnimationTextures() -> [SKTexture] {
+//        let runImages = ["mini_batcat_run1", "mini_batcat_run2", "mini_batcat_run3", "mini_batcat_run4"]
+//        let textures = runImages.map { SKTexture(imageNamed: $0) }
+//        return textures
+//    }
+//    
+//    func updateCharacterPhysics() {
+//        guard currentFrame < runningTextures.count else { return }
+//        
+//        let currentTexture = runningTextures[currentFrame]
+//        character.physicsBody = SKPhysicsBody(texture: currentTexture, size: currentTexture.size())
+//        character.physicsBody?.affectedByGravity = true
+//        character.physicsBody?.isDynamic = true
+//        character.physicsBody?.allowsRotation = false
+//        character.physicsBody?.categoryBitMask = characterCategory
+//        character.physicsBody?.collisionBitMask = groundCategory
+//        character.physicsBody?.contactTestBitMask = groundCategory
+//        character.physicsBody?.usesPreciseCollisionDetection = true
+//        character.zPosition = 2
+//        
+//    }
+//    
+//    func updateRunningAnimation() {
+//        guard currentFrame < runningTextures.count else { return }
+//        
+//        let currentTexture = runningTextures[currentFrame]
+//        character.texture = currentTexture
+//        updateCharacterPhysics()
+//        
+//        currentFrame = (currentFrame + 1) % runningTextures.count
+//    }
+//    
+//    func addCharacter() {
+//        runningTextures = loadRunningAnimationTextures()
+//        // Set initial character texture and physics body
+//        character = SKSpriteNode(texture: runningTextures[0])
+//        character.position = CGPoint(x: size.width / 2, y: size.height / 2)
+//        addChild(character)
+//        
+//        updateCharacterPhysics()
+//        
+//        // Start the animation loop
+//        run(SKAction.repeatForever(SKAction.sequence([
+//            SKAction.run(updateRunningAnimation),
+//            SKAction.wait(forDuration: 0.1)
+//        ])))
+//    }
+    
     func startCoinSpawning() {
         let spawnCoinAction = SKAction.run(spawnCoin)
         let waitDuration = SKAction.wait(forDuration: 3.0)
@@ -265,7 +320,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         
         let minX = character.position.x + 50
         let maxX = size.width - coin.size.width / 2
-        let minY = character.size.height + 50
+        let minY = character.size.height + 80
         let maxY = size.height - coin.size.height * 2
         
         let randomX = CGFloat(arc4random_uniform(UInt32(maxX - minX))) + minX
@@ -284,13 +339,12 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         updateCoinCounter(by: 1)
         coin.removeFromParent()
     }
-
+    
     func updateCoinCounter(by value: Int) {
         coinCounter += value
         print("Collected Coins: \(coinCounter)")
-        // Update UI or perform any action with the collected coins count here
     }
-
+    
     func updateSky() {
         // Update sky positions
         sky.position = CGPoint(x: sky.position.x - skyVelocity, y: sky.position.y)
@@ -315,7 +369,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         cityFront.position = CGPoint(x: cityFront.position.x - backgroundVelocity1, y: cityFront.position.y)
         cityFront2.position = CGPoint(x: cityFront2.position.x - backgroundVelocity1, y: cityFront2.position.y)
         cityFront3.position = CGPoint(x: cityFront3.position.x - backgroundVelocity1, y: cityFront3.position.y)
-                
+        
         // Reset city position
         if cityFront.position.x <= -cityFront.size.width {
             cityFront.position.x = cityFront3.position.x + cityFront3.size.width
