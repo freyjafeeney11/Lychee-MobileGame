@@ -9,6 +9,7 @@ import SpriteKit
 import GameplayKit
 
 class Runner: SKScene, SKPhysicsContactDelegate{
+    let edit = EditUser()
     //let character = SKSpriteNode(imageNamed: "chicken-hamster")
     //let character = SKSpriteNode(imageNamed: "mini_batcat_run1")
     var character = SKSpriteNode()
@@ -46,7 +47,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     var timerLabel: SKLabelNode!
     
     //call edituser to update coins
-    var edit = EditUser()
+    //var edit = EditUser()
     //var runner_user = editUser.new_update
     
     //have to either call firebase each time and get userData and update or have
@@ -151,16 +152,18 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     }
     
     func handleGameEnd() {
+        // get the current user from userobjmanager
+        let user = UserObjectManager.shared.currentUser
         gameTimer?.invalidate()
         if let skView = self.view {
             let endScene = EndScreen(size: self.size, collectedCoins: coinCounter)
             endScene.scaleMode = .aspectFill
             skView.presentScene(endScene)
-            print("Username is: \(UserObject.name)")
-            print("\nNum of coins is: \(UserObject.coins)")
-            edit.runner_levels(coins: coinCounter)
-            print("Username2 is: \(UserObject.name)")
-            print("\n2Num of coins is: \(UserObject.coins)")
+            print("Username is: \(user!.name)")
+            print("\nNum of coins is: \(user!.coins)")
+            edit.runner_levels(coins: coinCounter, user: user!)
+            print("Username2 is: \(user!.name)")
+            print("\n2Num of coins is: \(user!.coins)")
             
         }
     }
