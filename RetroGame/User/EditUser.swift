@@ -109,21 +109,13 @@ public class EditUser: ObservableObject{
                 // changed back to new_update to see what happens
                 self.addEnergy(newEnergy: -30)
                 self.addCoins(moreCoins: coins)
-<<<<<<< HEAD
                 self.addHygiene(newHygiene: -20)
                 self.addHunger(newHunger: -20)
-                docRef.updateData(["energy_level" : user.energy_level])
-                docRef.updateData(["coins" : user.coins])
-                docRef.updateData(["hygiene_level" : user.hygiene_level])
-                docRef.updateData(["hunger_level" : user.hunger_level])
-=======
-                //self.addHygiene(newHygiene: -20)
-                //self.addHunger(newHunger: -20)
+
                 docRef.updateData(["energy_level" : user!.energy_level])
                 docRef.updateData(["coins" : user!.coins])
                 docRef.updateData(["hygiene_level" : user!.hygiene_level])
                 docRef.updateData(["hunger_level" : user!.hunger_level])
->>>>>>> 3c91ae0242065863be5631c26c96aff44da0b448
             }
         })
         self.pullFromFirestore(user: user!)

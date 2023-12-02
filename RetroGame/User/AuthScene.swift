@@ -137,19 +137,13 @@ struct AuthScene: View {
             let userID = Auth.auth().currentUser!.uid
             let atSign = email.firstIndex(of: "@")!
             let name = email[...atSign]
-<<<<<<< HEAD
-            print(userObj)
-            //edit.setUser(obj: userObj.name)
-            //edit.updateFirestore(user: userObj)
-            let encodedUser = try Firestore.Encoder().encode(userObj)
-=======
+
             // user levels initial
-            let currUser = UserObject(id: userID, name: String(name), user: email, pass: password, hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: true, coins: 0)
+            let currUser = UserObject(id: userID, name: String(name), user: email, pass: password, hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: true, coins: 0, pet: "catbat")
             print(currUser)
             edit.setUser(obj: currUser)
             edit.updateFirestore(user: currUser)
             let encodedUser = try Firestore.Encoder().encode(currUser)
->>>>>>> 3c91ae0242065863be5631c26c96aff44da0b448
             try await
                 Firestore.firestore().collection("users").document(currUser.user).setData(encodedUser)
         }
