@@ -161,7 +161,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
             skView.presentScene(endScene)
             print("Username is: \(user!.name)")
             print("\nNum of coins is: \(user!.coins)")
-            edit.runner_levels(coins: coinCounter, user: user!)
+            edit.runner_levels(coins: coinCounter)
             print("Username2 is: \(user!.name)")
             print("\n2Num of coins is: \(user!.coins)")
             

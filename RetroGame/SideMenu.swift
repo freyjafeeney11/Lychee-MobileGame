@@ -32,6 +32,8 @@ class SideMenu: SKScene {
     let statsLabel = SKLabelNode(fontNamed: "Chalkduster")
     let settingLabel = SKLabelNode(fontNamed: "Chalkduster")
     
+    @State private var chat = false
+    
     
     override func didMove(to view: SKView) {
         
@@ -152,11 +154,16 @@ class SideMenu: SKScene {
                 runnerGame.scaleMode = .aspectFill
                 view?.presentScene(runnerGame)
             }
-//            if social?.contains(location) == true {
-//                let mainGameScreen = MainScreen(size: size)
-//                mainGameScreen.scaleMode = .aspectFill
-//                view?.presentScene(mainGameScreen)
-//            }
+            if social?.contains(location) == true {
+                let mainGameScreen = MainScreen(size: size)
+                mainGameScreen.scaleMode = .aspectFill
+                view?.presentScene(mainGameScreen)
+                
+                let chatView = ContentViewChat()
+                // need this controller to display swiftUI from spritekit
+                let hostingController = UIHostingController(rootView: chatView)
+                self.view?.window?.rootViewController?.present(hostingController, animated: true, completion: nil)
+            }
             if stats?.contains(location) == true {
                 let statsScreen = StatsMenu(size: size)
                 statsScreen.scaleMode = .aspectFill
