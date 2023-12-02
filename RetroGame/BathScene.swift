@@ -11,9 +11,15 @@ import GameplayKit
 import Firebase
 import _SpriteKit_SwiftUI
 
-class BathScene: SKScene {
+class BathScene: SKScene, SKPhysicsContactDelegate {
+    var isSpongeTouchingPlayer = false
     private var currentNode: SKNode?
+    private var washingAction: SKAction?
+    private var groundNode: SKSpriteNode?
     private var label : SKLabelNode?
+    private var player : SKSpriteNode?
+    private var bubbles: SKSpriteNode?
+    private var sponge : SKSpriteNode?
     private var spinnyNode : SKShapeNode?
     var menuBar: SKSpriteNode?
     var edit = EditUser()
@@ -32,11 +38,11 @@ class BathScene: SKScene {
 
         let room = SKSpriteNode(imageNamed: "backgroundTiles")
         let tub = SKSpriteNode(imageNamed: "bathtub")
-        let player = SKSpriteNode(imageNamed: "catbat_prototype")
+        player = SKSpriteNode(imageNamed: "catbat_prototype")
         let bubbles = SKSpriteNode(imageNamed: "Bubbles")
         let shampoo = SKSpriteNode(imageNamed: "Shampoo")
-        let sponge = SKSpriteNode(imageNamed: "Sponge")
-        sponge.name = "draggable"
+        sponge = SKSpriteNode(imageNamed: "Sponge")
+        sponge?.name = "draggable"
 
         //setting animation
         let tex1 = SKTexture(imageNamed: "catbat_idle1")
@@ -44,11 +50,21 @@ class BathScene: SKScene {
         let tex3 = SKTexture(imageNamed: "catbat_idle3")
         let bathing = [tex1, tex2, tex3]
 
-        let bathingIdle = SKAction.animate(with: bathing, timePerFrame: 0.3)
         
+        //bubbles animation!
+        let bub1 = SKTexture(imageNamed: "bubbles_animate1")
+        let bub2 = SKTexture(imageNamed: "bubbles_animate2")
+        let bub3 = SKTexture(imageNamed: "bubbles_animate3")
+        let washing = [bub1, bub2, bub3]
+        
+        let bathingIdle = SKAction.animate(with: bathing, timePerFrame: 0.3)
+        let washingAnimation = SKAction.animate(with: washing, timePerFrame: 0.2)
+        let washingAction = SKAction.repeatForever(washingAnimation)
+        
+        bubbles.run(washingAction, withKey: "washingAnimation")
         let walkAction = SKAction.repeatForever(bathingIdle)
         // entire sequence forever
-        player.run(walkAction)
+        player!.run(walkAction)
         
 
         
@@ -56,7 +72,21 @@ class BathScene: SKScene {
         room.setScale(0.48)
         tub.setScale(0.8)
         bubbles.setScale(0.6)
-        player.setScale(1.25)
+        player!.setScale(1.25)
+        
+        //ground
+        groundNode = SKSpriteNode(color: .green, size: CGSize(width: size.width, height: 12))
+        groundNode?.position = CGPoint(x: size.width / 2, y: 0)
+        
+        // add physics to ground
+        groundNode?.physicsBody = SKPhysicsBody(rectangleOf: groundNode!.size)
+        groundNode?.physicsBody?.isDynamic = false
+        // collisons
+        groundNode?.physicsBody?.categoryBitMask = 1
+        //trying to add sponge gravity
+        sponge?.physicsBody = SKPhysicsBody(circleOfRadius: sponge!.size.width / 2)
+        sponge?.physicsBody?.affectedByGravity = true
+        sponge?.physicsBody?.isDynamic = true
         
         
         
@@ -68,19 +98,20 @@ class BathScene: SKScene {
         tub.position = CGPoint(x: size.width * 0.55, y: size.height * 0.4)
         bubbles.position = CGPoint(x: size.width * 0.55, y: size.height * 0.42)
         shampoo.position = CGPoint(x: size.width * 0.7, y: size.height * 0.3)
-        sponge.position = CGPoint(x: size.width * 0.35, y: size.height * 0.15)
-        player.position = CGPoint(x: size.width * 0.62, y: size.height * 0.43)
+        sponge?.position = CGPoint(x: size.width * 0.35, y: size.height * 0.15)
+        player?.position = CGPoint(x: size.width * 0.62, y: size.height * 0.43)
         
+        addChild(groundNode!)
         addChild(room)
-        addChild(player)
+        addChild(player!)
         addChild(tub)
         addChild(bubbles)
         addChild(shampoo)
+        addChild(sponge!)
         addChild(menuBar!)
-        // node is sponge
-        addChild(sponge)
         
     }
+
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
@@ -109,6 +140,16 @@ class BathScene: SKScene {
             let touchLocation = touch.location(in: self)
             node.position = touchLocation
         }
+    }
+    public override init(size: CGSize) {
+        super.init(size: size)
+
+        // add physics for sponge
+        physicsWorld.gravity = CGVector(dx: 0.0, dy: -9.8)
+        physicsWorld.contactDelegate = self
+    }
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 

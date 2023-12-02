@@ -46,7 +46,7 @@ class SideMenu: SKScene {
         stats = SKSpriteNode(imageNamed: "StatsButton")
         settings = SKSpriteNode(imageNamed: "SettingsButton")
         
-        room.setScale(0.58)
+        room.setScale(0.559)
         menu.setScale(0.95)
         room.position = CGPoint(x: size.width * 0.5, y: size.height * 0.45)
         menu.position = CGPoint(x: size.width * 0.47, y: size.height * 0.5)

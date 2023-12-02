@@ -97,25 +97,31 @@ struct AuthScene: View {
                     } label: {
                         Text("Create Account")
                             .foregroundColor(.white)
+                            .font(.custom("Chalkduster", size: 20))
                             .bold()
                             .frame(width:200, height:30)
                             .background(
-                                RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.linearGradient(colors:[.blue, .green], startPoint: .top, endPoint: .bottomTrailing)))
+                                RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.green))
                     }
                     .offset(x: -20)
                     // login here
                     Button {
                         login()
                     } label: {
-                        Text("Already have an account? Login")
+                        Text("Login")
+                            .font(.custom("Chalkduster", size: 20))
                             .bold()
                             .foregroundColor(.white)
+                            .frame(width:200, height:30)
+                            .background(
+                                RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.green))
                     }
                     .offset(x: -20)
                     Button {
                         authenticated = true
                     } label: {
                         Text("Skip for now")
+                            .font(.custom("Chalkduster", size: 15))
                             .bold()
                             .foregroundColor(.white)
                     }

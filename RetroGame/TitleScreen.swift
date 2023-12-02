@@ -18,7 +18,7 @@ class TitleScreen: SKScene {
     
     override func didMove(to view: SKView) {
         let titleBg = SKSpriteNode(imageNamed: "NewTree")
-        let title = SKSpriteNode(imageNamed: "title-export 1")
+        let title = SKSpriteNode(imageNamed: "title-export")
         
         backgroundColor = SKColor.white
         
@@ -27,7 +27,7 @@ class TitleScreen: SKScene {
         startButton?.position = CGPoint(x: size.width * 0.5, y: size.height * 0.4)
         
         titleBg.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
-        title.position = CGPoint(x: size.width * 0.47, y: size.height * 0.6)
+        title.position = CGPoint(x: size.width * 0.5, y: size.height * 0.6)
         
         title.setScale(0.5)
         startButton?.setScale(2)
