@@ -21,7 +21,8 @@ class SideMenu: SKScene {
     var social: SKSpriteNode?
     var stats: SKSpriteNode?
     var settings: SKSpriteNode?
-    var edit = EditUser()
+    //gets current user
+    let userObject = UserObjectManager.shared.getCurrentUser()
     
     let homeLabel = SKLabelNode(fontNamed: "Chalkduster")
     let closetLabel = SKLabelNode(fontNamed: "Chalkduster")
@@ -159,11 +160,11 @@ class SideMenu: SKScene {
                 let mainGameScreen = MainScreen(size: size)
                 mainGameScreen.scaleMode = .aspectFill
                 view?.presentScene(mainGameScreen)
-                */
+                *//*
                 let chatView = ContentViewChat()
                 // need this controller to display swiftUI from spritekit
-                let hostingController = UIHostingController(rootView: chatView)
-                self.view?.window?.rootViewController?.present(hostingController, animated: true, completion: nil)
+                let host = UIHostingController(rootView: chatView)
+                self.view?.window?.rootViewController?.present(host, animated: true, completion: nil)*/
             }
             if stats?.contains(location) == true {
                 let statsScreen = StatsMenu(size: size)

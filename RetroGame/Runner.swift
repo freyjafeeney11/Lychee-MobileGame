@@ -7,9 +7,9 @@
 
 import SpriteKit
 import GameplayKit
+import FirebaseAuth
 
 class Runner: SKScene, SKPhysicsContactDelegate{
-    let edit = EditUser()
     //let character = SKSpriteNode(imageNamed: "chicken-hamster")
     let character = SKSpriteNode(imageNamed: "mini_chicken-hamster_run1")
     //    var character = SKSpriteNode()
@@ -152,18 +152,21 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     }
     
     func handleGameEnd() {
+        let edit = EditUser()
         // get the current user from userobjmanager
-        let user = UserObjectManager.shared.currentUser
+        let user = UserObjectManager.shared.getCurrentUser()
         gameTimer?.invalidate()
         if let skView = self.view {
             let endScene = EndScreen(size: self.size, collectedCoins: coinCounter)
             endScene.scaleMode = .aspectFill
             skView.presentScene(endScene)
-            print("Username is: \(user!.name)")
-            print("\nNum of coins is: \(user!.coins)")
-            edit.runner_levels(coins: coinCounter)
-            print("Username2 is: \(user!.name)")
-            print("\n2Num of coins is: \(user!.coins)")
+            print("Username is: \(user.name)")
+            print("\nNum of coins is: \(user.coins)")
+            EditUser().runner_levels(coins: coinCounter)
+            UserObjectManager.shared.updateCurrentUser(with: user)
+            EditUser().pullFromFirestore(user: user)
+            print("Username2 is: \(user.name)")
+            print("\n2Num of coins is: \(user.coins)")
             
         }
     }

@@ -24,17 +24,16 @@ public class MainScreen: SKScene, SKPhysicsContactDelegate {
     var runnerButton: SKSpriteNode?
     var harvestButton: SKSpriteNode?
     var menuBar: SKSpriteNode?
-    //var edit = EditUser()
-    
-    var health = Levels()
+
     
     
     public override func didMove(to view: SKView) {
-        
+        let edit = EditUser()
+        let userObject = UserObjectManager.shared.getCurrentUser()
         
         let providerFactory = AppCheckDebugProviderFactory()
         AppCheck.setAppCheckProviderFactory(providerFactory)
-        let player = SKSpriteNode(imageNamed: petChoice.pet)
+        let player = SKSpriteNode(imageNamed: userObject.pet_choice)
         menuBar = SKSpriteNode(imageNamed: "SideMenuOpen")
         let room = SKSpriteNode(imageNamed: "FullLivingRoom")
         let ball = SKSpriteNode(imageNamed: "ball")
