@@ -17,14 +17,14 @@ class Levels{
     var energy: Int
     var hygiene: Int
     
-    let mostRecentUser = UserObjectManager.shared.currentUser
+    let mostRecentUser = UserObjectManager.shared.getCurrentUser()
     
     init(){
-        hunger = mostRecentUser!.hunger_level
-        happiness = mostRecentUser!.happiness_level
-        social = mostRecentUser!.social_level
-        energy = mostRecentUser!.energy_level
-        hygiene = mostRecentUser!.hygiene_level
+        hunger = mostRecentUser.hunger_level
+        happiness = mostRecentUser.happiness_level
+        social = mostRecentUser.social_level
+        energy = mostRecentUser.energy_level
+        hygiene = mostRecentUser.hygiene_level
         print("energy from levels after pull \(energy)")
     }
 }

@@ -8,10 +8,11 @@
 import Foundation
 import SwiftUI
 
-
+/*
 struct ContentViewChat: View{
+
     @StateObject var messageManager = MessageManager()
-    @State private var showMainScreen = false
+    @State private var main = false
     var messageArray = ["Hello", "have you worked on the project?", "I think it looks good"]
     
     
@@ -31,7 +32,7 @@ struct ContentViewChat: View{
             .background(Color("Peach"))
             
             Button {
-                showMainScreen = true
+                main = true
             } label: {
                 Text("back")
                     .font(.custom("Chalkduster", size: 15))
@@ -39,12 +40,12 @@ struct ContentViewChat: View{
                     .foregroundColor(.white)
             }
         }
-        .fullScreenCover(isPresented: $showMainScreen, content: {
+        .fullScreenCover(isPresented: $main, content: {
             // Switch to SpriteKit scene
             MainGameSceneView()
         })
         .ignoresSafeArea()
         
     }
-}
+}*/
 

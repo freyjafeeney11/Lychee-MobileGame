@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-class MessageManager: ObservableObject {
+class MessageManager: ObservableObject {}/*
     @Published private(set) var messages: [Message] = []
     @Published private(set) var lastMessageID: String = ""
     let db = Firestore.firestore()
@@ -52,3 +52,4 @@ class MessageManager: ObservableObject {
         }
     }
 }
+*/

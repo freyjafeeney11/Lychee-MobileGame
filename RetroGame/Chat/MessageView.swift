@@ -8,8 +8,9 @@
 import Foundation
 import SwiftUI
 
-
+/*
 struct MessageView: View{
+
     var message: Message
     
     var body: some View{
@@ -26,4 +27,4 @@ struct MessageView: View{
         .padding(message.recieved ? .leading : .trailing)
         .padding(.horizontal, 10)
     }
-}
+} */

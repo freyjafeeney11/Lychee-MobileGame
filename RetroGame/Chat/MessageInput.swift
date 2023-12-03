@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-
+/*
 struct MessageInput: View{
     @EnvironmentObject var messageManager: MessageManager
     @State private var message = ""
@@ -57,3 +57,4 @@ struct TextField: View{
         TextField(placeholder: Text(""), text: $text, editingChanged: editingChanged, commit: commit)
     }
 }
+*/

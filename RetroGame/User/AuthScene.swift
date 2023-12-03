@@ -41,10 +41,10 @@ struct AuthScene: View {
     @State private var pass = ""
     @State private var isContentVisible = true
     
-    var edit = EditUser()
+    //var edit = EditUser()
     var userObj = UserObject(id: "someID", name: "default", user: "default@example.com", pass: "password", hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: true, coins: 0, pet: "catbat")
 
-
+    let userObject = UserObjectManager.shared.getCurrentUser()
     
     @State private var showMainScreen = false
     
@@ -62,7 +62,7 @@ struct AuthScene: View {
                     .position(x: 420, y: 266)
                     .ignoresSafeArea()
                 VStack {
-                    TextField(placeholder: Text(""), text:$user)
+                    TextField("", text:$user)
                         .foregroundColor(.white)
                         .padding(30)
                     SecureField("", text:$pass)
@@ -118,16 +118,21 @@ struct AuthScene: View {
 
     // log in
     func login() {
+        let edit = EditUser()
         Auth.auth().signIn(withEmail: user, password: pass) { result, error in if error != nil {
             print(error!.localizedDescription)
             }
             else {
-                edit.currUser!.name = user
+
+                //get user's name to pull from firestore
+                userObject.user = user
                 authenticated = true
-                edit.pullFromFirestore(user: edit.currUser!)
-                print("this is user from auth scene login \(edit.currUser!.name)")
-                print("this is user from the currUser var in edit user \(String(describing: edit.currUser?.getName()))")
+                print("this is user from UserObjectManager \(String(describing: userObject.user))")
             }
+            //pull from firestore
+            edit.pullFromFirestore(user: userObject)
+            print(userObject)
+            userObject.printUser()
         }
     }
     // create a user
@@ -140,9 +145,8 @@ struct AuthScene: View {
 
             // user levels initial
             let currUser = UserObject(id: userID, name: String(name), user: email, pass: password, hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: true, coins: 0, pet: "catbat")
-            print(currUser)
-            edit.setUser(obj: currUser)
-            edit.updateFirestore(user: currUser)
+            //print(currUser)
+            UserObjectManager.shared.updateCurrentUser(with: currUser)
             let encodedUser = try Firestore.Encoder().encode(currUser)
             try await
                 Firestore.firestore().collection("users").document(currUser.user).setData(encodedUser)

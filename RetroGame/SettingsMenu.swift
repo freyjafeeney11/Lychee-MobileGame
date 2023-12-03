@@ -12,6 +12,8 @@ import GameplayKit
 
 class SettingsMenu: SKScene {
     
+    var edit = EditUser()
+    
     var toggleMusic: SKSpriteNode?
     var seePass: SKSpriteNode?
     var returnToMenu: SKSpriteNode?
@@ -110,18 +112,10 @@ class SettingsMenu: SKScene {
             let location = touch.location(in: self)
             
             if toggleMusic?.contains(location) == true {
-                print("Its quiet")
+                edit.volumeToggle()
             }
             
             if seePass?.contains(location) == true {
-                //if showPassword == false{
-                    
-                    //print("ShowPass")
-                //}
-                //if showPassword == true{
-                    
-                    //print("Hide")
-                //}
                 
             }
             if backButton.contains(location) == true {
