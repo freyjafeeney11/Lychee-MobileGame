@@ -132,7 +132,6 @@ struct AuthScene: View {
             //pull from firestore
             edit.pullFromFirestore(user: userObject)
             print(userObject)
-            UserObjectManager.shared.updateCurrentUser(with: userObject)
             userObject.printUser()
         }
     }

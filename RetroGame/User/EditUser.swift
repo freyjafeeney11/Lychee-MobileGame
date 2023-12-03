@@ -21,7 +21,11 @@ public class EditUser: ObservableObject{
      let user = UserObjectManager.shared.getCurrentUser()
      
      let edit = EditUser()
-     edit.pullFromFirestore(user: user)*/
+     edit.pullFromFirestore(user: user)
+     
+     //idk if this line is needed tbh
+     UserObjectManager.shared.updateCurrentUser(with: userObject)
+     */
     
     
     private var db = Firestore.firestore()

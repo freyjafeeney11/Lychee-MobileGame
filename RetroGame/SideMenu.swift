@@ -140,10 +140,11 @@ class SideMenu: SKScene {
 //                view?.presentScene(mainGameScreen)
 //            }
             if bath?.contains(location) == true {
+                let user = UserObjectManager.shared.getCurrentUser()
                 let bathScene = BathScene(size: size)
                 bathScene.scaleMode = .aspectFill
                 view?.presentScene(bathScene)
-                //edit.bath_levels()
+                EditUser().bath_levels(user: user)
             }
             if fridge?.contains(location) == true {
                let harvestGame = Harvest(size: size)
