@@ -36,7 +36,6 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
     ]
             
     override func didMove(to view: SKView){
-        view.showsPhysics = true
         // Set the size of the scene
         self.size = view.bounds.size
         // constraints to keep the character within the scene

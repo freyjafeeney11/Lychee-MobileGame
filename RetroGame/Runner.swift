@@ -40,7 +40,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     // Game over mech
     let loseThresholdX: CGFloat = 0.0
     var coinCounter = 0
-    let coinsound = SKAction.playSoundFileNamed("coin_collect.wav", waitForCompletion: false)
+    let coinsound = SKAction.playSoundFileNamed("coin_collect 1", waitForCompletion: false)
     
     var gameTimer: Timer?
     let gameDuration: TimeInterval = 30
@@ -55,7 +55,6 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     //object that does this
     
     override func didMove(to view: SKView){
-        view.showsPhysics = true
         // Set the size of the scene
         self.size = view.bounds.size
         // constraints to keep the character within the scene

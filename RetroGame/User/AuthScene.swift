@@ -22,13 +22,13 @@ class Authentication: SKScene {
     
     
     override func didMove(to view: SKView) {
-        let keypad = SKSpriteNode(imageNamed: "keypad 1")
+        let keypad = SKSpriteNode(imageNamed: "gameboy 1")
         
-        backgroundColor = SKColor.green
+        backgroundColor = SKColor.red
         
-        keypad.position = CGPoint(x: size.width * 0.5, y: size.height * 0.6)
+        keypad.position = CGPoint(x: size.width * 0.505, y: size.height * 0.62)
         
-        keypad.setScale(0.65)
+        keypad.setScale(1.03)
         
         self.addChild(keypad)
     }
@@ -80,7 +80,7 @@ struct AuthScene: View {
                             .bold()
                             .frame(width:200, height:30)
                             .background(
-                                RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.green))
+                                RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.cyan))
                     }
                     .offset(x: -20)
                     // login here
@@ -93,7 +93,7 @@ struct AuthScene: View {
                             .foregroundColor(.white)
                             .frame(width:200, height:30)
                             .background(
-                                RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.green))
+                                RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.cyan))
                     }
                     .offset(x: -20)
                     Button {
@@ -102,12 +102,12 @@ struct AuthScene: View {
                         Text("Skip for now")
                             .font(.custom("Futura", size: 15))
                             .bold()
-                            .foregroundColor(.white)
+                            .foregroundColor(.cyan)
                     }
                     .offset(x: -20)
                 }
                 .frame(width: 350)
-                .offset(x: 264, y:-29)
+                .offset(x: 100, y: 0)
             }
             .fullScreenCover(isPresented: $authenticated, content: {
                 // Switch to SpriteKit scene
