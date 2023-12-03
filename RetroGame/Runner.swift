@@ -40,6 +40,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     // Game over mech
     let loseThresholdX: CGFloat = 0.0
     var coinCounter = 0
+    let coinsound = SKAction.playSoundFileNamed("coin_collect.wav", waitForCompletion: false)
     
     var gameTimer: Timer?
     let gameDuration: TimeInterval = 30
@@ -338,6 +339,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     }
     func coinCollected(_ coin: SKSpriteNode) {
         updateCoinCounter(by: 1)
+        run(coinsound)
         coin.removeFromParent()
     }
     
