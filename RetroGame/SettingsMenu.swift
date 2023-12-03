@@ -16,6 +16,8 @@ class SettingsMenu: SKScene {
     var seePass: SKSpriteNode?
     var returnToMenu: SKSpriteNode?
     
+    var test = "slay"
+    
     let backButton = SKLabelNode(fontNamed: "Chalkduster")
     let setting = SKLabelNode(fontNamed: "Chalkduster")
     let username = SKLabelNode(fontNamed: "Chalkduster")
