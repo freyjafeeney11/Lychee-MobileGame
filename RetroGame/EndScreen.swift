@@ -10,13 +10,28 @@ import GameplayKit
 
 class EndScreen: SKScene {
     let collectedCoins: Int
-    let background = SKSpriteNode(imageNamed: "Gameover 1")
+    let collectedFood: [String: Int]
+    let background: SKSpriteNode
     let coinLabel = SKLabelNode(fontNamed: "Avenir-Black ")
     let homeButton = SKSpriteNode(imageNamed: "Home")
+    let characterType = "chicken-hamster"
 
     init(size: CGSize, collectedCoins: Int) {
         self.collectedCoins = collectedCoins
+        self.collectedFood = [:]
+        self.background = SKSpriteNode(imageNamed: "Gameover 1")
         super.init(size: size)
+        setupBackground()
+        setupCoinLabel()
+    }
+    
+    init(size: CGSize, collectedFood: [String: Int]) {
+        self.collectedCoins = 0
+        self.collectedFood = collectedFood
+        self.background = SKSpriteNode(imageNamed: "StartGame")
+        super.init(size: size)
+        setupBackground()
+        setupParchment()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -24,16 +39,34 @@ class EndScreen: SKScene {
     }
 
     override func didMove(to view: SKView) {
-        setupBackground()
-        setupCoinLabel()
         setupHomeButton()
     }
 
     func setupBackground() {
         background.position = CGPoint(x: size.width / 2, y: size.height / 2)
         addChild(background)
+        let words = SKSpriteNode(imageNamed: "gameover_words")
+        words.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
+        words.zPosition = 1
+        addChild(words)
+        
     }
 
+    func setupParchment() {
+        let parchment = SKSpriteNode(imageNamed: "parchment2")
+        parchment.position = CGPoint(x: size.width * 0.5, y: size.height * 0.4)
+        parchment.zPosition = 1
+        addChild(parchment)
+        if let collectedFoodForCharacter = foodReqs.characterFoodReq[characterType] {
+            print("Food Harvested for \(characterType):")
+            
+            for (foodType, requiredCount) in collectedFoodForCharacter {
+                if let collectedCount = collectedFood[foodType] {
+                    print("\(foodType): \(collectedCount)/\(requiredCount)")
+                }
+            }
+        }
+    }
     func setupCoinLabel() {
         coinLabel.text = "\(collectedCoins) coins"
         coinLabel.fontSize = 30

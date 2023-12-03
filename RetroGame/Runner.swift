@@ -42,7 +42,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     var coinCounter = 0
     
     var gameTimer: Timer?
-    let gameDuration: TimeInterval = 30 // play for 3 mins at a time?
+    let gameDuration: TimeInterval = 30
     var elapsedTime: TimeInterval = 0
     var timerLabel: SKLabelNode!
     
