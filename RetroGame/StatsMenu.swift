@@ -12,6 +12,8 @@ import GameplayKit
 
 class StatsMenu: SKScene {
     
+    let backButton = SKLabelNode(fontNamed: "Chalkduster")
+    
     var health = Levels()
     var hunger: SKSpriteNode?
     var social: SKSpriteNode?
@@ -20,14 +22,26 @@ class StatsMenu: SKScene {
     var happiness: SKSpriteNode?
     override func didMove(to view: SKView) {
         
+        let room = SKSpriteNode(imageNamed: "FullLivingRoom")
+        let statsMenu = SKSpriteNode(imageNamed: "HealthMenu")
+        
+        room.setScale(0.559)
+        statsMenu.setScale(0.95)
+        room.position = CGPoint(x: size.width * 0.4956, y: size.height * 0.465)
+        statsMenu.position = CGPoint(x: size.width * 0.47, y: size.height * 0.5)
+    
+        addChild(room)
+        addChild(statsMenu)
+        
+        setupBackButton()
         
         updateLevels()
         
-        hunger!.position = CGPoint(x: 200, y: 350)
-        happiness!.position = CGPoint(x: 100, y: 310)
-        hygiene!.position = CGPoint(x: 100, y: 270)
-        energy!.position = CGPoint(x: 250, y: 350)
-        social!.position = CGPoint(x: 250, y: 310)
+        hunger!.position = CGPoint(x: 175, y: 200)
+        happiness!.position = CGPoint(x: 175, y: 320)
+        hygiene!.position = CGPoint(x: 175, y: 260)
+        energy!.position = CGPoint(x: 175, y: 140)
+        social!.position = CGPoint(x: 175, y: 80)
 
         hunger!.setScale(0.5)
         social!.setScale(0.5)
@@ -47,10 +61,21 @@ class StatsMenu: SKScene {
         for touch in touches {
             let location = touch.location(in: self)
             
-            
+            if backButton.contains(location) == true {
+                let menu = SideMenu(size: size)
+                menu.scaleMode = .aspectFill
+                view?.presentScene(menu)
+            }
             
               
         }
+    }
+    
+    func setupBackButton() {
+        backButton.text = "Return to Menu"
+        backButton.fontSize = 19
+        backButton.position = CGPoint(x: size.width * 0.645, y: size.height * 0.199)
+        addChild(backButton)
     }
     
     func updateLevels(){

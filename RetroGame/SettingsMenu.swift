@@ -35,9 +35,9 @@ class SettingsMenu: SKScene {
         toggleMusic = SKSpriteNode(imageNamed: "MusicOnButton")
         seePass = SKSpriteNode(imageNamed: "HidePassButton")
         
-        room.setScale(0.58)
+        room.setScale(0.559)
         settingsMenu.setScale(0.95)
-        room.position = CGPoint(x: size.width * 0.5, y: size.height * 0.45)
+        room.position = CGPoint(x: size.width * 0.4956, y: size.height * 0.465)
         settingsMenu.position = CGPoint(x: size.width * 0.47, y: size.height * 0.5)
         toggleMusic?.position = CGPoint(x: size.width * 0.65, y: size.height * 0.37)
         seePass?.position = CGPoint(x: size.width * 0.73, y: size.height * 0.51)

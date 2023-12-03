@@ -50,7 +50,7 @@ class SideMenu: SKScene {
         
         room.setScale(0.559)
         menu.setScale(0.95)
-        room.position = CGPoint(x: size.width * 0.5, y: size.height * 0.45)
+        room.position = CGPoint(x: size.width * 0.4956, y: size.height * 0.465)
         menu.position = CGPoint(x: size.width * 0.47, y: size.height * 0.5)
         home?.position = CGPoint(x: size.width * 0.13, y: size.height * 0.688)
         closet?.position = CGPoint(x: size.width * 0.31, y: size.height * 0.69)
@@ -155,10 +155,11 @@ class SideMenu: SKScene {
                 view?.presentScene(runnerGame)
             }
             if social?.contains(location) == true {
+                /*
                 let mainGameScreen = MainScreen(size: size)
                 mainGameScreen.scaleMode = .aspectFill
                 view?.presentScene(mainGameScreen)
-                
+                */
                 let chatView = ContentViewChat()
                 // need this controller to display swiftUI from spritekit
                 let hostingController = UIHostingController(rootView: chatView)
