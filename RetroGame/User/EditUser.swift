@@ -153,9 +153,9 @@ public class EditUser: ObservableObject{
     func volumeToggle(){
             let currUser = self.db.collection("users")
             let user = mostRecentUser
-            print("edit user username is: \(mostRecentUser!.name)")
-            updateFirestore(user: user!)
-            currUser.whereField("name", isEqualTo: user!.name).getDocuments(completion: { documentSnapshot, error in
+            print("edit user username is: \(mostRecentUser.name)")
+            updateFirestore(user: user)
+            currUser.whereField("name", isEqualTo: user.user).getDocuments(completion: { documentSnapshot, error in
                 if let err = error {
                     print(err.localizedDescription)
                     return
@@ -165,18 +165,18 @@ public class EditUser: ObservableObject{
     
                 for doc in docs { //iterate over each document and update
                     let docRef = doc.reference
-                    if user!.volume == true{
+                    if user.volume == true{
                         self.setVolume(currVol: false)
                     }else{
                         self.setVolume(currVol: true)
                     }
-                    docRef.updateData(["volume" : user!.volume])
+                    docRef.updateData(["volume" : user.volume])
                 }
             })
         }
     
         func setVolume(currVol: Bool){
-            mostRecentUser!.volume = currVol
+            mostRecentUser.volume = currVol
         }
     
         func setSocial(newSocial: Int){
