@@ -147,7 +147,7 @@ class SideMenu: SKScene {
                 EditUser().bath_levels(user: user)
             }
             if harvest?.contains(location) == true {
-               let harvestGame = Harvest(size: size)
+               let harvestGame = StartHarvest(size: size)
                 harvestGame.scaleMode = .aspectFill
                 view?.presentScene(harvestGame)
             }

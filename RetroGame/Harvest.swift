@@ -14,7 +14,8 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
     var edit = EditUser()
     let mostRecentUser = UserObjectManager.shared.getCurrentUser()
     
-    let character = SKSpriteNode(imageNamed: "mini_chicken-hamster_run1")
+    var character = SKSpriteNode()
+    var textures = [String]()
     
     // To detect collision, bitmask category
     let characterCategory:UInt32 = 0x100
@@ -27,7 +28,7 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
     var targetX: CGFloat = 0.0
     
     var audioPlayer: AVAudioPlayer?
-    let foodTypes = ["apple", "watermelon", "meat", "tuna", "corn", "pumpkin", "battery"]
+    let foodTypes = ["apple", "watermelon", "meat", "tuna", "corn", "pumpkin"]
     let poisonFood = "mushroom"
     var count = 0
     
@@ -37,8 +38,7 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
         "meat": 0,
         "tuna": 0,
         "corn": 0,
-        "pumpkin": 0,
-        "battery": 0
+        "pumpkin": 0
     ]
             
     override func didMove(to view: SKView){
@@ -135,6 +135,11 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
     }
 
     func addCharacter() {
+        if mostRecentUser.pet_choice == "cat bat" {
+            character = SKSpriteNode(imageNamed: "mini_chicken-hamster_run1")
+        } else {
+            character = SKSpriteNode(imageNamed: "mini_batcat_run1")
+        }
         let groundHeight = ground.size.height
         character.position = CGPoint(x: size.width * 0.5, y: groundHeight)
         character.zPosition = 2
@@ -152,8 +157,11 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
     }
     
     func updateCharacterTextures() {
-        //            let textures = ["mini_batcat_run1", "mini_batcat_run2", "mini_batcat_run3", "mini_batcat_run4"]
-        let textures = ["mini_chicken-hamster_run1", "mini_chicken-hamster_run2", "mini_chicken-hamster_run3"]
+        if mostRecentUser.pet_choice == "cat bat" {
+            textures = ["mini_batcat_run1", "mini_batcat_run2", "mini_batcat_run3", "mini_batcat_run4"]
+        } else {
+            textures = ["mini_chicken-hamster_run1", "mini_chicken-hamster_run2", "mini_chicken-hamster_run3"]
+        }
         let characterTextures = textures.map { SKTexture(imageNamed: $0) }
         
         let animateAction = SKAction.animate(with: characterTextures, timePerFrame: 0.1)
@@ -206,7 +214,7 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
             if let count = collectedFood[foodType] {
                 collectedFood[foodType] = count + 1
                 if let requiredCount =
-                    foodReqs.characterFoodReq["chicken-hamster"]?[foodType] {
+                    foodReqs.characterFoodReq[mostRecentUser.pet_choice]?[foodType] {
                     if collectedFood[foodType] ?? 0 < requiredCount {
                         //add to count
                         health += 1
@@ -216,7 +224,7 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
             }
         }
         food.removeFromParent()
-        checkFoodRequirements(for: "chicken-hamster")
+        checkFoodRequirements(for: mostRecentUser.pet_choice)
         return health
     }
     

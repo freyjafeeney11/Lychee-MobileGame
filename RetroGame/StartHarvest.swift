@@ -11,9 +11,8 @@ import CoreMotion
 
 public struct foodReqs {
     static let characterFoodReq: [String: [String: Int]] = [
-        "chicken-hamster": ["apple": 2, "corn": 2, "pumpkin": 2],
-        "cat-bat": ["meat": 1, "fish": 3, "watermelon": 2],
-        "robot-dragon": ["meat": 2, "battery": 3, "apple": 1]
+        "chicken hamster": ["apple": 2, "corn": 2, "pumpkin": 2],
+        "cat bat": ["meat": 1, "tuna": 3, "watermelon": 2]
     ]
 }
 
@@ -27,6 +26,7 @@ class StartHarvest: SKScene {
     var isStartScreenVisible = true
     var startScreen: SKNode?
     var closeButton: SKSpriteNode?
+    let mostRecentUser = UserObjectManager.shared.getCurrentUser()
     
     override func didMove(to view: SKView) {
         setupBackground()
@@ -62,8 +62,8 @@ class StartHarvest: SKScene {
         parchment.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         parchment.zPosition = 1
         addChild(parchment)
-        
-        showRequirments(for: "chicken-hamster")
+        print(mostRecentUser.pet_choice)
+        showRequirments(for: mostRecentUser.pet_choice)
     }
     
     func showRequirments(for characterType: String) {
