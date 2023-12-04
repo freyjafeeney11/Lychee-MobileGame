@@ -7,7 +7,7 @@
 
 import SpriteKit
 import GameplayKit
-import CoreMotion
+import AVFoundation
 
 class Harvest: SKScene, SKPhysicsContactDelegate{
     let character = SKSpriteNode(imageNamed: "mini_chicken-hamster_run1")
@@ -22,6 +22,7 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
     
     var targetX: CGFloat = 0.0
     
+    var audioPlayer: AVAudioPlayer?
     let foodTypes = ["apple", "watermelon", "meat", "tuna", "corn", "pumpkin", "battery"]
     let poisonFood = "mushroom"
     
@@ -53,6 +54,14 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
         createSky()
         createGround()
         startFoodSpawning()
+        if let soundURL = Bundle.main.url(forResource: "fruit_collect", withExtension: "wav") {
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+                audioPlayer?.prepareToPlay()
+            } catch {
+                print("Error loading sound file:", error.localizedDescription)
+            }
+        }
         addCharacter()
         updateCharacterTextures()
         physicsWorld.contactDelegate = self
@@ -183,52 +192,14 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
         }
     }
 
-//    func startPoisonSpawning() {
-//        let spawnFoodAction = SKAction.run(spawnPoisonMushroom)
-//        let waitDuration = SKAction.wait(forDuration: 3.0)
-//        let sequence = SKAction.sequence([spawnFoodAction, waitDuration])
-//        let repeatForever = SKAction.repeatForever(sequence)
-//        
-//        run(repeatForever)
-//    }
-//    
-//    func spawnPoisonMushroom() {
-//        let numberOfFruits = 4
-//        
-//        for _ in 1...numberOfFruits {
-//            let randomFoodIndex = Int(arc4random_uniform(UInt32(foodTypes.count)))
-//            let poison = SKSpriteNode(imageNamed: poisonFood)
-//            poison.name = poisonFood
-//            poison.setScale(1.8)
-//            
-//            let minX = character.size.width
-//            let maxX = size.width - character.size.width
-//            let minY = size.height - character.size.height
-//            let maxY = size.height
-//            
-//            let randomX = CGFloat(arc4random_uniform(UInt32(maxX - minX))) + minX
-//            let randomY = CGFloat(arc4random_uniform(UInt32(maxY - minY))) + minY
-//            
-//            poison.position = CGPoint(x: randomX, y: randomY)
-//            poison.zPosition = 3
-//            poison.physicsBody = SKPhysicsBody(texture: poison.texture!,
-//                                                  size: poison.texture!.size())
-//            poison.physicsBody?.isDynamic = true
-//            poison.physicsBody?.categoryBitMask = foodCategory
-//            poison.physicsBody?.collisionBitMask = 0
-//            poison.physicsBody?.contactTestBitMask = characterCategory
-//            addChild(poison)
-//        }
-//    }
     func foodCollected(_ food: SKSpriteNode) {
         if let foodType = food.name {
             if let count = collectedFood[foodType] {
                 collectedFood[foodType] = count + 1
-                // just to see it collecting correctly
-//                if let requiredCount =
-//                    foodReqs.characterFoodReq["chicken-hamster"]?[foodType] {
-//                    print("\(foodType) collected: \(count + 1)/\(requiredCount)")
-//                }
+                if let requiredCount =
+                    foodReqs.characterFoodReq["chicken-hamster"]?[foodType] {
+                    audioPlayer?.play()
+                }
             }
         }
         food.removeFromParent()

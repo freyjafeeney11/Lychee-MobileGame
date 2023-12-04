@@ -21,6 +21,8 @@
 		ABACE2D12B0D626A0004D944 /* SettingsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABACE2D02B0D626A0004D944 /* SettingsMenu.swift */; };
 		ABE4E8232AE4703A0092ECA6 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE4E8222AE4703A0092ECA6 /* SideMenu.swift */; };
 		BD0AE0162B1AA8FA006E122D /* StartHarvest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0AE0152B1AA8FA006E122D /* StartHarvest.swift */; };
+		BD0AE0182B1D5905006E122D /* coin_collect.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD0AE0172B1D5904006E122D /* coin_collect.wav */; };
+		BD0AE01A2B1D59DC006E122D /* fruit_collect.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD0AE0192B1D59DB006E122D /* fruit_collect.wav */; };
 		BD3EFA012B16B2600099B85A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD3EFA002B16B2600099B85A /* GoogleService-Info.plist */; };
 		BD8427522B17CC3C0011D458 /* Harvest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8427512B17CC3C0011D458 /* Harvest.swift */; };
 		BDB138232B13DE2D00D7AF32 /* EndScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB138222B13DE2D00D7AF32 /* EndScreen.swift */; };
@@ -80,6 +82,8 @@
 		ABACE2D02B0D626A0004D944 /* SettingsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMenu.swift; sourceTree = "<group>"; };
 		ABE4E8222AE4703A0092ECA6 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
 		BD0AE0152B1AA8FA006E122D /* StartHarvest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartHarvest.swift; sourceTree = "<group>"; };
+		BD0AE0172B1D5904006E122D /* coin_collect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = coin_collect.wav; path = Assets/Sounds/coin_collect.wav; sourceTree = "<group>"; };
+		BD0AE0192B1D59DB006E122D /* fruit_collect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = fruit_collect.wav; path = Assets/Sounds/fruit_collect.wav; sourceTree = "<group>"; };
 		BD3EFA002B16B2600099B85A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BD8427512B17CC3C0011D458 /* Harvest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Harvest.swift; sourceTree = "<group>"; };
 		BDB138222B13DE2D00D7AF32 /* EndScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndScreen.swift; sourceTree = "<group>"; };
@@ -149,6 +153,8 @@
 		CD1F68932AD47BEE002B1EF5 = {
 			isa = PBXGroup;
 			children = (
+				BD0AE0192B1D59DB006E122D /* fruit_collect.wav */,
+				BD0AE0172B1D5904006E122D /* coin_collect.wav */,
 				CD1F689E2AD47BEF002B1EF5 /* RetroGame */,
 				CD1F68B82AD47BF2002B1EF5 /* RetroGameTests */,
 				CD1F68C22AD47BF2002B1EF5 /* RetroGameUITests */,
@@ -373,6 +379,8 @@
 				CD1F68B02AD47BF1002B1EF5 /* LaunchScreen.storyboard in Resources */,
 				CD1F68A42AD47BEF002B1EF5 /* Actions.sks in Resources */,
 				BD3EFA012B16B2600099B85A /* GoogleService-Info.plist in Resources */,
+				BD0AE0182B1D5905006E122D /* coin_collect.wav in Resources */,
+				BD0AE01A2B1D59DC006E122D /* fruit_collect.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

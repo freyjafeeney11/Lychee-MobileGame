@@ -43,7 +43,6 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     let loseThresholdX: CGFloat = 0.0
     var coinCounter = 0
     var audioPlayer: AVAudioPlayer?
-//    let coinsound = SKAction.playSoundFileNamed("Assets/Sounds/coin_collect", waitForCompletion: false)
     
     var gameTimer: Timer?
     let gameDuration: TimeInterval = 30
@@ -85,7 +84,6 @@ class Runner: SKScene, SKPhysicsContactDelegate{
             do {
                 audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
                 audioPlayer?.prepareToPlay()
-                print("Playing sound")
             } catch {
                 print("Error loading sound file:", error.localizedDescription)
             }
