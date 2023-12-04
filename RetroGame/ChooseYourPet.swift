@@ -95,7 +95,7 @@ class ChooseEgg: SKScene {
                 self.petString = "chicken hamster"
             }
             // this func isnt doing much
-            edit.updateUserPetChoice(user: user, petChoice: petString)
+            //edit.updateUserPetChoice(user: user, petChoice: petString)
             
             let mainGameScreen = MainScreen(size: size)
             // can stop music after egg choice or before

@@ -158,23 +158,6 @@ public class EditUser: ObservableObject{
             })
         }
     
-<<<<<<< HEAD
-    func updateUserPetChoice(user: UserObject, petChoice: String) {
-        // update the user's pet choice in Firebase
-        let db = Firestore.firestore()
-        let userRef = db.collection("users").document(user.user)
-
-        userRef.updateData(["pet_choice": petChoice]) { error in
-            if let error = error {
-                print("Error updating pet choice: \(error.localizedDescription)")
-            } else {
-                print("Pet choice updated successfully")
-            }
-        }
-    }
-    
-    func volumeToggle(){
-=======
     
     func harvest_game(user: UserObject, food: Int){
         let currUser = self.db.collection("users")
@@ -201,7 +184,6 @@ public class EditUser: ObservableObject{
     }
     
     func volumeToggle(vol: Int){
->>>>>>> bbe76d2ce95a0a352a6a295d5072ed670479f531
             let currUser = self.db.collection("users")
             print("edit user username is: \(mostRecentUser.name)")
             updateFirestore(user: mostRecentUser)
@@ -302,25 +284,21 @@ public class EditUser: ObservableObject{
     }
     
     func changePet(pet: String){
-        let currUser = self.db.collection("users")
-        updateFirestore(user: mostRecentUser)
-        currUser.whereField("name", isEqualTo: mostRecentUser.name).getDocuments(completion: { documentSnapshot, error in
-            if let err = error {
-                print(err.localizedDescription)
-                return
-            }
-            
-            guard let docs = documentSnapshot?.documents else { return }
-            
-            for doc in docs { //iterate over each document and update
-                let docRef = doc.reference
-                docRef.updateData(["pet_choice" : pet])
-            }
-        })
-        print("pull from firestore")
-        self.pullFromFirestore(user: mostRecentUser)
-        print("edit user pet: \(mostRecentUser.pet_choice)")
+        mostRecentUser.pet_choice = pet
     }
+    func updateUserPetChoice(user: UserObject, petChoice: String) {
+            // update the user's pet choice in Firebase
+            let db = Firestore.firestore()
+            let userRef = db.collection("users").document(user.user)
+
+            userRef.updateData(["pet_choice": petChoice]) { error in
+                if let error = error {
+                    print("Error updating pet choice: \(error.localizedDescription)")
+                } else {
+                    print("Pet choice updated successfully")
+                }
+            }
+        }
 }
 
 
@@ -394,6 +372,5 @@ public class UserObjectManager {
     }
 }
 
-    
     
     

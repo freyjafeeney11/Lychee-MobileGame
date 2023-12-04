@@ -44,7 +44,7 @@ struct AuthScene: View {
     @State private var newUser = false
     
     //var edit = EditUser()
-    var userObj = UserObject(id: "someID", name: "default", user: "default@example.com", pass: "password", hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: 1, coins: 0, pet: "cat bat", petName: "")
+//    var userObj = UserObject(id: "someID", name: "default", user: "default@example.com", pass: "password", hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: 1, coins: 0, pet: "", petName: "")
 
     let userObject = UserObjectManager.shared.getCurrentUser()
     
@@ -141,14 +141,6 @@ struct AuthScene: View {
                 print("PET CHOICE \(userObject.pet_choice)")
                 loginCheck = true
             }
-<<<<<<< HEAD
-=======
-            //pull from firestore
-            edit.pullFromFirestore(user: userObject)
-            UserObjectManager.shared.updateCurrentUser(with: userObject)
-            print(userObject)
-            userObject.printUser()
->>>>>>> bbe76d2ce95a0a352a6a295d5072ed670479f531
         }
     }
     // create a user
@@ -171,11 +163,7 @@ struct AuthScene: View {
             //desnt work bc it is too early, petString isnt defined yet
             //ranString = await ChooseEgg().returnChoice()
             // user levels initial
-<<<<<<< HEAD
-            let currUser = UserObject(id: userID, name: String(name), user: email, pass: password, hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: true, coins: 0, pet: ranString, petName: "")
-=======
-            let currUser = UserObject(id: userID, name: String(name), user: email, pass: password, hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: 1, coins: 0, pet: "cat bat", petName: "")
->>>>>>> bbe76d2ce95a0a352a6a295d5072ed670479f531
+            let currUser = UserObject(id: userID, name: String(name), user: email, pass: password, hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: 0, coins: 0, pet: ranString, petName: "")
             //print(currUser)
             UserObjectManager.shared.updateCurrentUser(with: currUser)
             let encodedUser = try Firestore.Encoder().encode(currUser)

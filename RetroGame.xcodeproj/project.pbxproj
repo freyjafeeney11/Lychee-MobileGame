@@ -159,13 +159,10 @@
 		CD1F68932AD47BEE002B1EF5 = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				73CBB5F92B1DB98A00AB8E52 /* The Bard's Tale.wav */,
 				73CBB5F72B1D6F4200AB8E52 /* mainscreenmusic.m4a */,
 				BD0AE0192B1D59DB006E122D /* fruit_collect.wav */,
-=======
 				BD0AE01B2B1D6222006E122D /* fruit_munch.wav */,
->>>>>>> bbe76d2ce95a0a352a6a295d5072ed670479f531
 				BD0AE0172B1D5904006E122D /* coin_collect.wav */,
 				CD1F689E2AD47BEF002B1EF5 /* RetroGame */,
 				CD1F68B82AD47BF2002B1EF5 /* RetroGameTests */,
