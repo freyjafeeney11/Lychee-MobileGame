@@ -40,9 +40,10 @@ struct AuthScene: View {
     @State private var user = ""
     @State private var pass = ""
     @State private var isContentVisible = true
+    @State private var newUser = false
     
     //var edit = EditUser()
-    var userObj = UserObject(id: "someID", name: "default", user: "default@example.com", pass: "password", hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: true, coins: 0, pet: "catbat")
+    var userObj = UserObject(id: "someID", name: "default", user: "default@example.com", pass: "password", hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: true, coins: 0, pet: "cat bat", petName: "")
 
     let userObject = UserObjectManager.shared.getCurrentUser()
     
@@ -65,9 +66,11 @@ struct AuthScene: View {
                     TextField("", text:$user)
                         .foregroundColor(.white)
                         .padding(30)
+                        .autocapitalization(.none)
                     SecureField("", text:$pass)
                         .foregroundColor(.white)
                         .padding(30)
+                        .autocapitalization(.none)
                     //register here
                     Button {
                         Task{
@@ -114,6 +117,12 @@ struct AuthScene: View {
                 MainGameSceneView()
             })
             .ignoresSafeArea()
+        /*
+            .fullScreenCover(isPresented: $newUser, content: {
+                // Switch to SpriteKit scene
+                choosePetView()
+            })
+            .ignoresSafeArea()*/
         }
 
     // log in
@@ -144,17 +153,30 @@ struct AuthScene: View {
             let name = email[...atSign]
 
             // user levels initial
-            let currUser = UserObject(id: userID, name: String(name), user: email, pass: password, hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: true, coins: 0, pet: "catbat")
+            let currUser = UserObject(id: userID, name: String(name), user: email, pass: password, hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: true, coins: 0, pet: "cat bat", petName: "")
             //print(currUser)
             UserObjectManager.shared.updateCurrentUser(with: currUser)
             let encodedUser = try Firestore.Encoder().encode(currUser)
             try await
                 Firestore.firestore().collection("users").document(currUser.user).setData(encodedUser)
+            authenticated = true
         }
         catch {
             print("DEBUG: Failed to create user with error \(error)")
         }
+        if userObject.pet_choice == "none"{
+            newUser = true
+        }
 
     }
     
+}
+
+
+
+struct choosePetView: View{
+    var body: some View {
+        SpriteKitContainer(scene: ChooseYourPet())
+            .ignoresSafeArea()
+    }
 }
