@@ -50,7 +50,7 @@ class SettingsMenu: SKScene {
         addChild(room)
         addChild(settingsMenu)
         
-        if mostRecentUser.volume == true{
+        if mostRecentUser.volume == 1{
             addChild(toggleMusic!)
         }
         
