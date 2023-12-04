@@ -52,7 +52,7 @@ class BathScene: SKScene, SKPhysicsContactDelegate {
             player?.position = CGPoint(x: size.width * 0.62, y: size.height * 0.43)
         } else {
             textures = ["chicken-hamster"]
-            player?.position = CGPoint(x: size.width * 0.62, y: size.height * 0.6)
+            player?.position = CGPoint(x: size.width * 0.62, y: size.height * 0.55)
         }
         
         let bathing = textures.map { SKTexture(imageNamed: $0) }
