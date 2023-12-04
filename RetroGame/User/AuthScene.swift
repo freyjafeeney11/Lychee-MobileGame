@@ -65,9 +65,11 @@ struct AuthScene: View {
                     TextField("", text:$user)
                         .foregroundColor(.white)
                         .padding(30)
+                        .autocapitalization(.none)
                     SecureField("", text:$pass)
                         .foregroundColor(.white)
                         .padding(30)
+                        .autocapitalization(.none)
                     //register here
                     Button {
                         Task{

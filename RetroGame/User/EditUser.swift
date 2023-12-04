@@ -171,13 +171,14 @@ public class EditUser: ObservableObject{
                     let docRef = doc.reference
                     if user.volume == true{
                         self.setVolume(currVol: false)
-                    }else{
-                        self.setVolume(currVol: true)
-                    }
+                    }//else{
+                        //self.setVolume(currVol: true)
+                    //}
                     docRef.updateData(["volume" : user.volume])
                 }
             })
         }
+    
     
         func setVolume(currVol: Bool){
             mostRecentUser.volume = currVol
