@@ -8,6 +8,8 @@
 import SpriteKit
 import GameplayKit
 import FirebaseAuth
+import AVFoundation
+
 
 class Runner: SKScene, SKPhysicsContactDelegate{
     //let character = SKSpriteNode(imageNamed: "chicken-hamster")
@@ -40,7 +42,8 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     // Game over mech
     let loseThresholdX: CGFloat = 0.0
     var coinCounter = 0
-    let coinsound = SKAction.playSoundFileNamed("coin_collect 1", waitForCompletion: false)
+    var audioPlayer: AVAudioPlayer?
+//    let coinsound = SKAction.playSoundFileNamed("Assets/Sounds/coin_collect", waitForCompletion: false)
     
     var gameTimer: Timer?
     let gameDuration: TimeInterval = 30
@@ -78,6 +81,15 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         physicsWorld.contactDelegate = self
         physicsWorld.gravity = CGVector(dx: 0, dy: -5.0)
         addCityCollision()
+        if let soundURL = Bundle.main.url(forResource: "coin_collect", withExtension: "wav") {
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+                audioPlayer?.prepareToPlay()
+                print("Playing sound")
+            } catch {
+                print("Error loading sound file:", error.localizedDescription)
+            }
+        }
         startCoinSpawning()
         
         gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
@@ -102,7 +114,6 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         // Check if the character is not already jumping
         if !isJumping && canJump {
             if character.position.y <= cityFront.position.y + cityFront.size.height * 0.5 + character.size.height * 0.5 {
-                print("Jump Applied")
                 character.physicsBody?.applyImpulse(CGVector(dx: 0.0, dy: jumpForce))
                 isJumping = true
                 canJump = false // Disable jumping temporarily
@@ -247,9 +258,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         character.physicsBody?.contactTestBitMask = groundCategory // Detect contact with buildings
         
         character.physicsBody?.usesPreciseCollisionDetection = true
-        print("Character Added!")
         addChild(character)
-        print("Character Initial Position: \(character.position)")
     }
     
     func updateCharacterTextures() {
@@ -260,54 +269,6 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         let animateAction = SKAction.animate(with: characterTextures, timePerFrame: 0.1)
         character.run(SKAction.repeatForever(animateAction), withKey: "runningAnimation")
     }
-    
-    //    func loadRunningAnimationTextures() -> [SKTexture] {
-    //        let runImages = ["mini_batcat_run1", "mini_batcat_run2", "mini_batcat_run3", "mini_batcat_run4"]
-    //        let textures = runImages.map { SKTexture(imageNamed: $0) }
-    //        return textures
-    //    }
-    //
-    //    func updateCharacterPhysics() {
-    //        guard currentFrame < runningTextures.count else { return }
-    //
-    //        let currentTexture = runningTextures[currentFrame]
-    //        character.physicsBody = SKPhysicsBody(texture: currentTexture, size: currentTexture.size())
-    //        character.physicsBody?.affectedByGravity = true
-    //        character.physicsBody?.isDynamic = true
-    //        character.physicsBody?.allowsRotation = false
-    //        character.physicsBody?.categoryBitMask = characterCategory
-    //        character.physicsBody?.collisionBitMask = groundCategory
-    //        character.physicsBody?.contactTestBitMask = groundCategory
-    //        character.physicsBody?.usesPreciseCollisionDetection = true
-    //        character.zPosition = 2
-    //
-    //    }
-    //
-    //    func updateRunningAnimation() {
-    //        guard currentFrame < runningTextures.count else { return }
-    //
-    //        let currentTexture = runningTextures[currentFrame]
-    //        character.texture = currentTexture
-    //        updateCharacterPhysics()
-    //
-    //        currentFrame = (currentFrame + 1) % runningTextures.count
-    //    }
-    //
-    //    func addCharacter() {
-    //        runningTextures = loadRunningAnimationTextures()
-    //        // Set initial character texture and physics body
-    //        character = SKSpriteNode(texture: runningTextures[0])
-    //        character.position = CGPoint(x: size.width / 2, y: size.height / 2)
-    //        addChild(character)
-    //
-    //        updateCharacterPhysics()
-    //
-    //        // Start the animation loop
-    //        run(SKAction.repeatForever(SKAction.sequence([
-    //            SKAction.run(updateRunningAnimation),
-    //            SKAction.wait(forDuration: 0.1)
-    //        ])))
-    //    }
     
     func startCoinSpawning() {
         let spawnCoinAction = SKAction.run(spawnCoin)
@@ -341,10 +302,9 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     }
     func coinCollected(_ coin: SKSpriteNode) {
         updateCoinCounter(by: 1)
-        run(coinsound)
+        audioPlayer?.play()
         coin.removeFromParent()
     }
-    
     func updateCoinCounter(by value: Int) {
         coinCounter += value
         print("Collected Coins: \(coinCounter)")
