@@ -59,7 +59,7 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
         createSky()
         createGround()
         startFoodSpawning()
-        if mostRecentUser.volume == 0 {
+        if mostRecentUser.volume == 1 {
             if let soundURL = Bundle.main.url(forResource: "fruit_munch", withExtension: "wav") {
                 do {
                     audioPlayer = try AVAudioPlayer(contentsOf: soundURL)

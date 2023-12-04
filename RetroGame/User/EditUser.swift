@@ -159,9 +159,8 @@ public class EditUser: ObservableObject{
         }
     
     
-    func harvert_game(user: UserObject, food: Int){
+    func harvest_game(user: UserObject, food: Int){
         let currUser = self.db.collection("users")
-
         currUser.whereField("name", isEqualTo: user.name).getDocuments(completion: { documentSnapshot, error in
             if let err = error {
                 print(err.localizedDescription)
@@ -233,6 +232,9 @@ public class EditUser: ObservableObject{
             else{
                 mostRecentUser.hunger_level = 100
             }
+            if (mostRecentUser.hunger_level + newHunger <= 0){
+                mostRecentUser.hunger_level = 0
+            }
         }
         func addSocial(newSocial: Int){
             if(mostRecentUser.social_level + newSocial <= 100){
@@ -240,6 +242,9 @@ public class EditUser: ObservableObject{
             }
             else{
                 mostRecentUser.social_level = 100
+            }
+            if (mostRecentUser.social_level + newSocial <= 0){
+                mostRecentUser.social_level = 0
             }
         }
         func addHygiene(newHygiene: Int){
@@ -249,6 +254,9 @@ public class EditUser: ObservableObject{
             else{
                 mostRecentUser.hygiene_level = 100
             }
+            if (mostRecentUser.hygiene_level + newHygiene <= 0){
+                mostRecentUser.hygiene_level = 0
+            }
         }
         func addHappiness(newHappiness: Int){
             if(mostRecentUser.happiness_level + newHappiness <= 100){
@@ -257,15 +265,20 @@ public class EditUser: ObservableObject{
             else{
                 mostRecentUser.happiness_level = 100
             }
+            if (mostRecentUser.happiness_level + newHappiness <= 0){
+                mostRecentUser.happiness_level = 0
+            }
         }
     func addEnergy(newEnergy: Int){
         if(mostRecentUser.energy_level + newEnergy <= 100){
                 mostRecentUser.energy_level += newEnergy
-            }
-            else{
-                mostRecentUser.energy_level = 100
-            }
+        }else{
+            mostRecentUser.energy_level = 100
         }
+        if (mostRecentUser.energy_level + newEnergy <= 0){
+            mostRecentUser.energy_level = 0
+        }
+    }
     func addCoins(moreCoins: Int){
         mostRecentUser.coins += moreCoins
     }

@@ -84,7 +84,7 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         physicsWorld.contactDelegate = self
         physicsWorld.gravity = CGVector(dx: 0, dy: -5.0)
         addCityCollision()
-        if mostRecentUser.volume == 0 {
+        if mostRecentUser.volume == 1 {
             if let soundURL = Bundle.main.url(forResource: "coin_collect", withExtension: "wav") {
                 do {
                     audioPlayer = try AVAudioPlayer(contentsOf: soundURL)

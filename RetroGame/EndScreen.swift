@@ -41,7 +41,7 @@ class EndScreen: SKScene {
         setupBackground()
         setupFoodLabel()
         setupHomeButtonBottom()
-        EditUser().harvert_game(user: userObject, food: health)
+        EditUser().harvest_game(user: userObject, food: health)
     }
     
     required init?(coder aDecoder: NSCoder) {

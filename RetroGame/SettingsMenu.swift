@@ -132,12 +132,12 @@ class SettingsMenu: SKScene {
             let location = touch.location(in: self)
             
             if toggleMusic?.contains(location) == true {
-                toggleMusic!.removeFromParent()
-                if mostRecentUser.volume == 1{
-                    edit.volumeToggle(vol: 0)
-                }else{
-                    edit.volumeToggle(vol: 1)
+                if mostRecentUser.volume == 0{
                     addChild(toggleMusic!)
+                    edit.volumeToggle(vol: 1)
+                }else{
+                    edit.volumeToggle(vol: 0)
+                    toggleMusic!.removeFromParent()
                 }
             }
             
