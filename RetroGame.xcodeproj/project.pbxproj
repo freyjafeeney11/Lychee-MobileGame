@@ -50,6 +50,7 @@
 		CD6379262B0705D600E887B9 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CD6379252B0705D600E887B9 /* FirebaseFirestoreSwift */; };
 		CDB2160B2B1BB0E700911255 /* Levels.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB2160A2B1BB0E700911255 /* Levels.swift */; };
 		CDBE2AB52AE2025A00712D94 /* Runner.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBE2AB42AE2025A00712D94 /* Runner.swift */; };
+		CDDA45082B1D603100B46CA8 /* ChooseYourPet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDA45072B1D603100B46CA8 /* ChooseYourPet.swift */; };
 		CDF98A852B0670AC00BB78D6 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = CDF98A842B0670AC00BB78D6 /* FirebaseAppCheck */; };
 		CDF98A872B06767100BB78D6 /* UserObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF98A862B06767100BB78D6 /* UserObject.swift */; };
 		CDF98A8A2B06789600BB78D6 /* EditUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF98A892B06789600BB78D6 /* EditUser.swift */; };
@@ -109,6 +110,7 @@
 		CD3DDDD82B1BCB1B00EAC329 /* MessageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageManager.swift; sourceTree = "<group>"; };
 		CDB2160A2B1BB0E700911255 /* Levels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Levels.swift; sourceTree = "<group>"; };
 		CDBE2AB42AE2025A00712D94 /* Runner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Runner.swift; sourceTree = "<group>"; };
+		CDDA45072B1D603100B46CA8 /* ChooseYourPet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseYourPet.swift; sourceTree = "<group>"; };
 		CDF98A862B06767100BB78D6 /* UserObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserObject.swift; sourceTree = "<group>"; };
 		CDF98A892B06789600BB78D6 /* EditUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -184,6 +186,7 @@
 				CD1F68A32AD47BEF002B1EF5 /* Actions.sks */,
 				BD3EFA002B16B2600099B85A /* GoogleService-Info.plist */,
 				CD1F68A52AD47BEF002B1EF5 /* GameScene.swift */,
+				CDDA45072B1D603100B46CA8 /* ChooseYourPet.swift */,
 				ABACE2D02B0D626A0004D944 /* SettingsMenu.swift */,
 				CD1F68A72AD47BEF002B1EF5 /* GameViewController.swift */,
 				BD0AE0152B1AA8FA006E122D /* StartHarvest.swift */,
@@ -420,6 +423,7 @@
 				73A526842AE386B900EE3693 /* MainScreen.swift in Sources */,
 				CD3DDDD52B1BCB0B00EAC329 /* MessageView.swift in Sources */,
 				738F570A2B170EBA00CA1A25 /* SpriteKitContainer.swift in Sources */,
+				CDDA45082B1D603100B46CA8 /* ChooseYourPet.swift in Sources */,
 				AB3095342B18E8EE000F2229 /* StatsMenu.swift in Sources */,
 				CDF98A872B06767100BB78D6 /* UserObject.swift in Sources */,
 				CD3DDDD92B1BCB1B00EAC329 /* MessageManager.swift in Sources */,

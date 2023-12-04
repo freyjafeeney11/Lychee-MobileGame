@@ -51,11 +51,15 @@ public class EditUser: ObservableObject{
                     print("this is data from firestore", data)
                     //gets all the data from firestore and updates in userhealth
                     self.mostRecentUser.energy_level = data["energy_level"] as! Int
-                    self.mostRecentUser.setHunger(newHunger: data["hunger_level"] as! Int)
+                    self.mostRecentUser.hunger_level = data["hunger_level"] as! Int
                     self.mostRecentUser.social_level = data["social_level"] as! Int
                     self.mostRecentUser.happiness_level = data["happiness_level"] as! Int
                     self.mostRecentUser.hygiene_level = data["hygiene_level"] as! Int
                     self.mostRecentUser.name = data["name"] as! String
+                    self.mostRecentUser.pass = data["pass"] as! String
+                    self.mostRecentUser.user = data["user"] as! String
+                    self.mostRecentUser.pet_name = data["pet_name"] as! String
+                    self.mostRecentUser.volume = data["volume"] as! Bool
                     UserObjectManager.shared.updateCurrentUser(with: user)
                     
                     print("\nThis is the name the object should have \(self.mostRecentUser.name)")
@@ -263,9 +267,10 @@ public class UserObject: ObservableObject, Identifiable, Codable{
     var volume: Bool
     var coins: Int
     var pet_choice: String
+    var pet_name: String
     
     
-    init(id: String, name: String, user: String, pass: String, hunger: Int, social: Int, hygiene: Int, happiness: Int, energy: Int, volume: Bool, coins: Int, pet: String){
+    init(id: String, name: String, user: String, pass: String, hunger: Int, social: Int, hygiene: Int, happiness: Int, energy: Int, volume: Bool, coins: Int, pet: String, petName: String){
         self.id = id
         self.name = name
         self.user = user
@@ -278,18 +283,20 @@ public class UserObject: ObservableObject, Identifiable, Codable{
         self.volume = volume
         self.coins = coins
         self.pet_choice = pet
+        self.pet_name = petName
     }
     
     func setHunger(newHunger: Int){
         self.hunger_level = newHunger
     }
     
+    
     func getName() -> String{
         return self.name
     }
     
     func printUser(){
-        print("user is : \(name)\n the email is: \(user), password is: \(pass)\nYour pet's health levels are:\n social: \(social_level)\n hygiene: \(hygiene_level)\n happiness: \(happiness_level)\n energy: \(energy_level)\n hunger: \(hunger_level)\n coins: \(coins)")
+        print("user is : \(name)\n the email is: \(user), password is: \(pass)\nYour \(pet_choice), \(pet_name) health levels are:\n social: \(social_level)\n hygiene: \(hygiene_level)\n happiness: \(happiness_level)\n energy: \(energy_level)\n hunger: \(hunger_level)\n coins: \(coins)")
     }
     
 }
@@ -303,7 +310,7 @@ public class UserObjectManager {
 
     private init() {
         // default values
-        currentUser = UserObject(id: "", name: "", user: "", pass: "", hunger: 0, social: 0, hygiene: 0, happiness: 0, energy: 0, volume: true, coins: 0, pet: "catbat")
+        currentUser = UserObject(id: "", name: "", user: "", pass: "", hunger: 0, social: 0, hygiene: 0, happiness: 0, energy: 0, volume: true, coins: 0, pet: "", petName: "")
     }
     
     func getCurrentUser() -> UserObject{

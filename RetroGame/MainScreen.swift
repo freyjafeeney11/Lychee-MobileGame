@@ -24,12 +24,14 @@ public class MainScreen: SKScene, SKPhysicsContactDelegate {
     var runnerButton: SKSpriteNode?
     var harvestButton: SKSpriteNode?
     var menuBar: SKSpriteNode?
+    let userObject = UserObjectManager.shared.getCurrentUser()
+    var sittingSprite: SKTexture?
 
     
     
     public override func didMove(to view: SKView) {
         let edit = EditUser()
-        let userObject = UserObjectManager.shared.getCurrentUser()
+        
         
         let providerFactory = AppCheckDebugProviderFactory()
         AppCheck.setAppCheckProviderFactory(providerFactory)
@@ -58,16 +60,12 @@ public class MainScreen: SKScene, SKPhysicsContactDelegate {
         let moveLeft = SKAction.moveBy(x: -moveDistance, y: 0, duration: moveDuration)
         let moveRight = SKAction.moveBy(x: moveDistance, y: 0, duration: moveDuration)
         
-        //setting animation
-        let tex1 = SKTexture(imageNamed: "batcat_run1")
-        let tex2 = SKTexture(imageNamed: "batcat_run2")
-        let tex3 = SKTexture(imageNamed: "batcat_run3")
-        let tex4 = SKTexture(imageNamed: "batcat_run4")
-        let walking = [tex1, tex2, tex3, tex4]
+        //setting animation by calling right files
+        let walking = updatePet()
         
-        // change sprite to sitting when sitting
-        let sittingSprite = SKTexture(imageNamed: "catbat_ver2-export.png")
-        let sitAction = SKAction.setTexture(sittingSprite)
+        
+        // change sprite to sitting when sitting updated in updatePet()
+        let sitAction = SKAction.setTexture(sittingSprite!)
         
         
         // walking animation
@@ -178,6 +176,21 @@ public class MainScreen: SKScene, SKPhysicsContactDelegate {
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    //gets textures for pet
+    func updatePet() -> [SKTexture]{
+        var texture = [""]
+        let characterTextures = texture.map { SKTexture(imageNamed: $0) }
+        if(userObject.pet_choice == "cat bat"){
+            texture = ["batcat_run1", "batcat_run2", "batcat_run3","batcat_run4"]
+            sittingSprite = SKTexture(imageNamed: "catbat_ver2-export.png")
+        }
+        else if(userObject.pet_choice == "chicken hamster"){
+            texture = ["chicken-hamster_run1", "chicken-hamster_run2", "chicken-hamster_run3"]
+            sittingSprite = SKTexture(imageNamed: "")
+        }
+        return characterTextures
     }
     
 
