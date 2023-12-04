@@ -12,7 +12,7 @@ import GameplayKit
 
 class StatsMenu: SKScene {
     
-    let backButton = SKLabelNode(fontNamed: "Chalkduster")
+    let backButton = SKLabelNode(fontNamed: "Futura")
     
     var health = Levels()
     var hunger: SKSpriteNode?

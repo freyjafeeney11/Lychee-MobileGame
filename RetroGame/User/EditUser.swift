@@ -59,7 +59,7 @@ public class EditUser: ObservableObject{
                     self.mostRecentUser.pass = data["pass"] as! String
                     self.mostRecentUser.user = data["user"] as! String
                     self.mostRecentUser.pet_name = data["pet_name"] as! String
-                    self.mostRecentUser.volume = data["volume"] as! Bool
+                    self.mostRecentUser.volume = data["volume"] as! Int
                     UserObjectManager.shared.updateCurrentUser(with: user)
                     
                     print("\nThis is the name the object should have \(self.mostRecentUser.name)")
@@ -158,6 +158,7 @@ public class EditUser: ObservableObject{
             })
         }
     
+<<<<<<< HEAD
     func updateUserPetChoice(user: UserObject, petChoice: String) {
         // update the user's pet choice in Firebase
         let db = Firestore.firestore()
@@ -173,32 +174,56 @@ public class EditUser: ObservableObject{
     }
     
     func volumeToggle(){
+=======
+    
+    func harvest_game(user: UserObject, food: Int){
+        let currUser = self.db.collection("users")
+        currUser.whereField("name", isEqualTo: user.name).getDocuments(completion: { documentSnapshot, error in
+            if let err = error {
+                print(err.localizedDescription)
+                return
+            }
+
+            guard let docs = documentSnapshot?.documents else { return }
+
+            for doc in docs { //iterate over each document and update
+                let docRef = doc.reference
+                self.addEnergy(newEnergy: -30)
+                self.addHappiness(newHappiness: 30)
+                self.addHygiene(newHygiene: -20)
+                self.addHunger(newHunger: food * 10)
+                docRef.updateData(["energy_level" : user.energy_level])
+                docRef.updateData(["happiness_level" : user.happiness_level])
+                docRef.updateData(["hygiene_level" : user.hygiene_level])
+                docRef.updateData(["hunger_level" : user.hunger_level])
+            }
+        })
+    }
+    
+    func volumeToggle(vol: Int){
+>>>>>>> bbe76d2ce95a0a352a6a295d5072ed670479f531
             let currUser = self.db.collection("users")
-            let user = mostRecentUser
             print("edit user username is: \(mostRecentUser.name)")
-            updateFirestore(user: user)
-            currUser.whereField("name", isEqualTo: user.user).getDocuments(completion: { documentSnapshot, error in
-                if let err = error {
-                    print(err.localizedDescription)
-                    return
-                }
+            updateFirestore(user: mostRecentUser)
+            currUser.whereField("name", isEqualTo: mostRecentUser.name).getDocuments(completion: { documentSnapshot, error in
+            if let err = error {
+                print(err.localizedDescription)
+                return
+            }
     
                 guard let docs = documentSnapshot?.documents else { return }
     
                 for doc in docs { //iterate over each document and update
                     let docRef = doc.reference
-                    if user.volume == true{
-                        self.setVolume(currVol: false)
-                    }//else{
-                        //self.setVolume(currVol: true)
-                    //}
-                    docRef.updateData(["volume" : user.volume])
+                    
+                    self.setVolume(currVol: vol)
+                    docRef.updateData(["volume" : self.mostRecentUser.volume])
                 }
             })
         }
     
     
-        func setVolume(currVol: Bool){
+        func setVolume(currVol: Int){
             mostRecentUser.volume = currVol
         }
     
@@ -225,6 +250,9 @@ public class EditUser: ObservableObject{
             else{
                 mostRecentUser.hunger_level = 100
             }
+            if (mostRecentUser.hunger_level + newHunger <= 0){
+                mostRecentUser.hunger_level = 0
+            }
         }
         func addSocial(newSocial: Int){
             if(mostRecentUser.social_level + newSocial <= 100){
@@ -232,6 +260,9 @@ public class EditUser: ObservableObject{
             }
             else{
                 mostRecentUser.social_level = 100
+            }
+            if (mostRecentUser.social_level + newSocial <= 0){
+                mostRecentUser.social_level = 0
             }
         }
         func addHygiene(newHygiene: Int){
@@ -241,6 +272,9 @@ public class EditUser: ObservableObject{
             else{
                 mostRecentUser.hygiene_level = 100
             }
+            if (mostRecentUser.hygiene_level + newHygiene <= 0){
+                mostRecentUser.hygiene_level = 0
+            }
         }
         func addHappiness(newHappiness: Int){
             if(mostRecentUser.happiness_level + newHappiness <= 100){
@@ -249,15 +283,20 @@ public class EditUser: ObservableObject{
             else{
                 mostRecentUser.happiness_level = 100
             }
+            if (mostRecentUser.happiness_level + newHappiness <= 0){
+                mostRecentUser.happiness_level = 0
+            }
         }
     func addEnergy(newEnergy: Int){
         if(mostRecentUser.energy_level + newEnergy <= 100){
                 mostRecentUser.energy_level += newEnergy
-            }
-            else{
-                mostRecentUser.energy_level = 100
-            }
+        }else{
+            mostRecentUser.energy_level = 100
         }
+        if (mostRecentUser.energy_level + newEnergy <= 0){
+            mostRecentUser.energy_level = 0
+        }
+    }
     func addCoins(moreCoins: Int){
         mostRecentUser.coins += moreCoins
     }
@@ -296,13 +335,13 @@ public class UserObject: ObservableObject, Identifiable, Codable{
     var name: String
     var user: String
     var pass: String
-    var volume: Bool
+    var volume: Int
     var coins: Int
     var pet_choice: String
     var pet_name: String
     
     
-    init(id: String, name: String, user: String, pass: String, hunger: Int, social: Int, hygiene: Int, happiness: Int, energy: Int, volume: Bool, coins: Int, pet: String, petName: String){
+    init(id: String, name: String, user: String, pass: String, hunger: Int, social: Int, hygiene: Int, happiness: Int, energy: Int, volume: Int, coins: Int, pet: String, petName: String){
         self.id = id
         self.name = name
         self.user = user
@@ -342,7 +381,7 @@ public class UserObjectManager {
 
     private init() {
         // default values
-        currentUser = UserObject(id: "", name: "", user: "", pass: "", hunger: 0, social: 0, hygiene: 0, happiness: 0, energy: 0, volume: true, coins: 0, pet: "", petName: "")
+        currentUser = UserObject(id: "", name: "", user: "", pass: "", hunger: 0, social: 0, hygiene: 0, happiness: 0, energy: 0, volume: 1, coins: 0, pet: "", petName: "")
     }
     
     func getCurrentUser() -> UserObject{

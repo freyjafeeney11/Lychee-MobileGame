@@ -24,14 +24,14 @@ class SideMenu: SKScene {
     //gets current user
     let userObject = UserObjectManager.shared.getCurrentUser()
     
-    let homeLabel = SKLabelNode(fontNamed: "Chalkduster")
-    let closetLabel = SKLabelNode(fontNamed: "Chalkduster")
-    let bathLabel = SKLabelNode(fontNamed: "Chalkduster")
-    let fridgeLabel = SKLabelNode(fontNamed: "Chalkduster")
-    let walkingLabel = SKLabelNode(fontNamed: "Chalkduster")
-    let socialLabel = SKLabelNode(fontNamed: "Chalkduster")
-    let statsLabel = SKLabelNode(fontNamed: "Chalkduster")
-    let settingLabel = SKLabelNode(fontNamed: "Chalkduster")
+    let homeLabel = SKLabelNode(fontNamed: "Futura")
+    let closetLabel = SKLabelNode(fontNamed: "Futura")
+    let bathLabel = SKLabelNode(fontNamed: "Futura")
+    let fridgeLabel = SKLabelNode(fontNamed: "Futura")
+    let walkingLabel = SKLabelNode(fontNamed: "Futura")
+    let socialLabel = SKLabelNode(fontNamed: "Futura")
+    let statsLabel = SKLabelNode(fontNamed: "Futura")
+    let settingLabel = SKLabelNode(fontNamed: "Futura")
     
     @State private var chat = false
     

@@ -15,6 +15,7 @@ import AVFoundation
 public struct petChoice {
     static var pet = "catbat_ver2-export"
 }
+
 //public var shared = MainScreen()
 
 public class MainScreen: SKScene, SKPhysicsContactDelegate {
@@ -26,13 +27,15 @@ public class MainScreen: SKScene, SKPhysicsContactDelegate {
     var runnerButton: SKSpriteNode?
     var harvestButton: SKSpriteNode?
     var menuBar: SKSpriteNode?
+<<<<<<< HEAD
     var userObject = UserObjectManager.shared.getCurrentUser()
     var spriteString = "catbat_ver2-export"
+=======
+    let userObject = UserObjectManager.shared.getCurrentUser()
+    var sittingSprite = SKTexture(imageNamed: "catbat_ver2-export.png")
+>>>>>>> bbe76d2ce95a0a352a6a295d5072ed670479f531
 
-    
-    
     public override func didMove(to view: SKView) {
-        let edit = EditUser()
         
         if let soundURL = Bundle.main.url(forResource: "mainscreenmusic", withExtension: "m4a") {
             do {
@@ -76,6 +79,7 @@ public class MainScreen: SKScene, SKPhysicsContactDelegate {
         var flipLeft = SKAction.scaleX(to: 1, duration: 0.0)
         var flipRight = SKAction.scaleX(to: -1, duration: 0.0)
         
+<<<<<<< HEAD
         // PROBLEM:
         // the pet_choice is nil, it wont pull from firestore
         // i think mainscreen is presented too soon to be able to pull
@@ -105,6 +109,14 @@ public class MainScreen: SKScene, SKPhysicsContactDelegate {
             player.xScale = 1
             // chicken hamster runs backwards, multiply flip by this flip to change default, scale might change that though
         }
+=======
+        
+        // change sprite to sitting when sitting updated in updatePet()
+        let sitAction = SKAction.setTexture(sittingSprite)
+        
+        
+        // walking animation
+>>>>>>> bbe76d2ce95a0a352a6a295d5072ed670479f531
         let walkingAnimation = SKAction.animate(with: walking, timePerFrame: 0.13)
         let sittingSprite = SKTexture(imageNamed: spriteString)
         let sitAction = SKAction.setTexture(sittingSprite)
@@ -228,7 +240,7 @@ public class MainScreen: SKScene, SKPhysicsContactDelegate {
         }
         else if(userObject.pet_choice == "chicken hamster"){
             texture = ["chicken-hamster_run1", "chicken-hamster_run2", "chicken-hamster_run3"]
-            sittingSprite = SKTexture(imageNamed: "")
+            sittingSprite = SKTexture(imageNamed: "chicken-hamster")
         }
         return characterTextures
     }

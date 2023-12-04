@@ -10,6 +10,10 @@ import GameplayKit
 import AVFoundation
 
 class Harvest: SKScene, SKPhysicsContactDelegate{
+    
+    var edit = EditUser()
+    let mostRecentUser = UserObjectManager.shared.getCurrentUser()
+    
     let character = SKSpriteNode(imageNamed: "mini_chicken-hamster_run1")
     
     // To detect collision, bitmask category
@@ -25,6 +29,7 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
     var audioPlayer: AVAudioPlayer?
     let foodTypes = ["apple", "watermelon", "meat", "tuna", "corn", "pumpkin", "battery"]
     let poisonFood = "mushroom"
+    var count = 0
     
     var collectedFood: [String: Int] = [
         "apple": 0,
@@ -54,13 +59,17 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
         createSky()
         createGround()
         startFoodSpawning()
-        if let soundURL = Bundle.main.url(forResource: "fruit_collect", withExtension: "wav") {
-            do {
-                audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
-                audioPlayer?.prepareToPlay()
-            } catch {
-                print("Error loading sound file:", error.localizedDescription)
+        if mostRecentUser.volume == 1 {
+            if let soundURL = Bundle.main.url(forResource: "fruit_munch", withExtension: "wav") {
+                do {
+                    audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+                    audioPlayer?.prepareToPlay()
+                } catch {
+                    print("Error loading sound file:", error.localizedDescription)
+                }
             }
+        }else{
+            print("Volume Muted")
         }
         addCharacter()
         updateCharacterTextures()
@@ -81,12 +90,11 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
     }
     func didBegin(_ contact: SKPhysicsContact) {
         let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
-
         if contactMask == characterCategory | foodCategory {
             if contact.bodyA.categoryBitMask == characterCategory {
-                foodCollected(contact.bodyB.node as? SKSpriteNode ?? SKSpriteNode())
+                count = foodCollected(contact.bodyB.node as? SKSpriteNode ?? SKSpriteNode())
             } else {
-                foodCollected(contact.bodyA.node as? SKSpriteNode ?? SKSpriteNode())
+                count = foodCollected(contact.bodyA.node as? SKSpriteNode ?? SKSpriteNode())
             }
         }
     }
@@ -192,18 +200,24 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
         }
     }
 
-    func foodCollected(_ food: SKSpriteNode) {
+    func foodCollected(_ food: SKSpriteNode) -> Int {
+        var health = 0
         if let foodType = food.name {
             if let count = collectedFood[foodType] {
                 collectedFood[foodType] = count + 1
                 if let requiredCount =
                     foodReqs.characterFoodReq["chicken-hamster"]?[foodType] {
+                    if collectedFood[foodType] ?? 0 < requiredCount {
+                        //add to count
+                        health += 1
+                    }
                     audioPlayer?.play()
                 }
             }
         }
         food.removeFromParent()
         checkFoodRequirements(for: "chicken-hamster")
+        return health
     }
     
     func checkFoodRequirements(for characterType: String) {
@@ -219,7 +233,7 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
         }
         if requirementsMet {
             if let skView = self.view {
-                let endScene = EndScreen(size: self.size, collectedFood: collectedFood)
+                let endScene = EndScreen(size: self.size, collectedFood: collectedFood, health: count)
                 endScene.scaleMode = .aspectFill
                 skView.presentScene(endScene)
             }
