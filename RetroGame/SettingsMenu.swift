@@ -88,7 +88,7 @@ class SettingsMenu: SKScene {
         username.text = "Username"
         nameUser.text = mostRecentUser.user
         username.fontSize = 23
-        nameUser.fontSize = 17
+        nameUser.fontSize = 15
         username.position = CGPoint(x: size.width * 0.409, y: size.height * 0.643)
         nameUser.position = CGPoint(x: size.width * 0.645, y: size.height * 0.65)
         addChild(username)
@@ -100,10 +100,10 @@ class SettingsMenu: SKScene {
         pass.text = mostRecentUser.pass
         password.fontSize = 23
         hiddenPass.fontSize = 17
-        pass.fontSize = 17
+        pass.fontSize = 15
         password.position = CGPoint(x: size.width * 0.409, y: size.height * 0.5)
-        hiddenPass.position = CGPoint(x: size.width * 0.609, y: size.height * 0.485)
-        pass.position = CGPoint(x: size.width * 0.609, y: size.height * 0.495)
+        hiddenPass.position = CGPoint(x: size.width * 0.61, y: size.height * 0.485)
+        pass.position = CGPoint(x: size.width * 0.61, y: size.height * 0.496)
         addChild(password)
         addChild(hiddenPass)
     }
@@ -122,7 +122,7 @@ class SettingsMenu: SKScene {
     func setupMusic() {
         music.text = "Toggle Music"
         music.fontSize = 22
-        music.position = CGPoint(x: size.width * 0.409, y: size.height * 0.349)
+        music.position = CGPoint(x: size.width * 0.409, y: size.height * 0.348)
         addChild(music)
     }
 

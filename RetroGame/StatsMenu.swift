@@ -14,6 +14,9 @@ class StatsMenu: SKScene {
     
     let backButton = SKLabelNode(fontNamed: "Futura")
     
+    let edit = EditUser()
+    let mostRecentUser = UserObjectManager.shared.getCurrentUser()
+
     var health = Levels()
     var hunger: SKSpriteNode?
     var social: SKSpriteNode?
@@ -55,6 +58,8 @@ class StatsMenu: SKScene {
         addChild(hygiene!)
         addChild(happiness!)
         
+        setupMessageBoard()
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -70,6 +75,101 @@ class StatsMenu: SKScene {
               
         }
     }
+    func setupMessageBoard(){
+        
+        let topMessage = SKLabelNode(fontNamed: "Chalkduster")
+        topMessage.text = "\(mostRecentUser.name) is..."
+        topMessage.fontSize = 21
+        topMessage.position = CGPoint(x: size.width * 0.62, y: size.height * 0.78)
+        addChild(topMessage)
+        
+        let underline = SKLabelNode(fontNamed: "Chalkduster")
+        underline.text = "__________________"
+        underline.fontSize = 21
+        underline.position = CGPoint(x: size.width * 0.62, y: size.height * 0.76)
+        addChild(underline)
+
+        let happyMessage = SKLabelNode(fontNamed: "Chalkduster")
+        switch health.happiness{
+        case ..<30:
+            happyMessage.text = "Depressed: How dare you!"
+        case 31...60:
+            happyMessage.text = "Bored: Do something fun."
+        case 61...90:
+            happyMessage.text = "Joy: A slice of delightment."
+        default:
+            happyMessage.text = "Elated: Couldnt be happier."
+        }
+        happyMessage.fontSize = 17
+        happyMessage.horizontalAlignmentMode = .left
+        happyMessage.position = CGPoint(x: size.width * 0.45, y: size.height * 0.703)
+        addChild(happyMessage)
+        
+        let hygieneMessage = SKLabelNode(fontNamed: "Chalkduster")
+        switch health.hygiene{
+        case ..<30:
+            hygieneMessage.text = "Filthy: Go wash up stinky!"
+        case 31...60:
+            hygieneMessage.text = "Dishevled: Bed head, haha."
+        case 61...90:
+            hygieneMessage.text = "Cleanly: Looking fresh."
+        default:
+            hygieneMessage.text = "Poised: Immaculate looks."
+        }
+        hygieneMessage.fontSize = 17
+        hygieneMessage.horizontalAlignmentMode = .left
+        hygieneMessage.position = CGPoint(x: size.width * 0.45, y: size.height * 0.642)
+        addChild(hygieneMessage)
+        
+        let hungerMessage = SKLabelNode(fontNamed: "Chalkduster")
+        switch health.hunger{
+        case ..<30:
+            hungerMessage.text = "Starving: Just skin and bones!"
+        case 31...60:
+            hungerMessage.text = "Hungry: *gurgle* *rumble*."
+        case 61...90:
+            hungerMessage.text = "Satiated: Satisfactorly full."
+        default:
+            hungerMessage.text = "Stuffed: Look at this turkey!"
+        }
+        hungerMessage.fontSize = 17
+        hungerMessage.horizontalAlignmentMode = .left
+        hungerMessage.position = CGPoint(x: size.width * 0.45, y: size.height * 0.581)
+        addChild(hungerMessage)
+        
+        let energyMessage = SKLabelNode(fontNamed: "Chalkduster")
+        switch health.energy{
+        case ..<30:
+            energyMessage.text = "Exhausted: Its time to sleep."
+        case 31...60:
+            energyMessage.text = "Drowsy: Naps are refreshing."
+        case 61...90:
+            energyMessage.text = "Motivated: So much to do."
+        default:
+            energyMessage.text = "Energized: ZOOOMIEESSSS!!!"
+        }
+        energyMessage.fontSize = 17
+        energyMessage.horizontalAlignmentMode = .left
+        energyMessage.position = CGPoint(x: size.width * 0.45, y: size.height * 0.52)
+        addChild(energyMessage)
+        
+        let socialMessage = SKLabelNode(fontNamed: "Chalkduster")
+        switch health.social{
+        case ..<30:
+            socialMessage.text = "Isolated: Company is needed."
+        case 31...60:
+            socialMessage.text = "Lonely: Socialize a bit?"
+        case 61...90:
+            socialMessage.text = "Social: Company is nice."
+        default:
+            socialMessage.text = "Loved: Glowing with it."
+        }
+        socialMessage.fontSize = 17
+        socialMessage.horizontalAlignmentMode = .left
+        socialMessage.position = CGPoint(x: size.width * 0.45, y: size.height * 0.459)
+        addChild(socialMessage)
+    }
+    
     
     func setupBackButton() {
         backButton.text = "Return to Menu"
