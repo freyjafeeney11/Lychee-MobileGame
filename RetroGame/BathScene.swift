@@ -23,6 +23,8 @@ class BathScene: SKScene, SKPhysicsContactDelegate {
     private var spinnyNode : SKShapeNode?
     var menuBar: SKSpriteNode?
     var edit = EditUser()
+    let mostRecentUser = UserObjectManager.shared.getCurrentUser()
+    var textures = [String]()
     
     
     override func didMove(to view: SKView) {
@@ -45,10 +47,20 @@ class BathScene: SKScene, SKPhysicsContactDelegate {
         sponge?.name = "draggable"
 
         //setting animation
-        let tex1 = SKTexture(imageNamed: "catbat_idle1")
-        let tex2 = SKTexture(imageNamed: "catbat_idle2")
-        let tex3 = SKTexture(imageNamed: "catbat_idle3")
-        let bathing = [tex1, tex2, tex3]
+        if mostRecentUser.pet_choice == "cat bat" {
+            textures = ["catbat_idle1", "catbat_idle2", "catbat_idle3"]
+            player?.position = CGPoint(x: size.width * 0.62, y: size.height * 0.43)
+        } else {
+            textures = ["chicken-hamster"]
+            player?.position = CGPoint(x: size.width * 0.62, y: size.height * 0.6)
+        }
+        
+        let bathing = textures.map { SKTexture(imageNamed: $0) }
+        
+//        let tex1 = SKTexture(imageNamed: "catbat_idle1")
+//        let tex2 = SKTexture(imageNamed: "catbat_idle2")
+//        let tex3 = SKTexture(imageNamed: "catbat_idle3")
+//        let bathing = [tex1, tex2, tex3]
 
         
         let bathingIdle = SKAction.animate(with: bathing, timePerFrame: 0.3)
@@ -86,7 +98,7 @@ class BathScene: SKScene, SKPhysicsContactDelegate {
         tub.position = CGPoint(x: size.width * 0.55, y: size.height * 0.4)
         shampoo.position = CGPoint(x: size.width * 0.7, y: size.height * 0.3)
         sponge?.position = CGPoint(x: size.width * 0.35, y: size.height * 0.15)
-        player?.position = CGPoint(x: size.width * 0.62, y: size.height * 0.43)
+        //player?.position = CGPoint(x: size.width * 0.62, y: size.height * 0.43)
         bubbles.position = CGPoint(x: size.width * 0.55, y: size.height * 0.41)
         
         addChild(groundNode!)
