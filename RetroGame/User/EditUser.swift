@@ -159,7 +159,7 @@ public class EditUser: ObservableObject{
         }
     
     
-    func harvert_game(user: UserObject){
+    func harvert_game(user: UserObject, food: Int){
         let currUser = self.db.collection("users")
 
         currUser.whereField("name", isEqualTo: user.name).getDocuments(completion: { documentSnapshot, error in
@@ -175,6 +175,7 @@ public class EditUser: ObservableObject{
                 self.addEnergy(newEnergy: -30)
                 self.addHappiness(newHappiness: 30)
                 self.addHygiene(newHygiene: -20)
+                self.addHunger(newHunger: food * 10)
                 docRef.updateData(["energy_level" : user.energy_level])
                 docRef.updateData(["happiness_level" : user.happiness_level])
                 docRef.updateData(["hygiene_level" : user.hygiene_level])
