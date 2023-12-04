@@ -17,6 +17,7 @@ public struct petChoice {
 //public var shared = MainScreen()
 
 public class MainScreen: SKScene, SKPhysicsContactDelegate {
+    var audioPlayer: AVAudioPlayer?
     private var groundNode: SKSpriteNode?
     private var currentNode: SKNode?
     private var label : SKLabelNode?
@@ -24,8 +25,8 @@ public class MainScreen: SKScene, SKPhysicsContactDelegate {
     var runnerButton: SKSpriteNode?
     var harvestButton: SKSpriteNode?
     var menuBar: SKSpriteNode?
-    let userObject = UserObjectManager.shared.getCurrentUser()
-    var sittingSprite: SKTexture?
+    var userObject = UserObjectManager.shared.getCurrentUser()
+    var spriteString = "catbat_ver2-export"
 
     
     
@@ -61,15 +62,46 @@ public class MainScreen: SKScene, SKPhysicsContactDelegate {
         let moveRight = SKAction.moveBy(x: moveDistance, y: 0, duration: moveDuration)
         
         //setting animation by calling right files
-        let walking = updatePet()
+        //let walking = updatePet()
+        var walking: [SKTexture] = []
+        var flipLeft = SKAction.scaleX(to: 1, duration: 0.0)
+        var flipRight = SKAction.scaleX(to: -1, duration: 0.0)
         
-        
-        // change sprite to sitting when sitting updated in updatePet()
-        let sitAction = SKAction.setTexture(sittingSprite!)
-        
-        
-        // walking animation
+        // PROBLEM:
+        // the pet_choice is nil, it wont pull from firestore
+        // i think mainscreen is presented too soon to be able to pull
+        // user info
+        UserObjectManager.shared.getCurrentUser()
+        edit.pullFromFirestore(user: userObject)
+        // this is printing nothing
+        print("PET CHOICE : \(userObject.pet_choice)")
+        if userObject.pet_choice == "chicken-hamster" {
+            spriteString = "chicken-hamster"
+            let tex1 = SKTexture(imageNamed: "chicken-hamster_run1")
+            let tex2 = SKTexture(imageNamed: "chicken-hamster_run2")
+            let tex3 = SKTexture(imageNamed: "chicken-hamster_run3")
+            walking = [tex1, tex2, tex3]
+            flipLeft = SKAction.scaleX(to: -1, duration: 0.0)
+            flipRight = SKAction.scaleX(to: 1, duration: 0.0)
+            player.xScale = -1
+        }
+        // set default for now
+        else {
+            spriteString = "catbat_ver2-export"
+            let tex1 = SKTexture(imageNamed: "batcat_run1")
+            let tex2 = SKTexture(imageNamed: "batcat_run2")
+            let tex3 = SKTexture(imageNamed: "batcat_run3")
+            let tex4 = SKTexture(imageNamed: "batcat_run4")
+            walking = [tex1, tex2, tex3, tex4]
+            player.xScale = 1
+            // chicken hamster runs backwards, multiply flip by this flip to change default, scale might change that though
+        }
         let walkingAnimation = SKAction.animate(with: walking, timePerFrame: 0.13)
+        let sittingSprite = SKTexture(imageNamed: spriteString)
+        let sitAction = SKAction.setTexture(sittingSprite)
+        // change sprite to sitting when sitting updated in updatePet()
+        
+
         // this action plays the walking animation
         
         let walkAction = SKAction.repeat(walkingAnimation, count: Int(floor(2.0)))
