@@ -22,31 +22,17 @@ class Authentication: SKScene {
     
     
     override func didMove(to view: SKView) {
-        let keypad = SKSpriteNode(imageNamed: "keypad 1")
+        let keypad = SKSpriteNode(imageNamed: "gameboy 1")
         
-        backgroundColor = SKColor.green
+        backgroundColor = SKColor.red
         
-        keypad.position = CGPoint(x: size.width * 0.5, y: size.height * 0.6)
+        keypad.position = CGPoint(x: size.width * 0.505, y: size.height * 0.62)
         
-        keypad.setScale(0.65)
+        keypad.setScale(1.03)
         
         self.addChild(keypad)
     }
     
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        for touch in touches {
-//            let location = touch.location(in: self)
-//
-//            if startButton?.contains(location) == true {
-//                callMainScreen()
-//            }
-//        }
-//    }
-//    func callMainScreen() {
-//        let MainScreen = MainScreen(size: size)
-//        MainScreen.scaleMode = .aspectFill
-//        view?.presentScene(MainScreen)
-//    }
 }
 
 struct AuthScene: View {
@@ -55,19 +41,10 @@ struct AuthScene: View {
     @State private var pass = ""
     @State private var isContentVisible = true
     
-    var edit = EditUser()
-    var userObj = UserObject(id: "someID", name: "default", user: "default@example.com", pass: "password", hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: true, coins: 0)
+    //var edit = EditUser()
+    var userObj = UserObject(id: "someID", name: "default", user: "default@example.com", pass: "password", hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: true, coins: 0, pet: "catbat")
 
-    
-    
-    //@Published var userSession: FirebaseAuth.User?
-    //@Published var currentUser: User?
-    
-    /*
-    init(){
-        self.userSession = Auth.auth().currentUser
-    } */
-    
+    let userObject = UserObjectManager.shared.getCurrentUser()
     
     @State private var showMainScreen = false
     
@@ -103,7 +80,7 @@ struct AuthScene: View {
                             .bold()
                             .frame(width:200, height:30)
                             .background(
-                                RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.green))
+                                RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.cyan))
                     }
                     .offset(x: -20)
                     // login here
@@ -116,7 +93,7 @@ struct AuthScene: View {
                             .foregroundColor(.white)
                             .frame(width:200, height:30)
                             .background(
-                                RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.green))
+                                RoundedRectangle(cornerRadius: 10, style: .continuous).fill(.cyan))
                     }
                     .offset(x: -20)
                     Button {
@@ -125,12 +102,12 @@ struct AuthScene: View {
                         Text("Skip for now")
                             .font(.custom("Futura", size: 15))
                             .bold()
-                            .foregroundColor(.white)
+                            .foregroundColor(.cyan)
                     }
                     .offset(x: -20)
                 }
                 .frame(width: 350)
-                .offset(x: 264, y:-29)
+                .offset(x: 100, y: 0)
             }
             .fullScreenCover(isPresented: $authenticated, content: {
                 // Switch to SpriteKit scene
@@ -141,16 +118,21 @@ struct AuthScene: View {
 
     // log in
     func login() {
+        let edit = EditUser()
         Auth.auth().signIn(withEmail: user, password: pass) { result, error in if error != nil {
             print(error!.localizedDescription)
             }
             else {
-                edit.currUser!.name = user
+
+                //get user's name to pull from firestore
+                userObject.user = user
                 authenticated = true
-                edit.pullFromFirestore(user: edit.currUser!)
-                print("this is user from auth scene login \(edit.currUser!.name)")
-                print("this is user from the currUser var in edit user \(String(describing: edit.currUser?.getName()))")
+                print("this is user from UserObjectManager \(String(describing: userObject.user))")
             }
+            //pull from firestore
+            edit.pullFromFirestore(user: userObject)
+            print(userObject)
+            userObject.printUser()
         }
     }
     // create a user
@@ -160,11 +142,11 @@ struct AuthScene: View {
             let userID = Auth.auth().currentUser!.uid
             let atSign = email.firstIndex(of: "@")!
             let name = email[...atSign]
+
             // user levels initial
-            let currUser = UserObject(id: userID, name: String(name), user: email, pass: password, hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: true, coins: 0)
-            print(currUser)
-            edit.setUser(obj: currUser)
-            edit.updateFirestore(user: currUser)
+            let currUser = UserObject(id: userID, name: String(name), user: email, pass: password, hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: true, coins: 0, pet: "catbat")
+            //print(currUser)
+            UserObjectManager.shared.updateCurrentUser(with: currUser)
             let encodedUser = try Firestore.Encoder().encode(currUser)
             try await
                 Firestore.firestore().collection("users").document(currUser.user).setData(encodedUser)

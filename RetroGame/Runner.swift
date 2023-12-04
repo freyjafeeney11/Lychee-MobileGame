@@ -7,14 +7,16 @@
 
 import SpriteKit
 import GameplayKit
+import FirebaseAuth
+import AVFoundation
+
 
 class Runner: SKScene, SKPhysicsContactDelegate{
-    let edit = EditUser()
     //let character = SKSpriteNode(imageNamed: "chicken-hamster")
     let character = SKSpriteNode(imageNamed: "mini_chicken-hamster_run1")
-//    var character = SKSpriteNode()
-//    var runningTextures = [SKTexture]()
-//    var currentFrame = 0
+    //    var character = SKSpriteNode()
+    //    var runningTextures = [SKTexture]()
+    //    var currentFrame = 0
     
     // To detect collision, bitmask category
     let characterCategory:UInt32 = 0x100
@@ -40,9 +42,10 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     // Game over mech
     let loseThresholdX: CGFloat = 0.0
     var coinCounter = 0
+    var audioPlayer: AVAudioPlayer?
     
     var gameTimer: Timer?
-    let gameDuration: TimeInterval = 30 // play for 3 mins at a time?
+    let gameDuration: TimeInterval = 30
     var elapsedTime: TimeInterval = 0
     var timerLabel: SKLabelNode!
     
@@ -54,7 +57,6 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     //object that does this
     
     override func didMove(to view: SKView){
-        view.showsPhysics = true
         // Set the size of the scene
         self.size = view.bounds.size
         // constraints to keep the character within the scene
@@ -78,6 +80,14 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         physicsWorld.contactDelegate = self
         physicsWorld.gravity = CGVector(dx: 0, dy: -5.0)
         addCityCollision()
+        if let soundURL = Bundle.main.url(forResource: "coin_collect", withExtension: "wav") {
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+                audioPlayer?.prepareToPlay()
+            } catch {
+                print("Error loading sound file:", error.localizedDescription)
+            }
+        }
         startCoinSpawning()
         
         gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
@@ -102,7 +112,6 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         // Check if the character is not already jumping
         if !isJumping && canJump {
             if character.position.y <= cityFront.position.y + cityFront.size.height * 0.5 + character.size.height * 0.5 {
-                print("Jump Applied")
                 character.physicsBody?.applyImpulse(CGVector(dx: 0.0, dy: jumpForce))
                 isJumping = true
                 canJump = false // Disable jumping temporarily
@@ -152,18 +161,21 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     }
     
     func handleGameEnd() {
+        let edit = EditUser()
         // get the current user from userobjmanager
-        let user = UserObjectManager.shared.currentUser
+        let user = UserObjectManager.shared.getCurrentUser()
         gameTimer?.invalidate()
         if let skView = self.view {
             let endScene = EndScreen(size: self.size, collectedCoins: coinCounter)
             endScene.scaleMode = .aspectFill
             skView.presentScene(endScene)
-            print("Username is: \(user!.name)")
-            print("\nNum of coins is: \(user!.coins)")
-            edit.runner_levels(coins: coinCounter)
-            print("Username2 is: \(user!.name)")
-            print("\n2Num of coins is: \(user!.coins)")
+            print("Username is: \(user.name)")
+            print("\nNum of coins is: \(user.coins)")
+            EditUser().runner_levels(coins: coinCounter)
+            UserObjectManager.shared.updateCurrentUser(with: user)
+            EditUser().pullFromFirestore(user: user)
+            print("Username2 is: \(user.name)")
+            print("\n2Num of coins is: \(user.coins)")
             
         }
     }
@@ -231,79 +243,30 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         
     }
     
-        func addCharacter() {
-            character.position = CGPoint(x: size.width * 0.6, y: cityFront.size.height+20.0)
-            character.zPosition = 2
+    func addCharacter() {
+        character.position = CGPoint(x: size.width * 0.6, y: cityFront.size.height+20.0)
+        character.zPosition = 2
+        
+        character.physicsBody = SKPhysicsBody(rectangleOf: character.size)
+        character.physicsBody?.affectedByGravity = true
+        character.physicsBody?.isDynamic = true
+        character.physicsBody?.allowsRotation = false
+        character.physicsBody?.categoryBitMask = characterCategory
+        character.physicsBody?.collisionBitMask = groundCategory
+        character.physicsBody?.contactTestBitMask = groundCategory // Detect contact with buildings
+        
+        character.physicsBody?.usesPreciseCollisionDetection = true
+        addChild(character)
+    }
     
-            character.physicsBody = SKPhysicsBody(rectangleOf: character.size)
-            character.physicsBody?.affectedByGravity = true
-            character.physicsBody?.isDynamic = true
-            character.physicsBody?.allowsRotation = false
-            character.physicsBody?.categoryBitMask = characterCategory
-            character.physicsBody?.collisionBitMask = groundCategory
-            character.physicsBody?.contactTestBitMask = groundCategory // Detect contact with buildings
-    
-            character.physicsBody?.usesPreciseCollisionDetection = true
-            print("Character Added!")
-            addChild(character)
-            print("Character Initial Position: \(character.position)")
-        }
-        func updateCharacterTextures() {
-//            let textures = ["mini_batcat_run1", "mini_batcat_run2", "mini_batcat_run3", "mini_batcat_run4"]
-            let textures = ["mini_chicken-hamster_run1", "mini_chicken-hamster_run2", "mini_chicken-hamster_run3"]
-            let characterTextures = textures.map { SKTexture(imageNamed: $0) }
-    
-            let animateAction = SKAction.animate(with: characterTextures, timePerFrame: 0.1)
-            character.run(SKAction.repeatForever(animateAction), withKey: "runningAnimation")
-        }
-    
-//    func loadRunningAnimationTextures() -> [SKTexture] {
-//        let runImages = ["mini_batcat_run1", "mini_batcat_run2", "mini_batcat_run3", "mini_batcat_run4"]
-//        let textures = runImages.map { SKTexture(imageNamed: $0) }
-//        return textures
-//    }
-//    
-//    func updateCharacterPhysics() {
-//        guard currentFrame < runningTextures.count else { return }
-//        
-//        let currentTexture = runningTextures[currentFrame]
-//        character.physicsBody = SKPhysicsBody(texture: currentTexture, size: currentTexture.size())
-//        character.physicsBody?.affectedByGravity = true
-//        character.physicsBody?.isDynamic = true
-//        character.physicsBody?.allowsRotation = false
-//        character.physicsBody?.categoryBitMask = characterCategory
-//        character.physicsBody?.collisionBitMask = groundCategory
-//        character.physicsBody?.contactTestBitMask = groundCategory
-//        character.physicsBody?.usesPreciseCollisionDetection = true
-//        character.zPosition = 2
-//        
-//    }
-//    
-//    func updateRunningAnimation() {
-//        guard currentFrame < runningTextures.count else { return }
-//        
-//        let currentTexture = runningTextures[currentFrame]
-//        character.texture = currentTexture
-//        updateCharacterPhysics()
-//        
-//        currentFrame = (currentFrame + 1) % runningTextures.count
-//    }
-//    
-//    func addCharacter() {
-//        runningTextures = loadRunningAnimationTextures()
-//        // Set initial character texture and physics body
-//        character = SKSpriteNode(texture: runningTextures[0])
-//        character.position = CGPoint(x: size.width / 2, y: size.height / 2)
-//        addChild(character)
-//        
-//        updateCharacterPhysics()
-//        
-//        // Start the animation loop
-//        run(SKAction.repeatForever(SKAction.sequence([
-//            SKAction.run(updateRunningAnimation),
-//            SKAction.wait(forDuration: 0.1)
-//        ])))
-//    }
+    func updateCharacterTextures() {
+        //            let textures = ["mini_batcat_run1", "mini_batcat_run2", "mini_batcat_run3", "mini_batcat_run4"]
+        let textures = ["mini_chicken-hamster_run1", "mini_chicken-hamster_run2", "mini_chicken-hamster_run3"]
+        let characterTextures = textures.map { SKTexture(imageNamed: $0) }
+        
+        let animateAction = SKAction.animate(with: characterTextures, timePerFrame: 0.1)
+        character.run(SKAction.repeatForever(animateAction), withKey: "runningAnimation")
+    }
     
     func startCoinSpawning() {
         let spawnCoinAction = SKAction.run(spawnCoin)
@@ -337,9 +300,9 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     }
     func coinCollected(_ coin: SKSpriteNode) {
         updateCoinCounter(by: 1)
+        audioPlayer?.play()
         coin.removeFromParent()
     }
-    
     func updateCoinCounter(by value: Int) {
         coinCounter += value
         print("Collected Coins: \(coinCounter)")

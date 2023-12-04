@@ -21,6 +21,8 @@
 		ABACE2D12B0D626A0004D944 /* SettingsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABACE2D02B0D626A0004D944 /* SettingsMenu.swift */; };
 		ABE4E8232AE4703A0092ECA6 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE4E8222AE4703A0092ECA6 /* SideMenu.swift */; };
 		BD0AE0162B1AA8FA006E122D /* StartHarvest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0AE0152B1AA8FA006E122D /* StartHarvest.swift */; };
+		BD0AE0182B1D5905006E122D /* coin_collect.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD0AE0172B1D5904006E122D /* coin_collect.wav */; };
+		BD0AE01A2B1D59DC006E122D /* fruit_collect.wav in Resources */ = {isa = PBXBuildFile; fileRef = BD0AE0192B1D59DB006E122D /* fruit_collect.wav */; };
 		BD3EFA012B16B2600099B85A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD3EFA002B16B2600099B85A /* GoogleService-Info.plist */; };
 		BD8427522B17CC3C0011D458 /* Harvest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8427512B17CC3C0011D458 /* Harvest.swift */; };
 		BDB138232B13DE2D00D7AF32 /* EndScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB138222B13DE2D00D7AF32 /* EndScreen.swift */; };
@@ -40,11 +42,16 @@
 		CD2080EC2B043B9300D50141 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = CD2080EB2B043B9300D50141 /* FirebaseAnalytics */; };
 		CD2080EE2B0464FC00D50141 /* FirebaseInAppMessaging-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = CD2080ED2B0464FC00D50141 /* FirebaseInAppMessaging-Beta */; };
 		CD2080F02B04656C00D50141 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = CD2080EF2B04656C00D50141 /* FirebaseFirestore */; };
+		CD3DDDD12B1BCAE000EAC329 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3DDDD02B1BCAE000EAC329 /* Message.swift */; };
+		CD3DDDD32B1BCAF600EAC329 /* ContentViewChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3DDDD22B1BCAF600EAC329 /* ContentViewChat.swift */; };
+		CD3DDDD52B1BCB0B00EAC329 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3DDDD42B1BCB0B00EAC329 /* MessageView.swift */; };
+		CD3DDDD72B1BCB1300EAC329 /* MessageInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3DDDD62B1BCB1300EAC329 /* MessageInput.swift */; };
+		CD3DDDD92B1BCB1B00EAC329 /* MessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3DDDD82B1BCB1B00EAC329 /* MessageManager.swift */; };
 		CD6379262B0705D600E887B9 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CD6379252B0705D600E887B9 /* FirebaseFirestoreSwift */; };
+		CDB2160B2B1BB0E700911255 /* Levels.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB2160A2B1BB0E700911255 /* Levels.swift */; };
 		CDBE2AB52AE2025A00712D94 /* Runner.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBE2AB42AE2025A00712D94 /* Runner.swift */; };
-		CDF98A832B066F7800BB78D6 /* Backend.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF98A822B066F7800BB78D6 /* Backend.swift */; };
 		CDF98A852B0670AC00BB78D6 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = CDF98A842B0670AC00BB78D6 /* FirebaseAppCheck */; };
-		CDF98A872B06767100BB78D6 /* UserHealth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF98A862B06767100BB78D6 /* UserHealth.swift */; };
+		CDF98A872B06767100BB78D6 /* UserObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF98A862B06767100BB78D6 /* UserObject.swift */; };
 		CDF98A8A2B06789600BB78D6 /* EditUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF98A892B06789600BB78D6 /* EditUser.swift */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +82,8 @@
 		ABACE2D02B0D626A0004D944 /* SettingsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMenu.swift; sourceTree = "<group>"; };
 		ABE4E8222AE4703A0092ECA6 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
 		BD0AE0152B1AA8FA006E122D /* StartHarvest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartHarvest.swift; sourceTree = "<group>"; };
+		BD0AE0172B1D5904006E122D /* coin_collect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = coin_collect.wav; path = Assets/Sounds/coin_collect.wav; sourceTree = "<group>"; };
+		BD0AE0192B1D59DB006E122D /* fruit_collect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = fruit_collect.wav; path = Assets/Sounds/fruit_collect.wav; sourceTree = "<group>"; };
 		BD3EFA002B16B2600099B85A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BD8427512B17CC3C0011D458 /* Harvest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Harvest.swift; sourceTree = "<group>"; };
 		BDB138222B13DE2D00D7AF32 /* EndScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndScreen.swift; sourceTree = "<group>"; };
@@ -93,9 +102,14 @@
 		CD1F68BF2AD47BF2002B1EF5 /* RetroGameUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RetroGameUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD1F68C32AD47BF2002B1EF5 /* RetroGameUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetroGameUITests.swift; sourceTree = "<group>"; };
 		CD1F68C52AD47BF2002B1EF5 /* RetroGameUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetroGameUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		CD3DDDD02B1BCAE000EAC329 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		CD3DDDD22B1BCAF600EAC329 /* ContentViewChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewChat.swift; sourceTree = "<group>"; };
+		CD3DDDD42B1BCB0B00EAC329 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
+		CD3DDDD62B1BCB1300EAC329 /* MessageInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageInput.swift; sourceTree = "<group>"; };
+		CD3DDDD82B1BCB1B00EAC329 /* MessageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageManager.swift; sourceTree = "<group>"; };
+		CDB2160A2B1BB0E700911255 /* Levels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Levels.swift; sourceTree = "<group>"; };
 		CDBE2AB42AE2025A00712D94 /* Runner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Runner.swift; sourceTree = "<group>"; };
-		CDF98A822B066F7800BB78D6 /* Backend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backend.swift; sourceTree = "<group>"; };
-		CDF98A862B06767100BB78D6 /* UserHealth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHealth.swift; sourceTree = "<group>"; };
+		CDF98A862B06767100BB78D6 /* UserObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserObject.swift; sourceTree = "<group>"; };
 		CDF98A892B06789600BB78D6 /* EditUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -139,6 +153,8 @@
 		CD1F68932AD47BEE002B1EF5 = {
 			isa = PBXGroup;
 			children = (
+				BD0AE0192B1D59DB006E122D /* fruit_collect.wav */,
+				BD0AE0172B1D5904006E122D /* coin_collect.wav */,
 				CD1F689E2AD47BEF002B1EF5 /* RetroGame */,
 				CD1F68B82AD47BF2002B1EF5 /* RetroGameTests */,
 				CD1F68C22AD47BF2002B1EF5 /* RetroGameUITests */,
@@ -160,6 +176,7 @@
 		CD1F689E2AD47BEF002B1EF5 /* RetroGame */ = {
 			isa = PBXGroup;
 			children = (
+				CD3DDDCF2B1BCA9000EAC329 /* Chat */,
 				BDB138262B13EEDD00D7AF32 /* Info.plist */,
 				CD1F689F2AD47BEF002B1EF5 /* AppDelegate.swift */,
 				CDF98A882B06781F00BB78D6 /* User */,
@@ -209,14 +226,26 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CD3DDDCF2B1BCA9000EAC329 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				CD3DDDD02B1BCAE000EAC329 /* Message.swift */,
+				CD3DDDD22B1BCAF600EAC329 /* ContentViewChat.swift */,
+				CD3DDDD42B1BCB0B00EAC329 /* MessageView.swift */,
+				CD3DDDD62B1BCB1300EAC329 /* MessageInput.swift */,
+				CD3DDDD82B1BCB1B00EAC329 /* MessageManager.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
 		CDF98A882B06781F00BB78D6 /* User */ = {
 			isa = PBXGroup;
 			children = (
-				CDF98A862B06767100BB78D6 /* UserHealth.swift */,
-				CDF98A822B066F7800BB78D6 /* Backend.swift */,
+				CDF98A862B06767100BB78D6 /* UserObject.swift */,
 				CDF98A892B06789600BB78D6 /* EditUser.swift */,
 				731D93332B1412E000EA8A55 /* AuthScene.swift */,
 				738F57092B170EBA00CA1A25 /* SpriteKitContainer.swift */,
+				CDB2160A2B1BB0E700911255 /* Levels.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -350,6 +379,8 @@
 				CD1F68B02AD47BF1002B1EF5 /* LaunchScreen.storyboard in Resources */,
 				CD1F68A42AD47BEF002B1EF5 /* Actions.sks in Resources */,
 				BD3EFA012B16B2600099B85A /* GoogleService-Info.plist in Resources */,
+				BD0AE0182B1D5905006E122D /* coin_collect.wav in Resources */,
+				BD0AE01A2B1D59DC006E122D /* fruit_collect.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,23 +406,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				731D93342B1412E000EA8A55 /* AuthScene.swift in Sources */,
-				CDF98A832B066F7800BB78D6 /* Backend.swift in Sources */,
 				CD1F68A62AD47BEF002B1EF5 /* GameScene.swift in Sources */,
+				CD3DDDD32B1BCAF600EAC329 /* ContentViewChat.swift in Sources */,
 				CDBE2AB52AE2025A00712D94 /* Runner.swift in Sources */,
 				73A526862AE386CA00EE3693 /* TitleScreen.swift in Sources */,
 				BD8427522B17CC3C0011D458 /* Harvest.swift in Sources */,
+				CD3DDDD72B1BCB1300EAC329 /* MessageInput.swift in Sources */,
 				ABACE2D12B0D626A0004D944 /* SettingsMenu.swift in Sources */,
 				BDB138232B13DE2D00D7AF32 /* EndScreen.swift in Sources */,
+				CD3DDDD12B1BCAE000EAC329 /* Message.swift in Sources */,
 				738F57082B167AD700CA1A25 /* BathScene.swift in Sources */,
 				ABE4E8232AE4703A0092ECA6 /* SideMenu.swift in Sources */,
 				73A526842AE386B900EE3693 /* MainScreen.swift in Sources */,
+				CD3DDDD52B1BCB0B00EAC329 /* MessageView.swift in Sources */,
 				738F570A2B170EBA00CA1A25 /* SpriteKitContainer.swift in Sources */,
 				AB3095342B18E8EE000F2229 /* StatsMenu.swift in Sources */,
-				CDF98A872B06767100BB78D6 /* UserHealth.swift in Sources */,
+				CDF98A872B06767100BB78D6 /* UserObject.swift in Sources */,
+				CD3DDDD92B1BCB1B00EAC329 /* MessageManager.swift in Sources */,
 				CD1F68A82AD47BEF002B1EF5 /* GameViewController.swift in Sources */,
 				CDF98A8A2B06789600BB78D6 /* EditUser.swift in Sources */,
 				BD0AE0162B1AA8FA006E122D /* StartHarvest.swift in Sources */,
 				CD1F68A02AD47BEF002B1EF5 /* AppDelegate.swift in Sources */,
+				CDB2160B2B1BB0E700911255 /* Levels.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -21,7 +21,8 @@ class SideMenu: SKScene {
     var social: SKSpriteNode?
     var stats: SKSpriteNode?
     var settings: SKSpriteNode?
-    var edit = EditUser()
+    //gets current user
+    let userObject = UserObjectManager.shared.getCurrentUser()
     
     let homeLabel = SKLabelNode(fontNamed: "Chalkduster")
     let closetLabel = SKLabelNode(fontNamed: "Chalkduster")
@@ -31,6 +32,8 @@ class SideMenu: SKScene {
     let socialLabel = SKLabelNode(fontNamed: "Chalkduster")
     let statsLabel = SKLabelNode(fontNamed: "Chalkduster")
     let settingLabel = SKLabelNode(fontNamed: "Chalkduster")
+    
+    @State private var chat = false
     
     
     override func didMove(to view: SKView) {
@@ -48,7 +51,7 @@ class SideMenu: SKScene {
         
         room.setScale(0.559)
         menu.setScale(0.95)
-        room.position = CGPoint(x: size.width * 0.5, y: size.height * 0.45)
+        room.position = CGPoint(x: size.width * 0.4956, y: size.height * 0.465)
         menu.position = CGPoint(x: size.width * 0.47, y: size.height * 0.5)
         home?.position = CGPoint(x: size.width * 0.13, y: size.height * 0.688)
         closet?.position = CGPoint(x: size.width * 0.31, y: size.height * 0.69)
@@ -137,10 +140,11 @@ class SideMenu: SKScene {
 //                view?.presentScene(mainGameScreen)
 //            }
             if bath?.contains(location) == true {
+                let user = UserObjectManager.shared.getCurrentUser()
                 let bathScene = BathScene(size: size)
                 bathScene.scaleMode = .aspectFill
                 view?.presentScene(bathScene)
-                //edit.bath_levels()
+                EditUser().bath_levels(user: user)
             }
             if fridge?.contains(location) == true {
                let harvestGame = Harvest(size: size)
@@ -152,11 +156,17 @@ class SideMenu: SKScene {
                 runnerGame.scaleMode = .aspectFill
                 view?.presentScene(runnerGame)
             }
-//            if social?.contains(location) == true {
-//                let mainGameScreen = MainScreen(size: size)
-//                mainGameScreen.scaleMode = .aspectFill
-//                view?.presentScene(mainGameScreen)
-//            }
+            if social?.contains(location) == true {
+                /*
+                let mainGameScreen = MainScreen(size: size)
+                mainGameScreen.scaleMode = .aspectFill
+                view?.presentScene(mainGameScreen)
+                *//*
+                let chatView = ContentViewChat()
+                // need this controller to display swiftUI from spritekit
+                let host = UIHostingController(rootView: chatView)
+                self.view?.window?.rootViewController?.present(host, animated: true, completion: nil)*/
+            }
             if stats?.contains(location) == true {
                 let statsScreen = StatsMenu(size: size)
                 statsScreen.scaleMode = .aspectFill

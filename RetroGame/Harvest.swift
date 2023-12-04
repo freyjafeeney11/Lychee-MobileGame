@@ -7,10 +7,10 @@
 
 import SpriteKit
 import GameplayKit
-import CoreMotion
+import AVFoundation
 
 class Harvest: SKScene, SKPhysicsContactDelegate{
-    let character = SKSpriteNode(imageNamed: "chicken-hamster")
+    let character = SKSpriteNode(imageNamed: "mini_chicken-hamster_run1")
     
     // To detect collision, bitmask category
     let characterCategory:UInt32 = 0x100
@@ -20,10 +20,9 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
     let sky = SKSpriteNode(imageNamed: "NewTree")
     let ground = SKSpriteNode(imageNamed: "Grass")
     
-//    var isMovingLeft = false
-//    var isMovingRight = false
     var targetX: CGFloat = 0.0
     
+    var audioPlayer: AVAudioPlayer?
     let foodTypes = ["apple", "watermelon", "meat", "tuna", "corn", "pumpkin", "battery"]
     let poisonFood = "mushroom"
     
@@ -36,16 +35,8 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
         "pumpkin": 0,
         "battery": 0
     ]
-//    
-//    let characterFoodRequirements: [String: [String: Int]] = [
-//        "chicken-hamster": ["apple": 2, "corn": 2, "pumpkin": 2],
-//        "cat-bat": ["meat": 1, "fish": 3, "watermelon": 2],
-//        "robot-dragon": ["meat": 2, "battery": 3, "apple": 1]
-//    ]
-//
             
     override func didMove(to view: SKView){
-        view.showsPhysics = true
         // Set the size of the scene
         self.size = view.bounds.size
         // constraints to keep the character within the scene
@@ -63,7 +54,16 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
         createSky()
         createGround()
         startFoodSpawning()
+        if let soundURL = Bundle.main.url(forResource: "fruit_collect", withExtension: "wav") {
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+                audioPlayer?.prepareToPlay()
+            } catch {
+                print("Error loading sound file:", error.localizedDescription)
+            }
+        }
         addCharacter()
+        updateCharacterTextures()
         physicsWorld.contactDelegate = self
         physicsWorld.gravity = CGVector(dx: 0, dy: -2.0)
         
@@ -72,18 +72,13 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
         for touch in touches {
             let touchLocation = touch.location(in: self)
             targetX = touchLocation.x
-            //            if touchLocation.x < size.width / 2 {
-            //                isMovingLeft = true
-            //            } else {
-            //                isMovingRight = true
-            //            }
+            if targetX < character.position.x {
+                character.xScale = abs(character.xScale) * -1
+            } else {
+                character.xScale = abs(character.xScale)
+            }
         }
     }
-//    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        isMovingLeft = false
-//        isMovingRight = false
-//    }
-    
     func didBegin(_ contact: SKPhysicsContact) {
         let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
 
@@ -98,12 +93,6 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
 
     override func update(_ currentTime: TimeInterval){
         character.constraints?.forEach { $0.referenceNode?.position = character.position }
-//        if isMovingLeft {
-//            character.position.x -= 8.0
-//        } else if isMovingRight {
-//            character.position.x += 8.0
-//        }
-        
         let speed: CGFloat = 8.0
         let distanceThreshold: CGFloat = 8.0
         if abs(character.position.x - targetX) > distanceThreshold {
@@ -142,8 +131,7 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
         character.position = CGPoint(x: size.width * 0.5, y: groundHeight)
         character.zPosition = 2
         
-        character.physicsBody = SKPhysicsBody(texture: character.texture!,
-                                              size: character.texture!.size())
+        character.physicsBody = SKPhysicsBody(rectangleOf: character.size)
         character.physicsBody?.affectedByGravity = true
         character.physicsBody?.isDynamic = true
         character.physicsBody?.allowsRotation = false
@@ -153,6 +141,15 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
         
         character.physicsBody?.usesPreciseCollisionDetection = true
         addChild(character)
+    }
+    
+    func updateCharacterTextures() {
+        //            let textures = ["mini_batcat_run1", "mini_batcat_run2", "mini_batcat_run3", "mini_batcat_run4"]
+        let textures = ["mini_chicken-hamster_run1", "mini_chicken-hamster_run2", "mini_chicken-hamster_run3"]
+        let characterTextures = textures.map { SKTexture(imageNamed: $0) }
+        
+        let animateAction = SKAction.animate(with: characterTextures, timePerFrame: 0.1)
+        character.run(SKAction.repeatForever(animateAction), withKey: "runningAnimation")
     }
     
     func startFoodSpawning() {
@@ -185,7 +182,8 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
             
             food.position = CGPoint(x: randomX, y: randomY)
             food.zPosition = 3
-            food.physicsBody = SKPhysicsBody(circleOfRadius: (food.size.width / 2) - 3)
+            food.physicsBody = SKPhysicsBody(texture: food.texture!,
+                                                  size: food.texture!.size())
             food.physicsBody?.isDynamic = true
             food.physicsBody?.categoryBitMask = foodCategory
             food.physicsBody?.collisionBitMask = 0
@@ -200,7 +198,7 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
                 collectedFood[foodType] = count + 1
                 if let requiredCount =
                     foodReqs.characterFoodReq["chicken-hamster"]?[foodType] {
-                    print("\(foodType) collected: \(count + 1)/\(requiredCount)")
+                    audioPlayer?.play()
                 }
             }
         }
@@ -220,12 +218,11 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
             }
         }
         if requirementsMet {
-            print("Character has collected all required food for \(characterType)!")
-//            if let skView = self.view {
-//                let endScene = EndScreen(size: self.size, collectedCoins: coinCounter)
-//                endScene.scaleMode = .aspectFill
-//                skView.presentScene(endScene)
-//            }
+            if let skView = self.view {
+                let endScene = EndScreen(size: self.size, collectedFood: collectedFood)
+                endScene.scaleMode = .aspectFill
+                skView.presentScene(endScene)
+            }
         }
     }
 
