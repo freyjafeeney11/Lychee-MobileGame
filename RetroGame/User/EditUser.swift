@@ -59,7 +59,7 @@ public class EditUser: ObservableObject{
                     self.mostRecentUser.pass = data["pass"] as! String
                     self.mostRecentUser.user = data["user"] as! String
                     self.mostRecentUser.pet_name = data["pet_name"] as! String
-                    self.mostRecentUser.volume = data["volume"] as! Bool
+                    self.mostRecentUser.volume = data["volume"] as! Int
                     UserObjectManager.shared.updateCurrentUser(with: user)
                     
                     print("\nThis is the name the object should have \(self.mostRecentUser.name)")
@@ -202,22 +202,15 @@ public class EditUser: ObservableObject{
                     
                     self.setVolume(currVol: self.mostRecentUser.volume)
                     print("user volume \(self.mostRecentUser.volume)")
-                    //else{
-                        //self.setVolume(currVol: true)
-                    //}
+
                     docRef.updateData(["volume" : self.mostRecentUser.volume])
                 }
             })
         }
     
     
-        func setVolume(currVol: Bool){
-            if currVol {
-                mostRecentUser.volume = false
-            }
-            else{
-                mostRecentUser.volume = true
-            }
+        func setVolume(currVol: Int){
+            mostRecentUser.volume = currVol
         }
     
         func setSocial(newSocial: Int){
@@ -297,13 +290,13 @@ public class UserObject: ObservableObject, Identifiable, Codable{
     var name: String
     var user: String
     var pass: String
-    var volume: Bool
+    var volume: Int
     var coins: Int
     var pet_choice: String
     var pet_name: String
     
     
-    init(id: String, name: String, user: String, pass: String, hunger: Int, social: Int, hygiene: Int, happiness: Int, energy: Int, volume: Bool, coins: Int, pet: String, petName: String){
+    init(id: String, name: String, user: String, pass: String, hunger: Int, social: Int, hygiene: Int, happiness: Int, energy: Int, volume: Int, coins: Int, pet: String, petName: String){
         self.id = id
         self.name = name
         self.user = user
@@ -343,7 +336,7 @@ public class UserObjectManager {
 
     private init() {
         // default values
-        currentUser = UserObject(id: "", name: "", user: "", pass: "", hunger: 0, social: 0, hygiene: 0, happiness: 0, energy: 0, volume: true, coins: 0, pet: "", petName: "")
+        currentUser = UserObject(id: "", name: "", user: "", pass: "", hunger: 0, social: 0, hygiene: 0, happiness: 0, energy: 0, volume: 1, coins: 0, pet: "", petName: "")
     }
     
     func getCurrentUser() -> UserObject{

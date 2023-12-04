@@ -52,5 +52,69 @@
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "ED22B7E9-4B0A-4F57-A3B0-F94BB618C932"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RetroGame/User/AuthScene.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "AuthScene"
+            landmarkType = "14">
+            <Locations>
+               <Location
+                  uuid = "ED22B7E9-4B0A-4F57-A3B0-F94BB618C932 - d070431691e231f1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RetroGame.AuthScene.init() -&gt; RetroGame.AuthScene"
+                  moduleName = "RetroGame"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/taritter/Desktop/sogood/RetroGame/User/AuthScene.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "552">
+               </Location>
+               <Location
+                  uuid = "ED22B7E9-4B0A-4F57-A3B0-F94BB618C932 - 134908abc4df2dd3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "default argument 0 of RetroGame.AuthScene.init(userObj: RetroGame.UserObject) -&gt; RetroGame.AuthScene"
+                  moduleName = "RetroGame"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/taritter/Desktop/sogood/RetroGame/User/AuthScene.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BFB24B07-2F41-4E5D-8B9B-7FB293C49A74"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RetroGame/SettingsMenu.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "didMove(to:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
