@@ -163,7 +163,7 @@ struct AuthScene: View {
             //desnt work bc it is too early, petString isnt defined yet
             //ranString = await ChooseEgg().returnChoice()
             // user levels initial
-            let currUser = UserObject(id: userID, name: String(name), user: email, pass: password, hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: 0, coins: 0, pet: ranString, petName: "")
+            let currUser = UserObject(id: userID, name: String(name), user: email, pass: password, hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: 1, coins: 0, pet: ranString, petName: "")
             //print(currUser)
             UserObjectManager.shared.updateCurrentUser(with: currUser)
             let encodedUser = try Firestore.Encoder().encode(currUser)

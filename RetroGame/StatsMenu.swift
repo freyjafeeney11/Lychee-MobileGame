@@ -84,9 +84,9 @@ class StatsMenu: SKScene {
         addChild(topMessage)
         
         let underline = SKLabelNode(fontNamed: "Chalkduster")
-        underline.text = "__________________"
+        underline.text = "_________________"
         underline.fontSize = 21
-        underline.position = CGPoint(x: size.width * 0.62, y: size.height * 0.76)
+        underline.position = CGPoint(x: size.width * 0.619, y: size.height * 0.755)
         addChild(underline)
 
         let happyMessage = SKLabelNode(fontNamed: "Chalkduster")
@@ -102,7 +102,7 @@ class StatsMenu: SKScene {
         }
         happyMessage.fontSize = 17
         happyMessage.horizontalAlignmentMode = .left
-        happyMessage.position = CGPoint(x: size.width * 0.45, y: size.height * 0.703)
+        happyMessage.position = CGPoint(x: size.width * 0.45, y: size.height * 0.693)
         addChild(happyMessage)
         
         let hygieneMessage = SKLabelNode(fontNamed: "Chalkduster")
@@ -118,7 +118,7 @@ class StatsMenu: SKScene {
         }
         hygieneMessage.fontSize = 17
         hygieneMessage.horizontalAlignmentMode = .left
-        hygieneMessage.position = CGPoint(x: size.width * 0.45, y: size.height * 0.642)
+        hygieneMessage.position = CGPoint(x: size.width * 0.45, y: size.height * 0.632)
         addChild(hygieneMessage)
         
         let hungerMessage = SKLabelNode(fontNamed: "Chalkduster")
@@ -134,7 +134,7 @@ class StatsMenu: SKScene {
         }
         hungerMessage.fontSize = 17
         hungerMessage.horizontalAlignmentMode = .left
-        hungerMessage.position = CGPoint(x: size.width * 0.45, y: size.height * 0.581)
+        hungerMessage.position = CGPoint(x: size.width * 0.45, y: size.height * 0.571)
         addChild(hungerMessage)
         
         let energyMessage = SKLabelNode(fontNamed: "Chalkduster")
@@ -150,7 +150,7 @@ class StatsMenu: SKScene {
         }
         energyMessage.fontSize = 17
         energyMessage.horizontalAlignmentMode = .left
-        energyMessage.position = CGPoint(x: size.width * 0.45, y: size.height * 0.52)
+        energyMessage.position = CGPoint(x: size.width * 0.45, y: size.height * 0.51)
         addChild(energyMessage)
         
         let socialMessage = SKLabelNode(fontNamed: "Chalkduster")
@@ -166,7 +166,7 @@ class StatsMenu: SKScene {
         }
         socialMessage.fontSize = 17
         socialMessage.horizontalAlignmentMode = .left
-        socialMessage.position = CGPoint(x: size.width * 0.45, y: size.height * 0.459)
+        socialMessage.position = CGPoint(x: size.width * 0.45, y: size.height * 0.449)
         addChild(socialMessage)
     }
     

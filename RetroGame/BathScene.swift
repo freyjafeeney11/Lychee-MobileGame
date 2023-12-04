@@ -105,7 +105,6 @@ class BathScene: SKScene, SKPhysicsContactDelegate {
         for touch in touches {
             let location = touch.location(in: self)
 
-            
             if menuBar?.contains(location) == true {
                 let menu = SideMenu(size: size)
                 menu.scaleMode = .aspectFill

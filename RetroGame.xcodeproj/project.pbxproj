@@ -17,8 +17,6 @@
 		738F570A2B170EBA00CA1A25 /* SpriteKitContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738F57092B170EBA00CA1A25 /* SpriteKitContainer.swift */; };
 		73A526842AE386B900EE3693 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A526832AE386B800EE3693 /* MainScreen.swift */; };
 		73A526862AE386CA00EE3693 /* TitleScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A526852AE386CA00EE3693 /* TitleScreen.swift */; };
-		73CBB5F82B1D6F4200AB8E52 /* mainscreenmusic.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 73CBB5F72B1D6F4200AB8E52 /* mainscreenmusic.m4a */; };
-		73CBB5FA2B1DB98A00AB8E52 /* The Bard's Tale.wav in Resources */ = {isa = PBXBuildFile; fileRef = 73CBB5F92B1DB98A00AB8E52 /* The Bard's Tale.wav */; };
 		AB3095342B18E8EE000F2229 /* StatsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3095332B18E8EE000F2229 /* StatsMenu.swift */; };
 		ABACE2D12B0D626A0004D944 /* SettingsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABACE2D02B0D626A0004D944 /* SettingsMenu.swift */; };
 		ABE4E8232AE4703A0092ECA6 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE4E8222AE4703A0092ECA6 /* SideMenu.swift */; };
@@ -81,8 +79,6 @@
 		738F57092B170EBA00CA1A25 /* SpriteKitContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteKitContainer.swift; sourceTree = "<group>"; };
 		73A526832AE386B800EE3693 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
 		73A526852AE386CA00EE3693 /* TitleScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleScreen.swift; sourceTree = "<group>"; };
-		73CBB5F72B1D6F4200AB8E52 /* mainscreenmusic.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = mainscreenmusic.m4a; path = ../../../Desktop/mainscreenmusic.m4a; sourceTree = "<group>"; };
-		73CBB5F92B1DB98A00AB8E52 /* The Bard's Tale.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "The Bard's Tale.wav"; path = "../../../Downloads/The Bard's Tale.wav"; sourceTree = "<group>"; };
 		AB3095332B18E8EE000F2229 /* StatsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsMenu.swift; sourceTree = "<group>"; };
 		ABACE2D02B0D626A0004D944 /* SettingsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMenu.swift; sourceTree = "<group>"; };
 		ABE4E8222AE4703A0092ECA6 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
@@ -159,9 +155,6 @@
 		CD1F68932AD47BEE002B1EF5 = {
 			isa = PBXGroup;
 			children = (
-				73CBB5F92B1DB98A00AB8E52 /* The Bard's Tale.wav */,
-				73CBB5F72B1D6F4200AB8E52 /* mainscreenmusic.m4a */,
-				BD0AE0192B1D59DB006E122D /* fruit_collect.wav */,
 				BD0AE01B2B1D6222006E122D /* fruit_munch.wav */,
 				BD0AE0172B1D5904006E122D /* coin_collect.wav */,
 				CD1F689E2AD47BEF002B1EF5 /* RetroGame */,
@@ -388,8 +381,6 @@
 				CD1F68AD2AD47BF1002B1EF5 /* Assets.xcassets in Resources */,
 				CD1F68B02AD47BF1002B1EF5 /* LaunchScreen.storyboard in Resources */,
 				CD1F68A42AD47BEF002B1EF5 /* Actions.sks in Resources */,
-				73CBB5FA2B1DB98A00AB8E52 /* The Bard's Tale.wav in Resources */,
-				73CBB5F82B1D6F4200AB8E52 /* mainscreenmusic.m4a in Resources */,
 				BD3EFA012B16B2600099B85A /* GoogleService-Info.plist in Resources */,
 				BD0AE0182B1D5905006E122D /* coin_collect.wav in Resources */,
 				BD0AE01C2B1D6223006E122D /* fruit_munch.wav in Resources */,

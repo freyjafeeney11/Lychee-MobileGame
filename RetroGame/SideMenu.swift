@@ -14,9 +14,9 @@ class SideMenu: SKScene {
     
     var closeButton: SKSpriteNode?
     var home: SKSpriteNode?
-    var closet: SKSpriteNode?
+    var bedroom: SKSpriteNode?
     var bath: SKSpriteNode?
-    var fridge: SKSpriteNode?
+    var harvest: SKSpriteNode?
     var walking: SKSpriteNode?
     var social: SKSpriteNode?
     var stats: SKSpriteNode?
@@ -25,9 +25,9 @@ class SideMenu: SKScene {
     let userObject = UserObjectManager.shared.getCurrentUser()
     
     let homeLabel = SKLabelNode(fontNamed: "Futura")
-    let closetLabel = SKLabelNode(fontNamed: "Futura")
+    let bedroomLabel = SKLabelNode(fontNamed: "Futura")
     let bathLabel = SKLabelNode(fontNamed: "Futura")
-    let fridgeLabel = SKLabelNode(fontNamed: "Futura")
+    let harvestLabel = SKLabelNode(fontNamed: "Futura")
     let walkingLabel = SKLabelNode(fontNamed: "Futura")
     let socialLabel = SKLabelNode(fontNamed: "Futura")
     let statsLabel = SKLabelNode(fontNamed: "Futura")
@@ -41,9 +41,9 @@ class SideMenu: SKScene {
         let room = SKSpriteNode(imageNamed: "FullLivingRoom")
         let menu = SKSpriteNode(imageNamed: "SideMenu")
         home = SKSpriteNode(imageNamed: "HomeButton")
-        closet = SKSpriteNode(imageNamed: "ClosetButton")
+        bedroom = SKSpriteNode(imageNamed: "ClosetButton")
         bath = SKSpriteNode(imageNamed: "BathingButton")
-        fridge = SKSpriteNode(imageNamed: "FridgeButton")
+        harvest = SKSpriteNode(imageNamed: "FridgeButton")
         walking = SKSpriteNode(imageNamed: "WalkingButton")
         social = SKSpriteNode(imageNamed: "SocialButton")
         stats = SKSpriteNode(imageNamed: "StatsButton")
@@ -54,9 +54,9 @@ class SideMenu: SKScene {
         room.position = CGPoint(x: size.width * 0.4956, y: size.height * 0.465)
         menu.position = CGPoint(x: size.width * 0.47, y: size.height * 0.5)
         home?.position = CGPoint(x: size.width * 0.13, y: size.height * 0.688)
-        closet?.position = CGPoint(x: size.width * 0.31, y: size.height * 0.69)
+        bedroom?.position = CGPoint(x: size.width * 0.31, y: size.height * 0.69)
         bath?.position = CGPoint(x: size.width * 0.485, y: size.height * 0.688)
-        fridge?.position = CGPoint(x: size.width * 0.685, y: size.height * 0.6875)
+        harvest?.position = CGPoint(x: size.width * 0.685, y: size.height * 0.6875)
         walking?.position = CGPoint(x: size.width * 0.13, y: size.height * 0.314)
         social?.position = CGPoint(x: size.width * 0.31, y: size.height * 0.31)
         stats?.position = CGPoint(x: size.width * 0.5, y: size.height * 0.31)
@@ -67,9 +67,9 @@ class SideMenu: SKScene {
         addChild(menu)
         
         setupHomeLabel()
-        setupClosetLabel()
+        setupBedroomLabel()
         setupBathLabel()
-        setupFridgeLabel()
+        setupHarvestLabel()
         setupWalkingLabel()
         setupSocialLabel()
         setupStatsLabel()
@@ -82,11 +82,11 @@ class SideMenu: SKScene {
         homeLabel.position = CGPoint(x: size.width * 0.1585, y: size.height * 0.545)
         addChild(homeLabel)
     }
-    func setupClosetLabel() {
-        closetLabel.text = "Closet"
-        closetLabel.fontSize = 21
-        closetLabel.position = CGPoint(x: size.width * 0.35, y: size.height * 0.545)
-        addChild(closetLabel)
+    func setupBedroomLabel() {
+        bedroomLabel.text = "Bedroom"
+        bedroomLabel.fontSize = 21
+        bedroomLabel.position = CGPoint(x: size.width * 0.35, y: size.height * 0.545)
+        addChild(bedroomLabel)
     }
     func setupBathLabel() {
         bathLabel.text = "Bath"
@@ -94,11 +94,11 @@ class SideMenu: SKScene {
         bathLabel.position = CGPoint(x: size.width * 0.524, y: size.height * 0.545)
         addChild(bathLabel)
     }
-    func setupFridgeLabel() {
-        fridgeLabel.text = "Harvest"
-        fridgeLabel.fontSize = 21
-        fridgeLabel.position = CGPoint(x: size.width * 0.727, y: size.height * 0.545)
-        addChild(fridgeLabel)
+    func setupHarvestLabel() {
+        harvestLabel.text = "Harvest"
+        harvestLabel.fontSize = 21
+        harvestLabel.position = CGPoint(x: size.width * 0.727, y: size.height * 0.545)
+        addChild(harvestLabel)
     }
     func setupWalkingLabel() {
         walkingLabel.text = "Walk"
@@ -134,10 +134,10 @@ class SideMenu: SKScene {
                 mainGameScreen.scaleMode = .aspectFill
                 view?.presentScene(mainGameScreen)
             }
-//            if closet?.contains(location) == true {
-//                let mainGameScreen = MainScreen(size: size)
-//                mainGameScreen.scaleMode = .aspectFill
-//                view?.presentScene(mainGameScreen)
+//            if bedroom?.contains(location) == true {
+//                let bedroomScene = BedroomScene(size: size)
+//                bedroomScene.scaleMode = .aspectFill
+//                view?.presentScene(bedroomScene)
 //            }
             if bath?.contains(location) == true {
                 let user = UserObjectManager.shared.getCurrentUser()
@@ -146,7 +146,7 @@ class SideMenu: SKScene {
                 view?.presentScene(bathScene)
                 EditUser().bath_levels(user: user)
             }
-            if fridge?.contains(location) == true {
+            if harvest?.contains(location) == true {
                let harvestGame = Harvest(size: size)
                 harvestGame.scaleMode = .aspectFill
                 view?.presentScene(harvestGame)
