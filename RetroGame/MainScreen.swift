@@ -25,12 +25,11 @@ public class MainScreen: SKScene, SKPhysicsContactDelegate {
     var harvestButton: SKSpriteNode?
     var menuBar: SKSpriteNode?
     let userObject = UserObjectManager.shared.getCurrentUser()
-    var sittingSprite: SKTexture?
+    var sittingSprite = SKTexture(imageNamed: "catbat_ver2-export.png")
 
     
     
     public override func didMove(to view: SKView) {
-        let edit = EditUser()
         
         
         let providerFactory = AppCheckDebugProviderFactory()
@@ -65,7 +64,7 @@ public class MainScreen: SKScene, SKPhysicsContactDelegate {
         
         
         // change sprite to sitting when sitting updated in updatePet()
-        let sitAction = SKAction.setTexture(sittingSprite!)
+        let sitAction = SKAction.setTexture(sittingSprite)
         
         
         // walking animation
@@ -188,7 +187,7 @@ public class MainScreen: SKScene, SKPhysicsContactDelegate {
         }
         else if(userObject.pet_choice == "chicken hamster"){
             texture = ["chicken-hamster_run1", "chicken-hamster_run2", "chicken-hamster_run3"]
-            sittingSprite = SKTexture(imageNamed: "")
+            sittingSprite = SKTexture(imageNamed: "chicken-hamster")
         }
         return characterTextures
     }

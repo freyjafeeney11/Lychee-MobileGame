@@ -17,7 +17,11 @@ class EndScreen: SKScene {
     let characterType = "chicken-hamster"
     var foodNodes: [SKSpriteNode] = []
     var collectedFoodLabels: [SKLabelNode] = []
+    
+    let userObject = UserObjectManager.shared.getCurrentUser()
 
+
+    //runner end scene
     init(size: CGSize, collectedCoins: Int) {
         self.collectedCoins = collectedCoins
         self.collectedFood = [:]
@@ -28,7 +32,8 @@ class EndScreen: SKScene {
         setupHomeButtonTop()
     }
     
-    init(size: CGSize, collectedFood: [String: Int]) {
+    //harvest end scene
+    init(size: CGSize, collectedFood: [String: Int], health: Int) {
         self.collectedCoins = 0
         self.collectedFood = collectedFood
         self.background = SKSpriteNode(imageNamed: "StartGame")
@@ -36,6 +41,8 @@ class EndScreen: SKScene {
         setupBackground()
         setupFoodLabel()
         setupHomeButtonBottom()
+        EditUser().addHunger(newHunger: health*10)
+        EditUser().updateFirestore(user: userObject)
     }
     
     required init?(coder aDecoder: NSCoder) {
