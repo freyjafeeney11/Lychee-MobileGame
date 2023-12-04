@@ -183,25 +183,22 @@ public class EditUser: ObservableObject{
         })
     }
     
-    func volumeToggle(){
+    func volumeToggle(vol: Int){
             let currUser = self.db.collection("users")
-            let user = mostRecentUser
             print("edit user username is: \(mostRecentUser.name)")
-            updateFirestore(user: user)
-            currUser.whereField("name", isEqualTo: user.user).getDocuments(completion: { documentSnapshot, error in
-                if let err = error {
-                    print(err.localizedDescription)
-                    return
-                }
+            updateFirestore(user: mostRecentUser)
+            currUser.whereField("name", isEqualTo: mostRecentUser.name).getDocuments(completion: { documentSnapshot, error in
+            if let err = error {
+                print(err.localizedDescription)
+                return
+            }
     
                 guard let docs = documentSnapshot?.documents else { return }
     
                 for doc in docs { //iterate over each document and update
                     let docRef = doc.reference
-                    //if user.volume == 1{
-                    self.setVolume(currVol: 0)
-                    //}
-
+                    
+                    self.setVolume(currVol: vol)
                     docRef.updateData(["volume" : self.mostRecentUser.volume])
                 }
             })

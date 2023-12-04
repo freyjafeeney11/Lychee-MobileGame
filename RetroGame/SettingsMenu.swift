@@ -20,16 +20,16 @@ class SettingsMenu: SKScene {
     var seePass: SKSpriteNode?
     var returnToMenu: SKSpriteNode?
     
-    let backButton = SKLabelNode(fontNamed: "Chalkduster")
-    let setting = SKLabelNode(fontNamed: "Chalkduster")
-    let username = SKLabelNode(fontNamed: "Chalkduster")
-    let nameUser = SKLabelNode(fontNamed: "Chalkduster")
-    let password = SKLabelNode(fontNamed: "Chalkduster")
-    let hiddenPass = SKLabelNode(fontNamed: "Chalkduster")
-    let pass = SKLabelNode(fontNamed: "Chalkduster")
-    let petname = SKLabelNode(fontNamed: "Chalkduster")
-    let changePetName = SKLabelNode(fontNamed: "Chalkduster")
-    let music = SKLabelNode(fontNamed: "Chalkduster")
+    let backButton = SKLabelNode(fontNamed: "Futura")
+    let setting = SKLabelNode(fontNamed: "Futura")
+    let username = SKLabelNode(fontNamed: "Futura")
+    let nameUser = SKLabelNode(fontNamed: "Futura")
+    let password = SKLabelNode(fontNamed: "Futura")
+    let hiddenPass = SKLabelNode(fontNamed: "Futura")
+    let pass = SKLabelNode(fontNamed: "Futura")
+    let petname = SKLabelNode(fontNamed: "Futura")
+    let changePetName = SKLabelNode(fontNamed: "Futura")
+    let music = SKLabelNode(fontNamed: "Futura")
 
     override func didMove(to view: SKView) {
         
@@ -50,11 +50,10 @@ class SettingsMenu: SKScene {
         addChild(room)
         addChild(settingsMenu)
         
+        //addChild(seePass!)
         if mostRecentUser.volume == 1{
             addChild(toggleMusic!)
         }
-        
-        //addChild(seePass!)
         
         setupBackButton()
         setupSetting()
@@ -74,16 +73,16 @@ class SettingsMenu: SKScene {
     func setupSetting() {
         setting.text = "Settings"
         setting.fontSize = 25
-        setting.position = CGPoint(x: size.width * 0.171, y: size.height * 0.78)
+        setting.position = CGPoint(x: size.width * 0.171, y: size.height * 0.775)
         addChild(setting)
     }
     func setupUsername() {
         username.text = "Username"
         nameUser.text = mostRecentUser.user
         username.fontSize = 23
-        nameUser.fontSize = 23
+        nameUser.fontSize = 19
         username.position = CGPoint(x: size.width * 0.409, y: size.height * 0.643)
-        nameUser.position = CGPoint(x: size.width * 0.709, y: size.height * 0.643)
+        nameUser.position = CGPoint(x: size.width * 0.645, y: size.height * 0.643)
         addChild(username)
         addChild(nameUser)
     }
@@ -124,7 +123,13 @@ class SettingsMenu: SKScene {
             let location = touch.location(in: self)
             
             if toggleMusic?.contains(location) == true {
-                edit.volumeToggle()
+                toggleMusic!.removeFromParent()
+                if mostRecentUser.volume == 1{
+                    edit.volumeToggle(vol: 0)
+                }else{
+                    edit.volumeToggle(vol: 1)
+                    addChild(toggleMusic!)
+                }
             }
             
             if seePass?.contains(location) == true {
