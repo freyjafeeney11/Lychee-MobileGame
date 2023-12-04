@@ -158,6 +158,20 @@ public class EditUser: ObservableObject{
             })
         }
     
+    func updateUserPetChoice(user: UserObject, petChoice: String) {
+        // update the user's pet choice in Firebase
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(user.user)
+
+        userRef.updateData(["pet_choice": petChoice]) { error in
+            if let error = error {
+                print("Error updating pet choice: \(error.localizedDescription)")
+            } else {
+                print("Pet choice updated successfully")
+            }
+        }
+    }
+    
     func volumeToggle(){
             let currUser = self.db.collection("users")
             let user = mostRecentUser
@@ -249,7 +263,24 @@ public class EditUser: ObservableObject{
     }
     
     func changePet(pet: String){
-        mostRecentUser.pet_choice = pet
+        let currUser = self.db.collection("users")
+        updateFirestore(user: mostRecentUser)
+        currUser.whereField("name", isEqualTo: mostRecentUser.name).getDocuments(completion: { documentSnapshot, error in
+            if let err = error {
+                print(err.localizedDescription)
+                return
+            }
+            
+            guard let docs = documentSnapshot?.documents else { return }
+            
+            for doc in docs { //iterate over each document and update
+                let docRef = doc.reference
+                docRef.updateData(["pet_choice" : pet])
+            }
+        })
+        print("pull from firestore")
+        self.pullFromFirestore(user: mostRecentUser)
+        print("edit user pet: \(mostRecentUser.pet_choice)")
     }
 }
 

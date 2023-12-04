@@ -10,6 +10,7 @@ import SwiftUI
 import GameplayKit
 import Firebase
 import _SpriteKit_SwiftUI
+import AVFoundation
 
 public struct petChoice {
     static var pet = "catbat_ver2-export"
@@ -33,7 +34,15 @@ public class MainScreen: SKScene, SKPhysicsContactDelegate {
     public override func didMove(to view: SKView) {
         let edit = EditUser()
         
-        
+        if let soundURL = Bundle.main.url(forResource: "mainscreenmusic", withExtension: "m4a") {
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+                audioPlayer?.prepareToPlay()
+            } catch {
+                print("Error loading sound file:", error.localizedDescription)
+            }
+        }
+        audioPlayer?.play()
         let providerFactory = AppCheckDebugProviderFactory()
         AppCheck.setAppCheckProviderFactory(providerFactory)
         let player = SKSpriteNode(imageNamed: userObject.pet_choice)
@@ -110,8 +119,6 @@ public class MainScreen: SKScene, SKPhysicsContactDelegate {
         // move right and walk
         let moveAndAnimateRight = SKAction.group([moveRight, walkAction])
         // flipping left and right
-        let flipLeft = SKAction.scaleX(to: 1, duration: 0.0)
-        let flipRight = SKAction.scaleX(to: -1, duration: 0.0)
         // sequence where flip left for move left
         let moveLeftAndFlip = SKAction.sequence([flipLeft, moveAndAnimateLeft, sitAction, wait])
         // flip right for move right
@@ -177,6 +184,7 @@ public class MainScreen: SKScene, SKPhysicsContactDelegate {
                 view?.presentScene(harvestGame)
             }
             if menuBar?.contains(location) == true {
+                audioPlayer?.stop()
                 let menu = SideMenu(size: size)
                 menu.scaleMode = .aspectFill
                 view?.presentScene(menu)
