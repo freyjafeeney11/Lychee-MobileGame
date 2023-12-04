@@ -286,6 +286,19 @@ public class EditUser: ObservableObject{
     func changePet(pet: String){
         mostRecentUser.pet_choice = pet
     }
+    func updateUserPetChoice(user: UserObject, petChoice: String) {
+            // update the user's pet choice in Firebase
+            let db = Firestore.firestore()
+            let userRef = db.collection("users").document(user.user)
+
+            userRef.updateData(["pet_choice": petChoice]) { error in
+                if let error = error {
+                    print("Error updating pet choice: \(error.localizedDescription)")
+                } else {
+                    print("Pet choice updated successfully")
+                }
+            }
+        }
 }
 
 
@@ -359,6 +372,5 @@ public class UserObjectManager {
     }
 }
 
-    
     
     
