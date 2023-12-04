@@ -14,21 +14,22 @@ class SettingsMenu: SKScene {
     
     var edit = EditUser()
     
+    let mostRecentUser = UserObjectManager.shared.getCurrentUser()
+
     var toggleMusic: SKSpriteNode?
     var seePass: SKSpriteNode?
     var returnToMenu: SKSpriteNode?
     
-    var test = "slay"
-    
     let backButton = SKLabelNode(fontNamed: "Chalkduster")
     let setting = SKLabelNode(fontNamed: "Chalkduster")
     let username = SKLabelNode(fontNamed: "Chalkduster")
+    let nameUser = SKLabelNode(fontNamed: "Chalkduster")
     let password = SKLabelNode(fontNamed: "Chalkduster")
+    let hiddenPass = SKLabelNode(fontNamed: "Chalkduster")
+    let pass = SKLabelNode(fontNamed: "Chalkduster")
     let petname = SKLabelNode(fontNamed: "Chalkduster")
     let changePetName = SKLabelNode(fontNamed: "Chalkduster")
     let music = SKLabelNode(fontNamed: "Chalkduster")
-    
-    //@State private var showPassword
 
     override func didMove(to view: SKView) {
         
@@ -44,16 +45,17 @@ class SettingsMenu: SKScene {
         room.position = CGPoint(x: size.width * 0.4956, y: size.height * 0.465)
         settingsMenu.position = CGPoint(x: size.width * 0.47, y: size.height * 0.5)
         toggleMusic?.position = CGPoint(x: size.width * 0.65, y: size.height * 0.37)
-        seePass?.position = CGPoint(x: size.width * 0.73, y: size.height * 0.51)
+        seePass?.position = CGPoint(x: size.width * 0.7, y: size.height * 0.51)
 
         addChild(room)
         addChild(settingsMenu)
         
-        //if showPassword == false{
+        if mostRecentUser.volume == true{
             addChild(toggleMusic!)
-        //}
+        }
         
-        addChild(seePass!)
+        //addChild(seePass!)
+        
         setupBackButton()
         setupSetting()
         setupUsername()
@@ -77,18 +79,28 @@ class SettingsMenu: SKScene {
     }
     func setupUsername() {
         username.text = "Username"
+        nameUser.text = mostRecentUser.user
         username.fontSize = 23
+        nameUser.fontSize = 23
         username.position = CGPoint(x: size.width * 0.409, y: size.height * 0.643)
+        nameUser.position = CGPoint(x: size.width * 0.709, y: size.height * 0.643)
         addChild(username)
+        addChild(nameUser)
     }
     func setupPassword() {
         password.text = "Password"
+        hiddenPass.text = "********"
+        pass.text = mostRecentUser.pass
         password.fontSize = 23
+        hiddenPass.fontSize = 23
+        pass.fontSize = 23
         password.position = CGPoint(x: size.width * 0.409, y: size.height * 0.495)
+        hiddenPass.position = CGPoint(x: size.width * 0.609, y: size.height * 0.495)
+        pass.position = CGPoint(x: size.width * 0.609, y: size.height * 0.495)
         addChild(password)
     }
     func setupPetName() {
-        petname.text = "PetName"
+        petname.text = mostRecentUser.name
         petname.fontSize = 23
         petname.position = CGPoint(x: size.width * 0.171, y: size.height * 0.199)
         addChild(petname)
@@ -116,7 +128,7 @@ class SettingsMenu: SKScene {
             }
             
             if seePass?.contains(location) == true {
-                
+                addChild(pass)
             }
             if backButton.contains(location) == true {
                 let menu = SideMenu(size: size)
