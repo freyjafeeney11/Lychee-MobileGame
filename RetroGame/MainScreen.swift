@@ -14,6 +14,7 @@ import _SpriteKit_SwiftUI
 public struct petChoice {
     static var pet = "catbat_ver2-export"
 }
+
 //public var shared = MainScreen()
 
 public class MainScreen: SKScene, SKPhysicsContactDelegate {
@@ -27,8 +28,6 @@ public class MainScreen: SKScene, SKPhysicsContactDelegate {
     let userObject = UserObjectManager.shared.getCurrentUser()
     var sittingSprite = SKTexture(imageNamed: "catbat_ver2-export.png")
 
-    
-    
     public override func didMove(to view: SKView) {
         
         

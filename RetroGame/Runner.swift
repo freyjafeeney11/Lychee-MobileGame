@@ -12,6 +12,10 @@ import AVFoundation
 
 
 class Runner: SKScene, SKPhysicsContactDelegate{
+    
+    var edit = EditUser()
+    let mostRecentUser = UserObjectManager.shared.getCurrentUser()
+    
     //let character = SKSpriteNode(imageNamed: "chicken-hamster")
     let character = SKSpriteNode(imageNamed: "mini_chicken-hamster_run1")
     //    var character = SKSpriteNode()
@@ -80,12 +84,14 @@ class Runner: SKScene, SKPhysicsContactDelegate{
         physicsWorld.contactDelegate = self
         physicsWorld.gravity = CGVector(dx: 0, dy: -5.0)
         addCityCollision()
-        if let soundURL = Bundle.main.url(forResource: "coin_collect", withExtension: "wav") {
-            do {
-                audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
-                audioPlayer?.prepareToPlay()
-            } catch {
-                print("Error loading sound file:", error.localizedDescription)
+        if mostRecentUser.volume == 1 {
+            if let soundURL = Bundle.main.url(forResource: "coin_collect", withExtension: "wav") {
+                do {
+                    audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+                    audioPlayer?.prepareToPlay()
+                } catch {
+                    print("Error loading sound file:", error.localizedDescription)
+                }
             }
         }
         startCoinSpawning()

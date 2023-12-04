@@ -10,6 +10,10 @@ import GameplayKit
 import AVFoundation
 
 class Harvest: SKScene, SKPhysicsContactDelegate{
+    
+    var edit = EditUser()
+    let mostRecentUser = UserObjectManager.shared.getCurrentUser()
+    
     let character = SKSpriteNode(imageNamed: "mini_chicken-hamster_run1")
     
     // To detect collision, bitmask category
@@ -55,13 +59,17 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
         createSky()
         createGround()
         startFoodSpawning()
-        if let soundURL = Bundle.main.url(forResource: "fruit_munch", withExtension: "wav") {
-            do {
-                audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
-                audioPlayer?.prepareToPlay()
-            } catch {
-                print("Error loading sound file:", error.localizedDescription)
+        if mostRecentUser.volume == 0 {
+            if let soundURL = Bundle.main.url(forResource: "fruit_munch", withExtension: "wav") {
+                do {
+                    audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+                    audioPlayer?.prepareToPlay()
+                } catch {
+                    print("Error loading sound file:", error.localizedDescription)
+                }
             }
+        }else{
+            print("Volume Muted")
         }
         addCharacter()
         updateCharacterTextures()

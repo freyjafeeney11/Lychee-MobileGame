@@ -13,7 +13,6 @@ import GameplayKit
 class SettingsMenu: SKScene {
     
     var edit = EditUser()
-    
     let mostRecentUser = UserObjectManager.shared.getCurrentUser()
 
     var toggleMusic: SKSpriteNode?
@@ -31,9 +30,12 @@ class SettingsMenu: SKScene {
     let changePetName = SKLabelNode(fontNamed: "Futura")
     let music = SKLabelNode(fontNamed: "Futura")
 
+    //var sittingSprite = SKTexture(imageNamed: "catbat_ver2-export.png")
+
+    
     override func didMove(to view: SKView) {
         
-        
+        let player = SKSpriteNode(imageNamed: mostRecentUser.pet_choice)
         
         let room = SKSpriteNode(imageNamed: "FullLivingRoom")
         let settingsMenu = SKSpriteNode(imageNamed: "SettingsMenu")
@@ -50,10 +52,11 @@ class SettingsMenu: SKScene {
         addChild(room)
         addChild(settingsMenu)
         
-        //addChild(seePass!)
         if mostRecentUser.volume == 1{
             addChild(toggleMusic!)
         }
+        
+        addChild(player)
         
         setupBackButton()
         setupSetting()
