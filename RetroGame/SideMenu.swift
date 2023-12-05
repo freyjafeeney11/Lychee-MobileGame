@@ -134,11 +134,11 @@ class SideMenu: SKScene {
                 mainGameScreen.scaleMode = .aspectFill
                 view?.presentScene(mainGameScreen)
             }
-//            if bedroom?.contains(location) == true {
-//                let bedroomScene = BedroomScene(size: size)
-//                bedroomScene.scaleMode = .aspectFill
-//                view?.presentScene(bedroomScene)
-//            }
+            if bedroom?.contains(location) == true {
+                let bedroomScene = BedScene(size: size)
+                bedroomScene.scaleMode = .aspectFill
+                view?.presentScene(bedroomScene)
+            }
             if bath?.contains(location) == true {
                 let user = UserObjectManager.shared.getCurrentUser()
                 let bathScene = BathScene(size: size)

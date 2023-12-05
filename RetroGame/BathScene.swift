@@ -57,6 +57,8 @@ class BathScene: SKScene, SKPhysicsContactDelegate {
         
         let bathing = textures.map { SKTexture(imageNamed: $0) }
         
+
+        
         let bathingIdle = SKAction.animate(with: bathing, timePerFrame: 0.3)
         
         let walkAction = SKAction.repeatForever(bathingIdle)
