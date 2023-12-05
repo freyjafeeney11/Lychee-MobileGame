@@ -103,7 +103,7 @@ class SettingsMenu: SKScene {
         pass.fontSize = 15
         password.position = CGPoint(x: size.width * 0.409, y: size.height * 0.5)
         hiddenPass.position = CGPoint(x: size.width * 0.61, y: size.height * 0.485)
-        pass.position = CGPoint(x: size.width * 0.61, y: size.height * 0.496)
+        pass.position = CGPoint(x: size.width * 0.61, y: size.height * 0.5)
         addChild(password)
         addChild(hiddenPass)
     }
@@ -122,7 +122,7 @@ class SettingsMenu: SKScene {
     func setupMusic() {
         music.text = "Toggle Music"
         music.fontSize = 22
-        music.position = CGPoint(x: size.width * 0.409, y: size.height * 0.348)
+        music.position = CGPoint(x: size.width * 0.409, y: size.height * 0.349)
         addChild(music)
     }
 
@@ -156,7 +156,7 @@ class SettingsMenu: SKScene {
                 view?.presentScene(menu)
             }
             if changePetName.contains(location) == true {
-                print("Change Name")
+                edit.usersPetChoice(petChoice: "cat bat")
             }
             
         }

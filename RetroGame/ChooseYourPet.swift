@@ -89,14 +89,17 @@ class ChooseEgg: SKScene {
             let location = touch.location(in: self)
             
             if bb?.contains(location) == true {
-                self.petString = "cat bat"
+                //edit.usersPetChoice(petChoice: "cat bat")
             }
             else if cb?.contains(location) == true {
-                self.petString = "chicken hamster"
+                //self.petString = "chicken hamster"
+                
+                // Proper call to edit but does nothing from here
+                //edit.usersPetChoice(petChoice: "chicken hamster")
             }
             // this func isnt doing much
             //edit.updateUserPetChoice(user: user, petChoice: petString)
-            
+          
             let mainGameScreen = MainScreen(size: size)
             // can stop music after egg choice or before
             //ChooseYourPet().audioPlayer?.stop()
@@ -115,7 +118,7 @@ class ChooseEgg: SKScene {
 struct ChoosePetView: View{
     @State private var showAuth = false
     var body: some View {
-        SpriteKitContainer(scene: ChooseYourPet(size: UIScreen.main.bounds.size))
+        SpriteKitContainer(scene: ChooseEgg(size: UIScreen.main.bounds.size))
             .ignoresSafeArea()
     }
 }

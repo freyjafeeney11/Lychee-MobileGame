@@ -204,6 +204,31 @@ public class EditUser: ObservableObject{
             })
         }
     
+    func usersPetChoice(petChoice: String){
+            let currUser = self.db.collection("users")
+            print("edit user username is: \(mostRecentUser.name)")
+            updateFirestore(user: mostRecentUser)
+            currUser.whereField("name", isEqualTo: mostRecentUser.name).getDocuments(completion: { documentSnapshot, error in
+            if let err = error {
+                print(err.localizedDescription)
+                return
+            }
+    
+                guard let docs = documentSnapshot?.documents else { return }
+    
+                for doc in docs { //iterate over each document and update
+                    let docRef = doc.reference
+                    print(petChoice)
+                    self.setPetChoice(petChoice: petChoice)
+                    docRef.updateData(["pet_choice" : self.mostRecentUser.pet_choice])
+                }
+            })
+        }
+    
+        func setPetChoice(petChoice: String){
+            mostRecentUser.pet_choice = petChoice
+        }
+    
     
         func setVolume(currVol: Int){
             mostRecentUser.volume = currVol
@@ -286,19 +311,7 @@ public class EditUser: ObservableObject{
     func changePet(pet: String){
         mostRecentUser.pet_choice = pet
     }
-    func updateUserPetChoice(user: UserObject, petChoice: String) {
-            // update the user's pet choice in Firebase
-            let db = Firestore.firestore()
-            let userRef = db.collection("users").document(user.user)
-
-            userRef.updateData(["pet_choice": petChoice]) { error in
-                if let error = error {
-                    print("Error updating pet choice: \(error.localizedDescription)")
-                } else {
-                    print("Pet choice updated successfully")
-                }
-            }
-        }
+    
 }
 
 
@@ -319,7 +332,7 @@ public class UserObject: ObservableObject, Identifiable, Codable{
     var pet_name: String
     
     
-    init(id: String, name: String, user: String, pass: String, hunger: Int, social: Int, hygiene: Int, happiness: Int, energy: Int, volume: Int, coins: Int, pet: String, petName: String){
+    init(id: String, name: String, user: String, pass: String, hunger: Int, social: Int, hygiene: Int, happiness: Int, energy: Int, volume: Int, coins: Int, pet_choice: String, petName: String){
         self.id = id
         self.name = name
         self.user = user
@@ -331,7 +344,7 @@ public class UserObject: ObservableObject, Identifiable, Codable{
         self.energy_level = energy
         self.volume = volume
         self.coins = coins
-        self.pet_choice = pet
+        self.pet_choice = pet_choice
         self.pet_name = petName
     }
     
@@ -359,7 +372,7 @@ public class UserObjectManager {
 
     private init() {
         // default values
-        currentUser = UserObject(id: "", name: "", user: "", pass: "", hunger: 0, social: 0, hygiene: 0, happiness: 0, energy: 0, volume: 1, coins: 0, pet: "", petName: "")
+        currentUser = UserObject(id: "", name: "", user: "", pass: "", hunger: 0, social: 0, hygiene: 0, happiness: 0, energy: 0, volume: 1, coins: 0, pet_choice: "", petName: "")
     }
     
     func getCurrentUser() -> UserObject{

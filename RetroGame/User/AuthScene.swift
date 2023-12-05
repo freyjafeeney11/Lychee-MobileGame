@@ -40,8 +40,10 @@ struct AuthScene: View {
     @State private var loginCheck = false
     @State private var user = ""
     @State private var pass = ""
+    @State private var petChoice = ""
     @State private var isContentVisible = true
     @State private var newUser = false
+    
     
     //var edit = EditUser()
 //    var userObj = UserObject(id: "someID", name: "default", user: "default@example.com", pass: "password", hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: 1, coins: 0, pet: "", petName: "")
@@ -151,9 +153,9 @@ struct AuthScene: View {
             let atSign = email.firstIndex(of: "@")!
             let name = email[...atSign]
             authenticated = true
-            var ranString: String
             
             // this chooses the random pet during registration
+            /*
             let randomEgg = Int.random(in: 0..<2)
             if randomEgg == 0 {
                 ranString = "cat bat"
@@ -163,7 +165,8 @@ struct AuthScene: View {
             //desnt work bc it is too early, petString isnt defined yet
             //ranString = await ChooseEgg().returnChoice()
             // user levels initial
-            let currUser = UserObject(id: userID, name: String(name), user: email, pass: password, hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: 1, coins: 0, pet: ranString, petName: "")
+            */
+            let currUser = UserObject(id: userID, name: String(name), user: email, pass: password, hunger: 100, social: 100, hygiene: 100, happiness: 100, energy: 100, volume: 1, coins: 0, pet_choice: "", petName: "")
             //print(currUser)
             UserObjectManager.shared.updateCurrentUser(with: currUser)
             let encodedUser = try Firestore.Encoder().encode(currUser)
