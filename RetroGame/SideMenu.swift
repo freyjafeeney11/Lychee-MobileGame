@@ -79,13 +79,13 @@ class SideMenu: SKScene {
     func setupHomeLabel() {
         homeLabel.text = "Home"
         homeLabel.fontSize = 21
-        homeLabel.position = CGPoint(x: size.width * 0.1585, y: size.height * 0.545)
+        homeLabel.position = CGPoint(x: size.width * 0.158, y: size.height * 0.545)
         addChild(homeLabel)
     }
     func setupBedroomLabel() {
         bedroomLabel.text = "Bedroom"
         bedroomLabel.fontSize = 21
-        bedroomLabel.position = CGPoint(x: size.width * 0.35, y: size.height * 0.545)
+        bedroomLabel.position = CGPoint(x: size.width * 0.36, y: size.height * 0.545)
         addChild(bedroomLabel)
     }
     func setupBathLabel() {

@@ -156,7 +156,13 @@ class SettingsMenu: SKScene {
                 view?.presentScene(menu)
             }
             if changePetName.contains(location) == true {
-                edit.usersPetChoice(petChoice: "cat bat")
+                if edit.mostRecentUser.pet_choice == "chicken hamster"{
+                    edit.usersPetChoice(petChoice: "cat bat")
+                }else{
+                    edit.usersPetChoice(petChoice: "chicken hamster")
+
+                }
+                
             }
             
         }

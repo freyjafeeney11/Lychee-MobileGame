@@ -19,6 +19,8 @@ public struct petChoice {
 //public var shared = MainScreen()
 
 public class MainScreen: SKScene, SKPhysicsContactDelegate {
+    var edit = EditUser()
+    let mostRecentUser = UserObjectManager.shared.getCurrentUser()
     var audioPlayer: AVAudioPlayer?
     private var groundNode: SKSpriteNode?
     private var currentNode: SKNode?
@@ -31,13 +33,14 @@ public class MainScreen: SKScene, SKPhysicsContactDelegate {
     var spriteString = "catbat_ver2-export"
 
     public override func didMove(to view: SKView) {
-        
-        if let soundURL = Bundle.main.url(forResource: "mainscreenmusic", withExtension: "m4a") {
-            do {
-                audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
-                audioPlayer?.prepareToPlay()
-            } catch {
-                print("Error loading sound file:", error.localizedDescription)
+        if mostRecentUser.volume == 1 {
+            if let soundURL = Bundle.main.url(forResource: "mainscreenmusic", withExtension: "m4a") {
+                do {
+                    audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+                    audioPlayer?.prepareToPlay()
+                } catch {
+                    print("Error loading sound file:", error.localizedDescription)
+                }
             }
         }
         audioPlayer?.play()
