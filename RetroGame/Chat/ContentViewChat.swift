@@ -11,40 +11,44 @@ import SwiftUI
 /*
 struct ContentViewChat: View{
 
-    @StateObject var messageManager = MessageManager()
-    @State private var main = false
-    var messageArray = ["Hello", "have you worked on the project?", "I think it looks good"]
-    
-    
+    @State private var goMain = false
+    @ObservedObject private var messageManager = MessageManager()
+    @State private var newMessageText = ""
+
+
     var body: some View{
         VStack{
-            VStack{
-                //TitleRow()
-                
-                ScrollView{
-                    ForEach(messageManager.messages, id: \.id) { message in
-                        MessageView(message: message)
-                    }
+            ScrollView{
+                ForEach(messageManager.messages, id: \.id) { message in
+                    ChatBubble(message: message)
                 }
-                .padding(.top, 10)
-                .background(.white)
             }
-            .background(Color("Peach"))
-            
-            Button {
-                main = true
-            } label: {
-                Text("back")
-                    .font(.custom("Chalkduster", size: 15))
-                    .bold()
-                    .foregroundColor(.white)
-            }
+            .padding(.top, 10)
+            .background(.white)
         }
-        .fullScreenCover(isPresented: $main, content: {
+        .background(Color("Peach"))
+        
+        HStack{
+            TextField(placeholder: Text("Type a message"), text: $newMessageText)
+                .padding()
+                .background(Color.gray.opacity(0.2))
+                .cornerRadius(10)
+            
+            Button("Send") {
+                messageManager.sendMessage(text: newMessageText)
+                newMessageText = ""
+            }
+            
+        }
+        Button("back"){
+            goMain = true
+        }
+        .fullScreenCover(isPresented: $goMain, content: {
             // Switch to SpriteKit scene
             MainGameSceneView()
         })
         .ignoresSafeArea()
+        
         
     }
 }*/
