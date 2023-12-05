@@ -7,9 +7,17 @@
 
 import Foundation
 
-struct Message: Identifiable, Codable{
-    var id: String
+public class Message: ObservableObject, Identifiable, Codable{
+    @DocumentID
+    public var id: String?
     var text: String
-    var recieved: Bool
+    var received: Bool
     var timestamp: Date
+    
+    init(id: String, text: String, received: Bool, timestamp: Date) {
+        self.id = id
+        self.text = text
+        self.received = received
+        self.timestamp = timestamp
+    }
 }
