@@ -9,22 +9,27 @@ import Foundation
 import SwiftUI
 
 /*
-struct MessageView: View{
+struct ChatBubble: View{
 
     var message: Message
     
     var body: some View{
-        VStack(alignment: message.recieved ? .leading : .trailing
-        ){
-            HStack{
+        HStack {
+            if message.received {
+                // Customize the appearance for received messages
                 Text(message.text)
-                    .padding().background(message.recieved ? Color("Gray") : Color("Peach"))
-                    .cornerRadius(30)
+                    .padding(10)
+                    .background(Color.blue)
+                    .cornerRadius(10)
+            } else {
+                // Customize the appearance for sent messages
+                Spacer()
+                Text(message.text)
+                    .padding(10)
+                    .background(Color.green)
+                    .cornerRadius(10)
             }
-            .frame(maxWidth: 300, alignment: message.recieved ? .leading : .trailing)
         }
-        .frame(maxWidth: .infinity, alignment: message.recieved ? .leading : .trailing)
-        .padding(message.recieved ? .leading : .trailing)
-        .padding(.horizontal, 10)
     }
+
 } */
