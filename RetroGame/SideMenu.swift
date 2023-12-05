@@ -134,11 +134,11 @@ class SideMenu: SKScene {
                 mainGameScreen.scaleMode = .aspectFill
                 view?.presentScene(mainGameScreen)
             }
-//            if bedroom?.contains(location) == true {
-//                let bedroomScene = BedroomScene(size: size)
-//                bedroomScene.scaleMode = .aspectFill
-//                view?.presentScene(bedroomScene)
-//            }
+            if bedroom?.contains(location) == true {
+                let bedroomScene = BedScene(size: size)
+                bedroomScene.scaleMode = .aspectFill
+                view?.presentScene(bedroomScene)
+            }
             if bath?.contains(location) == true {
                 let user = UserObjectManager.shared.getCurrentUser()
                 let bathScene = BathScene(size: size)
@@ -147,7 +147,7 @@ class SideMenu: SKScene {
                 EditUser().bath_levels(user: user)
             }
             if harvest?.contains(location) == true {
-               let harvestGame = Harvest(size: size)
+               let harvestGame = StartHarvest(size: size)
                 harvestGame.scaleMode = .aspectFill
                 view?.presentScene(harvestGame)
             }

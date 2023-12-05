@@ -14,7 +14,6 @@ class EndScreen: SKScene {
     let background: SKSpriteNode
     let coinLabel = SKLabelNode(fontNamed: "Avenir-Black ")
     let homeButton = SKSpriteNode(imageNamed: "Home")
-    let characterType = "chicken-hamster"
     var foodNodes: [SKSpriteNode] = []
     var collectedFoodLabels: [SKLabelNode] = []
     
@@ -65,8 +64,7 @@ class EndScreen: SKScene {
         addChild(parchment)
         
         var yPosition: CGFloat = size.height - 150
-        if let collectedFoodForCharacter = foodReqs.characterFoodReq[characterType] {
-            print("Food Harvested for \(characterType):")
+        if let collectedFoodForCharacter = foodReqs.characterFoodReq[userObject.pet_choice] {
             
             for (foodType, requiredCount) in collectedFoodForCharacter {
                 if let collectedCount = collectedFood[foodType] {

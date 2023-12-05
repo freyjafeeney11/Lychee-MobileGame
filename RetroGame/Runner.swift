@@ -17,10 +17,8 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     let mostRecentUser = UserObjectManager.shared.getCurrentUser()
     
     //let character = SKSpriteNode(imageNamed: "chicken-hamster")
-    let character = SKSpriteNode(imageNamed: "mini_chicken-hamster_run1")
-    //    var character = SKSpriteNode()
-    //    var runningTextures = [SKTexture]()
-    //    var currentFrame = 0
+    var character = SKSpriteNode()
+    var textures = [String]()
     
     // To detect collision, bitmask category
     let characterCategory:UInt32 = 0x100
@@ -250,6 +248,11 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     }
     
     func addCharacter() {
+        if mostRecentUser.pet_choice == "cat bat" {
+            character = SKSpriteNode(imageNamed: "mini_chicken-hamster_run1")
+        } else {
+            character = SKSpriteNode(imageNamed: "mini_batcat_run1")
+        }
         character.position = CGPoint(x: size.width * 0.6, y: cityFront.size.height+20.0)
         character.zPosition = 2
         
@@ -266,8 +269,11 @@ class Runner: SKScene, SKPhysicsContactDelegate{
     }
     
     func updateCharacterTextures() {
-        //            let textures = ["mini_batcat_run1", "mini_batcat_run2", "mini_batcat_run3", "mini_batcat_run4"]
-        let textures = ["mini_chicken-hamster_run1", "mini_chicken-hamster_run2", "mini_chicken-hamster_run3"]
+        if mostRecentUser.pet_choice == "cat bat" {
+            textures = ["mini_batcat_run1", "mini_batcat_run2", "mini_batcat_run3", "mini_batcat_run4"]
+        } else {
+            textures = ["mini_chicken-hamster_run1", "mini_chicken-hamster_run2", "mini_chicken-hamster_run3"]
+        }
         let characterTextures = textures.map { SKTexture(imageNamed: $0) }
         
         let animateAction = SKAction.animate(with: characterTextures, timePerFrame: 0.1)
