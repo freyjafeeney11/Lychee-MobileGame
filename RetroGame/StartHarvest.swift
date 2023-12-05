@@ -62,7 +62,6 @@ class StartHarvest: SKScene {
         parchment.position = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         parchment.zPosition = 1
         addChild(parchment)
-        print(mostRecentUser.pet_choice)
         showRequirments(for: mostRecentUser.pet_choice)
     }
     

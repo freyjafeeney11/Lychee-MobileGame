@@ -57,12 +57,6 @@ class BathScene: SKScene, SKPhysicsContactDelegate {
         
         let bathing = textures.map { SKTexture(imageNamed: $0) }
         
-//        let tex1 = SKTexture(imageNamed: "catbat_idle1")
-//        let tex2 = SKTexture(imageNamed: "catbat_idle2")
-//        let tex3 = SKTexture(imageNamed: "catbat_idle3")
-//        let bathing = [tex1, tex2, tex3]
-
-        
         let bathingIdle = SKAction.animate(with: bathing, timePerFrame: 0.3)
         
         let walkAction = SKAction.repeatForever(bathingIdle)
@@ -98,7 +92,6 @@ class BathScene: SKScene, SKPhysicsContactDelegate {
         tub.position = CGPoint(x: size.width * 0.55, y: size.height * 0.4)
         shampoo.position = CGPoint(x: size.width * 0.7, y: size.height * 0.3)
         sponge?.position = CGPoint(x: size.width * 0.35, y: size.height * 0.15)
-        //player?.position = CGPoint(x: size.width * 0.62, y: size.height * 0.43)
         bubbles.position = CGPoint(x: size.width * 0.55, y: size.height * 0.41)
         
         addChild(groundNode!)

@@ -31,6 +31,7 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
     let foodTypes = ["apple", "watermelon", "meat", "tuna", "corn", "pumpkin"]
     let poisonFood = "mushroom"
     var count = 0
+    var health = 0
     
     var collectedFood: [String: Int] = [
         "apple": 0,
@@ -209,7 +210,6 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
     }
 
     func foodCollected(_ food: SKSpriteNode) -> Int {
-        var health = 0
         if let foodType = food.name {
             if let count = collectedFood[foodType] {
                 collectedFood[foodType] = count + 1
@@ -241,7 +241,7 @@ class Harvest: SKScene, SKPhysicsContactDelegate{
         }
         if requirementsMet {
             if let skView = self.view {
-                let endScene = EndScreen(size: self.size, collectedFood: collectedFood, health: count)
+                let endScene = EndScreen(size: self.size, collectedFood: collectedFood, health: health)
                 endScene.scaleMode = .aspectFill
                 skView.presentScene(endScene)
             }
