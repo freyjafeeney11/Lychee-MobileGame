@@ -1,4 +1,5 @@
 # Lychee: A Swift iOS Game - README
+<img width="1171" alt="PNG image" src="https://github.com/freyjafeeney11/Lychee-MobileGame/assets/83038656/89799ba6-9a24-4d6b-826c-9e2e011d87c9">
 
 Welcome to Lychee, a delightful pet simulator game for iOS where you embark on an adventure of nurturing a mysterious egg into a vibrant creature. Your journey begins with the responsibility of caring for your pet akin to a Tamagotchi, with various features to engage and entertain both you and your virtual companion.
 
@@ -14,3 +15,6 @@ Welcome to Lychee, a delightful pet simulator game for iOS where you embark on a
 ## Awards
 
 Lychee has been recognized for its innovation and creativity, earning the prestigious 3rd place in the University Computer Science Fair Advanced App category. This accomplishment reflects our dedication to delivering a compelling and immersive gaming experience.
+![Simulator Screenshot - iPhone 15 Pro - 2024-04-06 at 16 33 07](https://github.com/freyjafeeney11/Lychee-MobileGame/assets/83038656/85470769-aa82-4afd-9633-acfa099ec4c9)
+![Simulator Screenshot - iPhone 15 Pro - 2024-04-06 at 16 33 28](https://github.com/freyjafeeney11/Lychee-MobileGame/assets/83038656/2e483912-aab6-4363-ac8e-d9685ca4a794)
+<img width="623" alt="PNG image" src="https://github.com/freyjafeeney11/Lychee-MobileGame/assets/83038656/df01876f-5a9e-41bb-9a45-89da8d102d03">
