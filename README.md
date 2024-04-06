@@ -1,10 +1,16 @@
-# CS3750-RetroGame
+# Lychee: A Swift iOS Game - README
 
-For Mobile App Development course at UVM. Taught by Jason Hibbeler.
+Welcome to Lychee, a delightful pet simulator game for iOS where you embark on an adventure of nurturing a mysterious egg into a vibrant creature. Your journey begins with the responsibility of caring for your pet akin to a Tamagotchi, with various features to engage and entertain both you and your virtual companion.
 
-This is our code for our virtual pet mobile app game written in swift and google firebase was our backend. We used SpriteKit to load our sprites that were drawn in aesprite and downloaded as png files.
+## Features
 
+- **Mysterious Egg:** Start your journey with a mysterious egg, waiting to hatch into an adorable creature.
+- **Pet Care:** Nurture your pet by feeding, playing, and attending to its needs to ensure its happiness and health.
+- **Activities:** Engage in various activities including walking, playing, mini-games, and bathing to bond with your pet.
+- **Firebase Backend:** Utilizes Firebase as the backend infrastructure for seamless data management and synchronization.
+- **Authentication System:** Secure authentication system allows users to create accounts and access their pet's progress across devices.
+- **Original Art and Music:** Enjoy the captivating visuals and enchanting music, all meticulously designed and crafted by our talented team.
 
-# Lychee App
+## Awards
 
-Come join our world with magical creatures, create an account and choose your mystery egg which will give you a mystery pet. You can play games with this pet, interact with it, and watch it hop around on your phone. Take care of this pet and don't let it's health levels get too low.
+Lychee has been recognized for its innovation and creativity, earning the prestigious 3rd place in the University Computer Science Fair Advanced App category. This accomplishment reflects our dedication to delivering a compelling and immersive gaming experience.
